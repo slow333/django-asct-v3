@@ -1,0 +1,38 @@
+{% load static %}
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{% static 'favicon2.ico' %}">
+  {% block import %}{% endblock %}
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+
+<body>
+  <main role="main" class="container-lg">
+    <div class="row">
+    {% include 'navbar.html' %}
+    <div class="col-md-10">
+      <h1>{% block header %}{% endblock %}</h1>
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{message.tags}}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}{% endblock %}
+    </div>
+    <div class="col-md-2 border-start">
+      {% include 'sidebar.html' %}
+    </div>
+  </div>
+</main>
+  
+<button id="scrollTopBtn" title="맨 위로 이동">Top</button>
+<script src="/static/scroll.to.top.js"> </script>
+<script src="/static/popper.js"></script>
+<script src="/static/bootstrap.min.js"></script>
+</body>
+</html>
+    

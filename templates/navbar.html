@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+    <div class="container-lg">
+    <a class="navbar-brand mr-4" href="{% url 'main-home' %}">HOME</a>
+    <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{% url 'docs-contents' %}">Documents</a>
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}">Blog</a>
+            <a class="nav-item nav-link" href="{% url 'idol-home' %}">IDOLS</a>
+            <a class="nav-item nav-link" href="{% url 'pcra-home' %}">PCRA</a>
+            <a class="nav-item nav-link" href="{% url 'aistore-home' %}">AI Store</a>
+        </div>
+        <div class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" style="display:inline; margin-top:7px; margin-right:8px;">
+                {% csrf_token %}
+                <button class="nav-item nav-link btn btn-link" type="submit" style="padding:0;">Logout({{ user.username}})</button>
+            </form>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            {% endif %}
+            <a class="nav-item nav-link fst-italic fs-6" href="/admin">Admin</a>
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"  
+        data-bs-target="#navbarToggle" aria-controls="navbarToggle" 
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    </div>
+</nav>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">New Product</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info mb-3" type="submit">Save Product</button>
+            </div>
+            <a class="ml-2" href="{% url 'aistore-home' %}" class="text-muted">취소</a>
+        </form>
+    </div>
+{% endblock %}

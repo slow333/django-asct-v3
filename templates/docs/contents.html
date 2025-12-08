@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} Docs Home {% endblock %}
+{% block content %}
+<h1> Document 목차 </h1>
+    <h2 class="mt-3">Django</h2>
+    <ul>
+        <li><a href="{% url 'django-setup' %}">Django 설치</a></li>
+        <li><a href="{% url 'django-orm' %}">Django ORM 사용하기</a></li>
+    </ul>
+    <h2 class="mt-3">Flask</h2>
+    <ul>
+        <li><a href="flask/install">flask 설치</a></li>
+        <li><a href="flask/note">flask 주의사항</a></li>
+        <li><a href="flask/core-crud">flask core CRUD</a></li>
+        <li><a href="flask/db-setup">flask db setup</a></li>
+    </ul>
+    <h2 class="mt-3">psql</h2>
+    <ul>
+        <li><a href="psql/datatype">psql datatype</a></li>
+        <li><a href="psql/crud">psql CRUD</a></li>  
+        <li><a href="psql/sqlalchemy">sqlalchemy</a></li>
+        <li><a href="psql/select">psql Select</a></li>
+        <li><a href="psql/constraints">psql constraints</a></li>
+        <li><a href="psql/groupby">psql groupby</a></li>
+        <li><a href="psql/join">psql join</a></li>
+        <li><a href="psql/aggregate">psql aggregate</a></li>
+        <li><a href="psql/functions">psql functions</a></li>
+        <li><a href="psql/procedure-trigger">psql procedure trigger</a></li>
+    </ul>
+    <h2 class="mt-3">python</h2>
+    <ul>
+        <li><a href="python/datatype">python datatype</a></li>
+        <li><a href="python/print-format">python print format</a></li>
+        <li><a href="python/loop">python loop</a></li>
+        <li><a href="python/def-file">python def file</a></li>
+        <li><a href="python/class-module">python class module</a></li>
+        <li><a href="python/try-except">python try except</a></li>
+        <li><a href="python/py-library">python library</a></li>
+        <li><a href="python/decorator">python decorator</a></li>
+        <li><a href="python/regexp">python regexp</a></li>
+    </ul>
+    <h2 class="mt-3">Others</h2>
+    <ul>
+        <li><a href="others/basic-settings">basic settings</a></li>
+        <li><a href="others/html-css">html css</a></li>
+        <li><a href="others/linux">linux</a></li>
+    </ul>
+{% endblock %}

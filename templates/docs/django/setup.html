@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %} Django {% endblock %}
+{% block header %} Django Setup {% endblock %}
+  
+{% block content %}
+<section>
+    <h2>Step to start project</h2>
+    <ol>
+        <li>create project: django-admin startproject projectname</li>
+        <li>create app: python manage.py startapp appname</li>
+        <li>run server: python manage.py runserver</li>
+        <li>create superuser: python manage.py createsuperuser</li>
+        <li>make migration: python manage.py makemigrations</li>
+        <li>apply migration: python manage.py migrate</li>
+        <li>collect static files: python manage.py collectstatic</li>
+        <li>test db connection: python manage.py dbshell</li>
+    </ol>
+    <h2>Make Project</h2>
+    <ol>
+        <li>Model : class 생성</li>
+        <li>Model relation 설정</li>
+        <li>mok data 생성</li>
+        <li>admin.py 에 model 등록</li>
+        <li>settings.py 에 app 등록</li>
+        <li>views.py 에 view 생성</li>
+        <li>urls.py 에 path 설정</li>
+        <li>makemigrations & migrate</li>
+    </ol>
+    <h2>wsl(linux, 우분투)에서 django 설치하고 실행하기</h2>
+    <h3>방화벽 연결(db)</h3>
+  <pre>apt install ufw
+sudo ufw allow 5432/tcp</pre>
+    <h3>venv 설정</h3>
+<pre>apt install python3-venv
+ source venv/bin/activate</pre>
+    <h3>package 설치</h3>
+    <pre>pip install 
+pip install Pillow
+pip install crispy-bootstrap5
+pip install psycopg2 (컴파일 라이블러리 설치하고 ...)</pre>
+    <h3>db 설정</h3>
+    <h4>postgresql 설치하고, pg_hba.conf 설정하고, 원격접속 password 설정</h4>
+<pre>sudo -u postgres psql
+ALTER USER postgres WITH PASSWORD '새_비밀번호';
+sudo nano /etc/postgresql/16/main/pg_hba.conf  # version 을 실제 버전에 맞게 변경
+
+TYPE  DATABASE  USER    ADDRESS         METHOD
+host    all       all     127.0.0.1/32    md5
+아래 ip도 추가
+host    all             all             172.31.16.1/32            md5
+
+sudo vi /etc/postgresql/16/main/postgresql.conf
+password_encryption = md5
+listen_addresses = '*'          # what IP address(es) to listen on;
+
+sudo systemctl restart postgresql
+
+- 연결 시험
+psql -h localhost -U postgres -W
+python manage.py migrate</pre>
+    <h3>django debug-debug-toolbar 설치</h3>
+<pre>pip install django-debug-toolbar # 이러면 import error 남
+    python -m pip install django-debug-toolbar # 이렇게 해야함</pre>
+    <h4>settings.py 설정</h4>
+<pre>INSTALLED_APPS = [
+    ...
+    'debug_toolbar',
+]
+MIDDLEWARE = [
+    ...
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+</pre>
+    <h4>urls.py 설정</h4>
+<pre>from django.conf import settings
+from django.conf.urls import include
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+</pre>  
+    <h3>json 파일을 db에 적용하기</h3>
+<pre>import json
+with open('blog/post_data.json', 'r') as f:
+    posts_json = json.load(f)
+for p in posts_json:
+    post = Post(title=p['title'], content=p['content'], author_id = p['user_id'])
+    post.save() </pre>
+    <h3>사용자 정의 py 를 생성해서 template에 적용하기</h3>
+<pre>app/templatetags/nav_tag.py # 폴더에 __init__.py 생성
+from django import template
+
+register = template.Library()
+
+@register.simple_tag(takes_context=True)
+def is_active(context, url_pattern):
+    request = context['request']
+    if url_pattern in request.path:
+        return 'active'
+    return ''
+</pre>
+<h4>template에서 사용하기</h4>
+&#123;% load nav_tags %&#125;
+<xmp><div class="container d-flex flex-column align-items-start">
+    <div class="text-white text-center mx-auto border-bottom w-100" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#sidebar-apps" aria-controls="sidebar-apps" 
+        aria-expanded="{% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path %}true{% else %}false{% endif %}" aria-label="Toggle navigation">Applications</div>
+    <div class="list-group collapse navbar-collapse 
+        {% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path %}show{% endif %} w-100 " id="sidebar-apps">
+        <a class="list-group-item list-group-item-action &#123;% is_active '/blog/' %}" 
+            href="/blog/">Blog</a>
+        <a class="list-group-item list-group-item-action &#123;% is_active '/idol/' %}" 
+            href="/idol/">Idol</a>
+</xmp>            
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="d-flex gap-3 align-items-center mb-1 me-2 justify-content-between">
+        <h2 class="m-0 mt-1">{{ object.title }} </h2>
+        <div class="d-flex gap-2">
+            <!-- <form action="{% url 'idol-detail' object.id %}" method="POST" class="d-flex gap-2 mt-3">
+                {% csrf_token %}
+                 {{ form.title }}
+                <button type="submit" class="btn btn-outline-info btn-sm fs-6 mb-3">Save</button>
+            </form> -->
+            <a href="{% url 'idol-update' object.id %}" class="btn btn-outline-info btn-sm fs-6 my-3">Update</a>
+            <a href="{% url 'idol-home' %}" class="btn btn-outline-info btn-sm fs-6 my-3">Home</a>
+            <a href="{% url 'idol-delete' object.id %}" class="btn btn-outline-danger btn-sm fs-6  my-3">Delete</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object.title }}">
+    </div>
+{% endblock %}

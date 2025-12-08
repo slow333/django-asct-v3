@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Idol Imag</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info mb-3" type="submit">Save Idol</button>
+            </div>
+            <a class="ml-2" href="{% url 'idol-detail' idol.id %}" class="text-muted">취소</a>
+        </form>
+    </div>
+    <div class="card">
+        <h2 class="m-0 mt-1 text-center">{{ idol.title }}</h2>
+        <img src="{{ idol.image.url }}" class="card-img-top" alt="{{ idol.title }}">
+    </div>
+{% endblock %}

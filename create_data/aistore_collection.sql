@@ -1,0 +1,13 @@
+insert into aistore_collection (title) values ('Toys');
+insert into aistore_collection (title) values ('Travel');
+insert into aistore_collection (title) values ('Food');
+insert into aistore_collection (title) values ('Kitchen');
+insert into aistore_collection (title) values ('Home');
+insert into aistore_collection (title) values ('Automotive');
+insert into aistore_collection (title) values ('Fitness');
+insert into aistore_collection (title) values ('Clothing');
+insert into aistore_collection (title) values ('Office');
+insert into aistore_collection (title) values ('Health');
+insert into aistore_collection (title) values ('Garden');
+insert into aistore_collection (title) values ('Pets');
+insert into aistore_collection (title) values ('Beauty');

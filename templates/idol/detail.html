@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="d-flex gap-3 align-items-center mb-1 me-2 justify-content-between">
+        <h2 class="m-0 mt-1">{{ idol.title }} <button class="btn btn-sm btn-link edit-idol-title-btn mt-3" id="toggle-form">✏️</button></h2>
+        
+        <div class="d-flex gap-2">
+            <form action="{% url 'idol-detail' idol.id %}" method="POST" class="gap-2 mt-3" id="toggled-form" style="display:none;">
+                {% csrf_token %}
+                 {{ form.title }}
+                <button type="submit" class="btn btn-outline-info btn-sm fs-6 mb-3">Save</button>
+            </form>
+            <a href="{% url 'idol-update' idol.id %}" class="btn btn-outline-info btn-sm fs-6 my-3">Update</a>
+            <a href="{% url 'idol-home' %}" class="btn btn-outline-info btn-sm fs-6 my-3">Home</a>
+            <a href="{% url 'idol-delete' idol.id %}" class="btn btn-outline-danger btn-sm fs-6  my-3">Delete</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="{{ idol.image.url }}" class="card-img-top" alt="{{ idol.title }}">
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.getElementById('toggle-form');
+        const titleForm = document.getElementById('toggled-form');
+
+        toggleButton.addEventListener('click', function() {
+            // 폼의 현재 display 상태를 확인하고 토글합니다.
+            if (titleForm.style.display === 'none') {
+                titleForm.style.display = 'flex'; // 폼 내부 요소 정렬을 위해 flex로 설정
+            } else {
+                titleForm.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}

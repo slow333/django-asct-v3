@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block title %} Project Home {% endblock %}
+{% block header %} 전체 프로젝트 설치 및 시행 기초 {% endblock %}
+{% block content %}
+<section>
+  <h3>초기 암호</h3>
+  <p>암호: admin/admin, test/testing1234, test2/testing1234</p>
+  <h3>start Django project</h3>
+  <pre>django-admin startproject myproject
+cd myproject
+python manage.py runserver</pre>
+  <h3>create an app</h3>
+  <pre>python manage.py startapp myapp</pre>
+  <h3>Configure settings: Edit myproject/settings.py</h3>
+  <pre>INSTALLED_APPS = [
+    # ...
+    'myapp.apps.MyappConfig',
+]</pre>
+</section>
+<section>
+    <h3>project structure</h3>
+<pre>
+/pcra-django-v1
+  /atom
+    /migration
+    /static
+    /templates
+    __init__.py
+    admin.py
+    app.py
+    urls.py
+    views.py
+  /quark
+    __init__.py
+    asgi.py
+    settings.py
+    urls.py
+    wsgi.py
+manage.py
+</pre>
+<h3>runserver</h3>
+<pre>python manage.py runserver</pre>
+</section>
+
+<section>
+  <h3>superuser 생성</h3>
+  <pre>python manage.py createsuperuser
+# db migration이 없어서 애러남
+python manage.py makemigrations
+python manage.py migrate
+  </pre>
+  <h3>model을 생성/변경하면 migration을 수행해야함</h3>
+  <pre>python manage.py makemigrations
+python manage.py migrate</pre>
+<pre># 실행된 migration 확인
+python manage.py sqlmigrate blog 0001</pre>
+  <h3>python shell에서 직접 데이터 수정 시험하기</h3>
+  <pre>python manage.py shell
+from blog.models import Post
+from django.contrib.auth.models import User
+
+User.objects.all()
+User.objects.filter(username='admin')
+user = User.objects.filter(username='admin').first()
+user = User.objects.first()
+test = User.objects.get(id=2)
+Post.objects.all()
+post_1 = Post(title='Blog 1', content='첫번째 포스트 내용', author=user)
+p4 = Post(title='Blog 4', content='4 포스트 내용', author=user)
+Post.objects.all()
+# save해야 적용됨
+post_1.save()
+Post.objects.all()
+post_1.date_posted
+datetime.datetime(2025, 11, 15, 12, 20, 28, 529407, tzinfo=datetime.timezone.utc)
+post_1.date_updated
+datetime.datetime(2025, 11, 15, 12, 21, 41, 505496, tzinfo=datetime.timezone.utc)
+# user에서 post 참조하기
+user.post_set.all()
+user.post_set.create(title='Blog from user', content='5 포스트 내용')
+user.post_set.create(title='Blog from user admin', content='6 포스트 내용')
+user.post_set.all()
+# post 데이터 삭제하기
+post_1.delete()
+Post.objects.all()
+# post data update
+post_1.title = 'update post'
+post_1.save()
+Post.objects.all()
+  </pre>
+  <h3>Django date formatting</h3>
+  <pre>
+&#123;&#123; my_datetime_object|date:"D, M d, Y H:i" &#125;&#125;
+Common format characters include: 
+Y: Year with century (e.g., 2025)
+y: Year without century, zero-padded (e.g., 25)
+F: full Month name (e.g., November)
+M: Month name, abbreviated (e.g., Nov)
+m: Month as a zero-padded decimal number (e.g., 11)
+d: Day of the month, zero-padded (e.g., 01-31)
+D: Day of the week, abbreviated (e.g., Fri)
+H: Hour (24-hour clock), zero-padded (e.g., 00-23)
+h: Hour (12-hour clock), zero-padded (e.g., 01-12)
+i: Minute, zero-padded (e.g., 00-59)
+s: Second, zero-padded (e.g., 00-59)    
+  </pre>
+</section>
+<section>
+  <h3>화면 이쁘게 해주는 crispy 설정</h3>
+  <pre>pip install crispy-bootstrap5
+# settings.py에 추가
+   
+INSTALLED_APPS = (
+    ...
+    "crispy_forms",
+    "crispy_bootstrap5",
+    ...
+)
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"    
+  </pre>
+</section>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% load nav_tags %}
+<div class="container d-flex flex-column align-items-start gap-2 
+    p-3 rounded-2 bg-white shadow">
+    <h4 class="text-white text-center mx-auto border-bottom w-100 btn btn-success p-0" data-bs-toggle="collapse" 
+        data-bs-target="#sidebar-apps" aria-controls="sidebar-apps" 
+        aria-expanded="{% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path or '/aistore/' in request.path %}true{% else %}false{% endif %}" aria-label="Toggle navigation">Applications</h4>
+    <div class="list-group collapse navbar-collapse 
+        {% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path or '/aistore/' in request.path %}show{% endif %} w-100 " id="sidebar-apps">
+        <a class="list-group-item list-group-item-action {% is_active '/blog/' %}" 
+            href="{% url 'blog-home' %}">Blog</a>
+        <a class="list-group-item list-group-item-action {% is_active '/idol/' %}" 
+            href="{% url 'idol-home' %}">Idol</a>
+        <a class="list-group-item list-group-item-action {% is_active '/pcra/' %}" 
+            href="{% url 'pcra-home' %}">PCRA</a>
+        <a class="list-group-item list-group-item-action {% is_active '/aistore/' %}" 
+            href="{% url 'aistore-home' %}">AI Store</a>
+    </div>
+
+    <h4 class="text-muted text-center mx-auto border-bottom w-100">Documents</h4>
+    <button class="btn btn-secondary w-100 p-0 fs-6" type="button" 
+        data-bs-toggle="collapse" data-bs-target="#docs-django" aria-controls="docs-django" 
+        aria-expanded="{% is_show 'docs/django' %}" aria-label="Toggle navigation"> Django
+    </button>
+    <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/django' %} w-100" id="docs-django">
+        <a class="list-group-item list-group-item-action {% is_active '/docs/django/setup' %}" href="{% url 'django-setup' %}">Django 설치</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/django/orm' %}" href="{% url 'django-orm' %}">Django ORM 사용하기</a>
+    </div>
+    
+
+    <button class="btn btn-secondary w-100 p-0" type="button" 
+        data-bs-toggle="collapse" data-bs-target="#docs-flask" aria-controls="docs-flask" 
+        aria-expanded="{% is_show 'docs/flask' %}" aria-label="Toggle navigation"> Flask
+    </button>
+    <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/flask' %} w-100" id="docs-flask">
+        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/install' %}" href="/docs/flask/install">flask 설치</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/note' %}" 
+            href="/docs/flask/note">flask 주의사항</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/core-crud' %}"
+            href="/docs/flask/core-crud">flask core CRUD</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/db-setup' %}" 
+            href="/docs/flask/db-setup">flask db setup</a>
+    </div>
+    <button class="btn btn-secondary w-100 p-0" 
+        type="button" data-bs-toggle="collapse" 
+        data-bs-target="#docs-psql" aria-controls="docs-psql"
+        aria-expanded="{% is_show 'docs/psql' %}" aria-label="Toggle navigation">PSQL
+    </button>
+    <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/psql' %} w-100" id="docs-psql">
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/datatype' %}" 
+            href="/docs/psql/datatype">psql datatype</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/crud' %}" 
+            href="/docs/psql/crud">psql CRUD</a>  
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/sqlalchemy' %}" 
+            href="/docs/psql/sqlalchemy">sqlalchemy</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/select' %}" 
+            href="/docs/psql/select">psql Select</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/constraints' %}" 
+            href="/docs/psql/constraints">psql constraints</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/groupby' %}" 
+            href="/docs/psql/groupby">psql groupby</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/join' %}" 
+            href="/docs/psql/join">psql join</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/aggregate' %}" 
+            href="/docs/psql/aggregate">psql aggregate</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/functions' %}" 
+            href="/docs/psql/functions">psql functions</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/procedure-trigger' %}" 
+            href="/docs/psql/procedure-trigger">psql procedure trigger</a>
+    </div>
+    <button class="btn btn-secondary w-100 p-0" 
+        type="button" data-bs-toggle="collapse" 
+        data-bs-target="#docs-python" aria-controls="docs-python"
+        aria-expanded="{% is_show 'docs/python' %}" aria-label="Toggle navigation">Python
+    </button>
+    <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/python' %} w-100" id="docs-python">
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/datatype' %}"
+            href="/docs/python/datatype">python datatype</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/print-format' %}" 
+            href="/docs/python/print-format">python print format</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/loop' %}" 
+            href="/docs/python/loop">python loop</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/def-file' %}"
+            href="/docs/python/def-file">python def file</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/class-module' %}" 
+            href="/docs/python/class-module">python class module</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/try-except' %}" 
+            href="/docs/python/try-except">python try except</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/py-library' %}" 
+            href="/docs/python/py-library">python library</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/decorator' %}" 
+            href="/docs/python/decorator">python decorator</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/regexp' %}" 
+            href="/docs/python/regexp">python regexp</a>
+    </div>
+    <button class="btn btn-secondary w-100 p-0" type="button" 
+        data-bs-toggle="collapse" data-bs-target="#docs-others" aria-controls="docs-others" 
+        aria-expanded="{% is_show 'docs/others' %}" aria-label="Toggle navigation"> Others
+    </button>    
+    <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/others' %} w-100" id="docs-others">
+        <a class="list-group-item list-group-item-action {% is_active '/docs/others/basic-settings' %}" 
+            href="/docs/others/basic-settings">basic settings</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/others/html-css' %}" 
+            href="/docs/others/html-css">html css</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/others/linux' %}" 
+            href="/docs/others/linux">linux</a>
+    </div>
+</div>

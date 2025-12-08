@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %} Delete Image {% endblock %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Are you sure you want to delete {{ image.title }} image?</legend>            
+        </fieldset>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'idol-detail' image.id %}" class="btn btn-outline-info">Cancel</a>
+    </form>
+{% endblock %}
