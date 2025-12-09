@@ -1,5 +1,5 @@
 # 1. 필요한 모듈을 가져옵니다.
-from idols.models import IdolImage
+from idols.models import Idol
 from django.core.files import File
 import os
 
@@ -27,8 +27,8 @@ else:
                     # 8. 파일명을 title로 사용합니다 (확장자 제외).
                     title = os.path.splitext(filename)[0]
     
-                    # 9. IdolImage 객체를 생성하고 저장합니다.
-                    created = IdolImage(
+                    # 9. Idol 객체를 생성하고 저장합니다.
+                    created = Idol(
                         id=next_id,
                         title=title,
                         image=image_file

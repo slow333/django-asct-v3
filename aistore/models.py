@@ -1,5 +1,5 @@
 from django.db import models
-from django.conrib.auth.models import User
+from django.contrib.auth.models import User
 
 class Customer(models.Model):
     MEMBERSHIP_CHOICES = [
@@ -13,9 +13,6 @@ class Customer(models.Model):
 
     class Meta:
         ordering = ['user__username']
-        indexes = [
-            models.Index(fields=['user__last_name', 'user__first_name'])
-        ]
 
     def __str__(self) -> str:
         return f'{self.user.first_name} {self.user.last_name}'

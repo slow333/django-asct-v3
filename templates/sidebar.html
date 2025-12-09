@@ -5,13 +5,13 @@
         data-bs-target="#sidebar-apps" aria-controls="sidebar-apps" 
         aria-expanded="{% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path or '/aistore/' in request.path %}true{% else %}false{% endif %}" aria-label="Toggle navigation">Applications</h4>
     <div class="list-group collapse navbar-collapse 
-        {% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path or '/aistore/' in request.path %}show{% endif %} w-100 " id="sidebar-apps">
+        {% if '/blog/' in request.path or '/asct/' in request.path or '/idols/' in request.path or '/aistore/' in request.path %}show{% endif %} w-100 " id="sidebar-apps">
         <a class="list-group-item list-group-item-action {% is_active '/blog/' %}" 
             href="{% url 'blog-home' %}">Blog</a>
         <a class="list-group-item list-group-item-action {% is_active '/idol/' %}" 
             href="{% url 'idol-home' %}">Idol</a>
-        <a class="list-group-item list-group-item-action {% is_active '/pcra/' %}" 
-            href="{% url 'pcra-home' %}">PCRA</a>
+        <a class="list-group-item list-group-item-action {% is_active '/asct/' %}" 
+            href="{% url 'asct-home' %}">ASCT</a>
         <a class="list-group-item list-group-item-action {% is_active '/aistore/' %}" 
             href="{% url 'aistore-home' %}">AI Store</a>
     </div>

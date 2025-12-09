@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views
 
-# apps/pcra/
+# apps/asct/
 urlpatterns = [
-    path('', views.pcra_home, name='pcra-home'),
+    path('', views.asct_home, name='asct-home'),
     # path('create/', views.blog_create, name='post-create'),
     # path('<int:pk>/update', views.blog_update, name='post-update'),
     # path('<int:pk>/delete', views.blog_delete, name='post-delete'),

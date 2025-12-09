@@ -1,1 +1,0 @@
-insert into users (username, email, password1, password2)

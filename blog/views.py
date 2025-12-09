@@ -10,7 +10,9 @@ from users.models import Profile
 
 def blog_home(request):
     # prefetch author and its one-to-one Profile to avoid extra queries in template
-    post_list = Post.objects.select_related('author', 'profile').order_by('author').all()
+    post_list = Post.objects\
+        .select_related('author', 'author__profile')\
+        .order_by('author__username').all()
     
     # 검색 폼 처리
     search_form = SearchForm(request.GET or None)
