@@ -1,4 +1,5 @@
-# django-pcra
+# django-asct
+암호 : test4321
 export PS1="\\W \\$ "
 # wsl(linux, 우분투)에서 django 설치하고 실행하기
 ## 방화벽 연결(db)

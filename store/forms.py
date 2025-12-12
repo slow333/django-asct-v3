@@ -1,4 +1,4 @@
-from aistore.models import Product
+from store.models import Product
 from django import forms
 
 class ProductForm(forms.ModelForm):

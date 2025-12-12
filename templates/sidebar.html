@@ -1,107 +1,107 @@
 {% load nav_tags %}
-<div class="container d-flex flex-column align-items-start gap-2 
+<div class="container d-flex flex-column align-items-start gap-2 mt-1
     p-3 rounded-2 bg-white shadow">
-    <h4 class="text-white text-center mx-auto border-bottom w-100 btn btn-success p-0" data-bs-toggle="collapse" 
+    <h4 class="text-white text-center mx-auto border-bottom w-100 btn btn-success py-2" data-bs-toggle="collapse" 
         data-bs-target="#sidebar-apps" aria-controls="sidebar-apps" 
         aria-expanded="{% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path or '/aistore/' in request.path %}true{% else %}false{% endif %}" aria-label="Toggle navigation">Applications</h4>
     <div class="list-group collapse navbar-collapse 
         {% if '/blog/' in request.path or '/asct/' in request.path or '/idols/' in request.path or '/aistore/' in request.path %}show{% endif %} w-100 " id="sidebar-apps">
-        <a class="list-group-item list-group-item-action {% is_active '/blog/' %}" 
-            href="{% url 'blog-home' %}">Blog</a>
-        <a class="list-group-item list-group-item-action {% is_active '/idol/' %}" 
-            href="{% url 'idol-home' %}">Idol</a>
-        <a class="list-group-item list-group-item-action {% is_active '/asct/' %}" 
-            href="{% url 'asct-home' %}">ASCT</a>
-        <a class="list-group-item list-group-item-action {% is_active '/aistore/' %}" 
-            href="{% url 'aistore-home' %}">AI Store</a>
+        <a class="list-group-item list-group-item-action {% is_active '/blog/' %} py-1" 
+            href="{% url 'blog-home' %}"><i class="bi bi-blockquote-left"></i> Blog</a>
+        <a class="list-group-item list-group-item-action {% is_active '/idol/' %} py-1" 
+            href="{% url 'idol-home' %}"><i class="bi bi-images"></i> Idol</a>
+        <a class="list-group-item list-group-item-action {% is_active '/asct/' %} py-1" 
+            href="{% url 'asct-home' %}"><i class="bi bi-gear-wide-connected"></i> ASCT</a>
+        <a class="list-group-item list-group-item-action {% is_active '/store/' %} py-1 " 
+            href="{% url 'store-home' %}"><i class="bi bi-shop"></i> Store</a>
     </div>
 
-    <h4 class="text-muted text-center mx-auto border-bottom w-100">Documents</h4>
-    <button class="btn btn-secondary w-100 p-0 fs-6" type="button" 
+    <h4 class="text-white text-center mx-auto btn btn-info w-100 py-2 mt-2">Documents</h4>
+    <button class="btn btn-secondary w-100  py-1 mt-2 fs-6" type="button" 
         data-bs-toggle="collapse" data-bs-target="#docs-django" aria-controls="docs-django" 
         aria-expanded="{% is_show 'docs/django' %}" aria-label="Toggle navigation"> Django
     </button>
     <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/django' %} w-100" id="docs-django">
-        <a class="list-group-item list-group-item-action {% is_active '/docs/django/setup' %}" href="{% url 'django-setup' %}">Django 설치</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/django/orm' %}" href="{% url 'django-orm' %}">Django ORM 사용하기</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/django/setup' %} py-2" href="{% url 'django-setup' %}"><i class="bi bi-gear"></i> Django 설치</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/django/orm' %} py-2" href="{% url 'django-orm' %}"><i class="bi bi-filetype-sql"></i> Django ORM 사용하기</a>
     </div>
     
 
-    <button class="btn btn-secondary w-100 p-0" type="button" 
+    <button class="btn btn-secondary w-100  py-1 mt-2" type="button" 
         data-bs-toggle="collapse" data-bs-target="#docs-flask" aria-controls="docs-flask" 
         aria-expanded="{% is_show 'docs/flask' %}" aria-label="Toggle navigation"> Flask
     </button>
     <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/flask' %} w-100" id="docs-flask">
-        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/install' %}" href="/docs/flask/install">flask 설치</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/note' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/install' %} py-2" href="/docs/flask/install">flask 설치</a>
+        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/note' %} py-2" 
             href="/docs/flask/note">flask 주의사항</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/core-crud' %}"
+        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/core-crud' %} py-2"
             href="/docs/flask/core-crud">flask core CRUD</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/db-setup' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/flask/db-setup' %} py-2" 
             href="/docs/flask/db-setup">flask db setup</a>
     </div>
-    <button class="btn btn-secondary w-100 p-0" 
+    <button class="btn btn-secondary w-100 py-1 mt-2" 
         type="button" data-bs-toggle="collapse" 
         data-bs-target="#docs-psql" aria-controls="docs-psql"
         aria-expanded="{% is_show 'docs/psql' %}" aria-label="Toggle navigation">PSQL
     </button>
     <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/psql' %} w-100" id="docs-psql">
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/datatype' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/datatype' %} py-2" 
             href="/docs/psql/datatype">psql datatype</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/crud' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/crud' %} py-2" 
             href="/docs/psql/crud">psql CRUD</a>  
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/sqlalchemy' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/sqlalchemy' %} py-2" 
             href="/docs/psql/sqlalchemy">sqlalchemy</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/select' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/select' %} py-2" 
             href="/docs/psql/select">psql Select</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/constraints' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/constraints' %} py-2" 
             href="/docs/psql/constraints">psql constraints</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/groupby' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/groupby' %} py-2" 
             href="/docs/psql/groupby">psql groupby</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/join' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/join' %} py-2" 
             href="/docs/psql/join">psql join</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/aggregate' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/aggregate' %} py-2" 
             href="/docs/psql/aggregate">psql aggregate</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/functions' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/functions' %} py-2" 
             href="/docs/psql/functions">psql functions</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/procedure-trigger' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/psql/procedure-trigger' %} py-2" 
             href="/docs/psql/procedure-trigger">psql procedure trigger</a>
     </div>
-    <button class="btn btn-secondary w-100 p-0" 
+    <button class="btn btn-secondary w-100 p-0 py-1 mt-2" 
         type="button" data-bs-toggle="collapse" 
         data-bs-target="#docs-python" aria-controls="docs-python"
         aria-expanded="{% is_show 'docs/python' %}" aria-label="Toggle navigation">Python
     </button>
     <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/python' %} w-100" id="docs-python">
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/datatype' %}"
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/datatype' %} py-2"
             href="/docs/python/datatype">python datatype</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/print-format' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/print-format' %} py-2" 
             href="/docs/python/print-format">python print format</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/loop' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/loop' %} py-2" 
             href="/docs/python/loop">python loop</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/def-file' %}"
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/def-file' %} py-2"
             href="/docs/python/def-file">python def file</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/class-module' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/class-module' %} py-2" 
             href="/docs/python/class-module">python class module</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/try-except' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/try-except' %} py-2" 
             href="/docs/python/try-except">python try except</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/py-library' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/py-library' %} py-2" 
             href="/docs/python/py-library">python library</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/decorator' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/decorator' %} py-2" 
             href="/docs/python/decorator">python decorator</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/python/regexp' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/python/regexp' %} py-2" 
             href="/docs/python/regexp">python regexp</a>
     </div>
-    <button class="btn btn-secondary w-100 p-0" type="button" 
+    <button class="btn btn-secondary w-100  py-1 mt-2" type="button" 
         data-bs-toggle="collapse" data-bs-target="#docs-others" aria-controls="docs-others" 
         aria-expanded="{% is_show 'docs/others' %}" aria-label="Toggle navigation"> Others
     </button>    
     <div class="list-group collapse navbar-collapse list-group-horizontal-xl {% is_show 'docs/others' %} w-100" id="docs-others">
-        <a class="list-group-item list-group-item-action {% is_active '/docs/others/basic-settings' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/others/basic-settings' %} py-2" 
             href="/docs/others/basic-settings">basic settings</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/others/html-css' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/others/html-css' %} py-2" 
             href="/docs/others/html-css">html css</a>
-        <a class="list-group-item list-group-item-action {% is_active '/docs/others/linux' %}" 
+        <a class="list-group-item list-group-item-action {% is_active '/docs/others/linux' %} py-2" 
             href="/docs/others/linux">linux</a>
     </div>
 </div>

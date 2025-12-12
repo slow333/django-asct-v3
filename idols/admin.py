@@ -10,5 +10,5 @@ class IdolAdmin(admin.ModelAdmin):
     
     def thumbnail_image(self, Idol):
         if Idol.thumbnail:
-            return format_html('<img src="{}" width="40" />', Idol.thumbnail.url)
+            return format_html(f'<img src="{Idol.thumbnail.url}" width="40" />')
         return "No Image"

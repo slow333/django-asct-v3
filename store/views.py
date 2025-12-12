@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.contrib import messages
-from aistore.models import Product, Collection
+from store.models import Product, Collection
 from .forms import SearchForm
 from .forms import ProductForm
 
@@ -53,7 +53,7 @@ def home(request):
         'selected_collection_id': int(collection_id) if collection_id else None,
         'inventory_filter': inventory_filter,
     }
-    return render(request, 'aistore/aistore-home.html', context)
+    return render(request, 'store/store-home.html', context)
 
 
 def product_create(request):
@@ -66,7 +66,7 @@ def product_create(request):
     else:
         form = ProductForm()
     
-    return render(request, 'aistore/aistore-product-form.html', {'form': form})
+    return render(request, 'store/store-product-form.html', {'form': form})
 
 def product_bulk_action(request):
     if request.method == 'POST':

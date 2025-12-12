@@ -46,4 +46,46 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    // Sidebar show/hide toggle
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const mainCol = document.getElementById('mainContentCol');
+    const sidebarCol = document.getElementById('sidebarCol');
+    const storageKeyHidden = 'sidebarHidden';
+
+    function applySidebarState(hidden) {
+        if (!mainCol || !sidebarCol || !sidebarToggleBtn) return;
+        if (hidden) {
+            sidebarCol.style.display = 'none';
+            mainCol.classList.remove('col-md-9');
+            mainCol.classList.add('col-md-12');
+            sidebarToggleBtn.setAttribute('aria-expanded', 'false');
+        } else {
+            sidebarCol.style.display = '';
+            mainCol.classList.remove('col-md-12');
+            mainCol.classList.add('col-md-9');
+            sidebarToggleBtn.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    // initialize from localStorage
+    try {
+        const hidden = localStorage.getItem(storageKeyHidden) === 'true';
+        applySidebarState(hidden);
+    } catch (e) {}
+
+    if (sidebarToggleBtn) {
+        sidebarToggleBtn.addEventListener('click', function () {
+            try {
+                const currentlyHidden = localStorage.getItem(storageKeyHidden) === 'true';
+                const toHide = !currentlyHidden;
+                applySidebarState(toHide);
+                localStorage.setItem(storageKeyHidden, toHide ? 'true' : 'false');
+            } catch (e) {
+                // fallback toggle
+                const isHidden = sidebarCol.style.display === 'none';
+                applySidebarState(!isHidden);
+            }
+        });
+    }
 });

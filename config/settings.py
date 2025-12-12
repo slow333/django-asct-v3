@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'idols',
     'asct',
     'docs',
-    'aistore',
+    'store',
     # Crispy Forms
     'crispy_forms',
     'crispy_bootstrap5',
@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_asct_v2',
         'USER': 'postgres',
-        'PASSWORD': '1111',
+        'PASSWORD': "1111",
         'HOST': 'localhost',
         'PORT': '5432',
     }

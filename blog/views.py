@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Post
 from .forms import PostForm
-from aistore.forms import SearchForm
+from store.forms import SearchForm
 from users.models import Profile
 
 def blog_home(request):

@@ -34,7 +34,7 @@ urlpatterns = [
     path('apps/idols/', include('idols.urls')),
     path('apps/blog/', include('blog.urls')),
     path('apps/asct/', include('asct.urls')),
-    path('apps/aistore/', include('aistore.urls')),
+    path('apps/store/', include('store.urls')),
     path('docs/', include('docs.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
