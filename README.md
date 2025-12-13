@@ -27,7 +27,7 @@ host    all             all             172.31.16.1/32            md5
 
 sudo vi /etc/postgresql/16/main/postgresql.conf
 password_encryption = md5
-listen_addresses = '*'          # what IP address(es) to listen on;
+listen_addresses = '*'      what IP address(es) to listen on;
 
 sudo systemctl restart postgresql
 
@@ -42,3 +42,49 @@ with open('blog/post_data.json', 'r') as f:
 for p in posts_json:
   post = Post(title=p['title'], content=p['content'], author_id = p['user_id'])
   post.save()
+
+# db table을 대규모로 변경하면 변경사항이 잘 적용이 안됨
+## 이때 db table를 강제로 삭제하면 다시 migrate해도 테이블이 생성되지 않음
+### 이때 db table 을 신규로 생성하기 위한 방법
+```
+python manage.py migrate asct zero --fake   # asct는 app name
+python manage.py migrate asct
+```
+# backup for server info models
+```
+ip_management = models.GenericIPAddressField(null=True, blank=True)
+ip_virtual = models.GenericIPAddressField(null=True, blank=True) # nat, vip 등 가상아이피
+```
+# backup for network models
+```
+network_service_2 = models.CharField(max_length=10, choices=network_type, default='10G', null=True, blank=True)
+network_service_2_inbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+network_service_2_outbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    
+network_nas_1 = models.CharField(max_length=10, choices=network_type, default='10G', null=True, blank=True)
+network_nas_1_inbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+network_nas_1_outbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    
+network_nas_2 = models.CharField(max_length=10, choices=network_type, default='10G', null=True, blank=True)
+network_nas_2_inbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+network_nas_2_outbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    
+network_san_1 = models.CharField(max_length=10, choices=network_type, default='16G', null=True, blank=True)
+network_san_1_inbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+network_san_1_outbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    
+network_san_2 = models.CharField(max_length=10, choices=network_type, default='16G', null=True, blank=True)
+network_san_2_inbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+network_san_2_outbound = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    
+network_mgmt_1 = models.CharField(max_length=20, choices=network_type, default='1G', null=False)
+network_mgmt_2 = models.CharField(max_length=20, choices=network_type, default='1G', null=True, blank=True)
+```
+# backup for storage models
+```
+storage_san_total = models.IntegerField(null=True, blank=True)
+storage_san_usage_percent = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+
+storage_nfs_total = models.IntegerField(null=True, blank=True)
+storage_nfs_usage_percent = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+```

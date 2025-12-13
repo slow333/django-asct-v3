@@ -23,9 +23,9 @@ class InventoryFilter(admin.SimpleListFilter):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    actions = ['clear_inventory']
     autocomplete_fields = ['collection']
     prepopulated_fields = {'slug': ['title']}
-    actions = ['clear_inventory']
     list_display = ['title', 'unit_price', 'inventory', 'collection_title']
     list_editable = ['unit_price', 'inventory']
     search_fields = ['title__istartswith']
@@ -57,7 +57,7 @@ class CollectionAdmin(admin.ModelAdmin):
     def product_count(self, collection):
         url = (reverse('admin:aistore_product_changelist') 
             + f'?collection__id__exact={collection.id}')
-        return format_html('<a href="{}">{}</a>', url, collection.product_count)
+        return format_html(f'<a href="{url}">{collection.product_count}</a>')
     
     product_count.admin_order_field = 'product_count'
     
@@ -78,10 +78,11 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['user__first_name', 'user__last_name', 'user__email', 'membership']
+    list_display = ['user__username','user__first_name', 'user__last_name', 'user__email', 'membership']
     list_editable = ['membership']
-    ordering = ['user__first_name', 'user__last_name']
+    ordering = ['user__username', 'user__last_name']
     search_fields = ['user__first_name__istartswith', 'user__last_name__istartswith']
+    list_select_related = ['user']
     list_per_page = 10
 
 @admin.register(Order)

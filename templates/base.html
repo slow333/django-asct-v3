@@ -13,13 +13,13 @@
 
 <body>
 
-<main role="main" class="container-lg mt-0 pt-0">
-  <div class="row">
+<main role="main" class="container-lg mt-2">
+  <div class="row pt-2">
     {% include 'navbar.html' %}
     <div id="sidebarCol" class="col-md-3 p-0 m-0">
       {% include 'sidebar.html' %}
     </div>
-    <div id="mainContentCol" class="ps-2 m-0">
+    <div id="mainContentCol" class="ps-3">
       <h1>{% block header %}{% endblock %}</h1>
       {% if messages %}
         {% for message in messages %}

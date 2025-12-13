@@ -1,23 +1,24 @@
 {% load nav_tags %}
 <div class="container d-flex flex-column align-items-start gap-2 mt-1
     p-3 rounded-2 bg-white shadow">
-    <h4 class="text-white text-center mx-auto border-bottom w-100 btn btn-success py-2" data-bs-toggle="collapse" 
+    <div class="text-white text-center mx-auto w-100 btn btn-success py-2 fs-4" 
+        data-bs-toggle="collapse" 
         data-bs-target="#sidebar-apps" aria-controls="sidebar-apps" 
-        aria-expanded="{% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path or '/aistore/' in request.path %}true{% else %}false{% endif %}" aria-label="Toggle navigation">Applications</h4>
+        aria-expanded="{% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path or '/aistore/' in request.path %}true{% else %}false{% endif %}" aria-label="Toggle navigation">Applications</div>
     <div class="list-group collapse navbar-collapse 
         {% if '/blog/' in request.path or '/asct/' in request.path or '/idols/' in request.path or '/aistore/' in request.path %}show{% endif %} w-100 " id="sidebar-apps">
-        <a class="list-group-item list-group-item-action {% is_active '/blog/' %} py-1" 
-            href="{% url 'blog-home' %}"><i class="bi bi-blockquote-left"></i> Blog</a>
-        <a class="list-group-item list-group-item-action {% is_active '/idol/' %} py-1" 
-            href="{% url 'idol-home' %}"><i class="bi bi-images"></i> Idol</a>
-        <a class="list-group-item list-group-item-action {% is_active '/asct/' %} py-1" 
-            href="{% url 'asct-home' %}"><i class="bi bi-gear-wide-connected"></i> ASCT</a>
-        <a class="list-group-item list-group-item-action {% is_active '/store/' %} py-1 " 
-            href="{% url 'store-home' %}"><i class="bi bi-shop"></i> Store</a>
+        <a class="list-group-item list-group-item-action {% is_active '/blog/' %} py-2 text-end fs-5 text-primary" 
+            href="{% url 'blog-home' %}"> Blog <i class="bi bi-blockquote-left"></i></a>
+        <a class="list-group-item list-group-item-action {% is_active '/idol/' %} py-2 text-end fs-5 text-primary" 
+            href="{% url 'idol-home' %}"> Idol <i class="bi bi-images"></i></a>
+        <a class="list-group-item list-group-item-action {% is_active '/asct/' %} py-2 text-end fs-5 text-primary" 
+            href="{% url 'asct-home' %}">ASCT <i class="bi bi-gear-wide-connected"></i> </a>
+        <a class="list-group-item list-group-item-action {% is_active '/store/' %} py-2 text-end fs-5 text-primary" 
+            href="{% url 'store-home' %}"> Store <i class="bi bi-shop"></i></a>
     </div>
 
-    <h4 class="text-white text-center mx-auto btn btn-info w-100 py-2 mt-2">Documents</h4>
-    <button class="btn btn-secondary w-100  py-1 mt-2 fs-6" type="button" 
+    <div class="text-white text-center btn btn-primary w-100 py-2 mt-3 fs-4">Documents</div>
+    <button class="btn btn-outline-secondary w-100  py-1 mt-2 fs-6" type="button" 
         data-bs-toggle="collapse" data-bs-target="#docs-django" aria-controls="docs-django" 
         aria-expanded="{% is_show 'docs/django' %}" aria-label="Toggle navigation"> Django
     </button>
@@ -27,7 +28,7 @@
     </div>
     
 
-    <button class="btn btn-secondary w-100  py-1 mt-2" type="button" 
+    <button class="btn btn-outline-secondary w-100  py-1" type="button" 
         data-bs-toggle="collapse" data-bs-target="#docs-flask" aria-controls="docs-flask" 
         aria-expanded="{% is_show 'docs/flask' %}" aria-label="Toggle navigation"> Flask
     </button>
@@ -40,7 +41,7 @@
         <a class="list-group-item list-group-item-action {% is_active '/docs/flask/db-setup' %} py-2" 
             href="/docs/flask/db-setup">flask db setup</a>
     </div>
-    <button class="btn btn-secondary w-100 py-1 mt-2" 
+    <button class="btn btn-outline-secondary w-100 py-1" 
         type="button" data-bs-toggle="collapse" 
         data-bs-target="#docs-psql" aria-controls="docs-psql"
         aria-expanded="{% is_show 'docs/psql' %}" aria-label="Toggle navigation">PSQL
@@ -67,7 +68,7 @@
         <a class="list-group-item list-group-item-action {% is_active '/docs/psql/procedure-trigger' %} py-2" 
             href="/docs/psql/procedure-trigger">psql procedure trigger</a>
     </div>
-    <button class="btn btn-secondary w-100 p-0 py-1 mt-2" 
+    <button class="btn btn-outline-secondary w-100 p-0 py-1" 
         type="button" data-bs-toggle="collapse" 
         data-bs-target="#docs-python" aria-controls="docs-python"
         aria-expanded="{% is_show 'docs/python' %}" aria-label="Toggle navigation">Python
@@ -92,7 +93,7 @@
         <a class="list-group-item list-group-item-action {% is_active '/docs/python/regexp' %} py-2" 
             href="/docs/python/regexp">python regexp</a>
     </div>
-    <button class="btn btn-secondary w-100  py-1 mt-2" type="button" 
+    <button class="btn btn-outline-secondary w-100  py-1" type="button" 
         data-bs-toggle="collapse" data-bs-target="#docs-others" aria-controls="docs-others" 
         aria-expanded="{% is_show 'docs/others' %}" aria-label="Toggle navigation"> Others
     </button>    
