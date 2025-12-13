@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SSHInfo, ServerInfo, CPUUsage, MemoryUsage, DiskUsage, NetworkUsage, SysctlSetting, SystemLog
+from .models import SSHInfo, ServerInfo, CPUUsage, MemoryUsage, DiskUsage, NetworkUsage, SysctlSetting, SystemLog, Role
 
 class ServerInfoInline(admin.StackedInline):
     model = ServerInfo
@@ -21,13 +21,22 @@ class SSHInfoAdmin(admin.ModelAdmin):
     created_date.short_description = 'Created At'
     created_date.admin_order_field = 'created_at'
 
+@admin.register(Role)
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    search_fields = ('name', 'description')
+
 @admin.register(ServerInfo)
 class ServerInfoAdmin(admin.ModelAdmin):
-    list_display = ('hostname', 'role', 'os','cpu_core_count', 'total_memory', 'total_disk', 'ip_real', 'is_virtual', 'is_master', 'checked_at', 'is_confirmed')
-    search_fields = ('hostname', 'ip_real', 'role')
-    list_filter = ('role', 'is_virtual', 'is_master', 'is_confirmed')
+    list_display = ('hostname', 'get_roles', 'os','cpu_core_count', 'total_memory', 'total_disk','get_roles', 'ip_real', 'is_virtual', 'is_master', 'checked_at', 'is_confirmed')
+    search_fields = ('hostname', 'ip_real', 'roles__name')
+    list_filter = ('roles', 'is_virtual', 'is_master', 'is_confirmed')
     date_hierarchy = 'checked_at'
     ordering = ('hostname','-checked_at',)
+
+    def get_roles(self, obj):
+        return ", ".join([role.name for role in obj.roles.all()])
+    get_roles.short_description = 'Roles'
 
 @admin.register(CPUUsage)
 class CPUUsageAdmin(admin.ModelAdmin):

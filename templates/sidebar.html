@@ -7,14 +7,16 @@
         aria-expanded="{% if '/blog/' in request.path or '/pcra/' in request.path or '/idol/' in request.path or '/aistore/' in request.path %}true{% else %}false{% endif %}" aria-label="Toggle navigation">Applications</div>
     <div class="list-group collapse navbar-collapse 
         {% if '/blog/' in request.path or '/asct/' in request.path or '/idols/' in request.path or '/aistore/' in request.path %}show{% endif %} w-100 " id="sidebar-apps">
-        <a class="list-group-item list-group-item-action {% is_active '/blog/' %} py-2 text-end fs-5 text-primary" 
+        <a class="list-group-item list-group-item-action {% is_active '/blog/' %} py-2 text-end fs-5" 
             href="{% url 'blog-home' %}"> Blog <i class="bi bi-blockquote-left"></i></a>
-        <a class="list-group-item list-group-item-action {% is_active '/idol/' %} py-2 text-end fs-5 text-primary" 
+        <a class="list-group-item list-group-item-action {% is_active '/idols/' %} py-2 text-end fs-5" 
             href="{% url 'idol-home' %}"> Idol <i class="bi bi-images"></i></a>
-        <a class="list-group-item list-group-item-action {% is_active '/asct/' %} py-2 text-end fs-5 text-primary" 
+        <a class="list-group-item list-group-item-action {% is_active '/asct/' %} py-2 text-end fs-5" 
             href="{% url 'asct-home' %}">ASCT <i class="bi bi-gear-wide-connected"></i> </a>
-        <a class="list-group-item list-group-item-action {% is_active '/store/' %} py-2 text-end fs-5 text-primary" 
+        <a class="list-group-item list-group-item-action {% is_active '/store/' %} py-2 text-end fs-5" 
             href="{% url 'store-home' %}"> Store <i class="bi bi-shop"></i></a>
+        <a  class="list-group-item list-group-item-action {% is_active '/catalog/' %} py-2 text-end fs-5" 
+            href="{% url 'library-home' %}">Library <i class="bi bi-journals"></i> </a>
     </div>
 
     <div class="text-white text-center btn btn-primary w-100 py-2 mt-3 fs-4">Documents</div>

@@ -57,6 +57,13 @@ ul {
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
 }
+.container .list-group a.list-group-item.active {
+  background-color: #83c4fd;
+  color: #ffffff;
+}
+.container .list-group a.list-group-item.in-active {
+  color: #0106ff;
+}
 
 .content-section, section {
   background: #ffffff;

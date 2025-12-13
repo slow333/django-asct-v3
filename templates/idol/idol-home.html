@@ -4,9 +4,9 @@
     <div class="d-flex gap-3 align-items-center mb-1 me-1 justify-content-between">
         <h1>IDOLS </h1>
         <a href="{% url 'idol-upload' %}" class="fs-6 btn btn-outline-info">Upload Image</a>
-        <form method="get" class="search-bar d-flex align-items-center gap-1">
+        <form method="get" class="search-bar d-flex align-items-center mb-0">
             {{ search_form|crispy }}
-            <button class="btn btn-primary btn-sm mb-2" type="submit">Search</button>
+            <button class="btn btn-primary btn-sm" type="submit">Search</button>
         </form>
     </div>
     <!-- Search Bar -->

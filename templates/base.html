@@ -20,7 +20,6 @@
       {% include 'sidebar.html' %}
     </div>
     <div id="mainContentCol" class="ps-3">
-      <h1>{% block header %}{% endblock %}</h1>
       {% if messages %}
         {% for message in messages %}
           <div class="alert alert-{{message.tags}}">{{ message }}</div>
@@ -38,4 +37,3 @@
 <script src="/static/bootstrap.min.js"></script>
 </body>
 </html>
-    

@@ -3,9 +3,9 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 from users import views as user_views
 from blog import views as blog_views
-# from debug_toolbar.toolbar import debug_toolbar_urls
 import debug_toolbar
 
 admin.site.site_header = "ASCT 관리자 페이지" # H1 헤더 및 로그인 양식 상단 텍스트
@@ -35,8 +35,15 @@ urlpatterns = [
     path('apps/blog/', include('blog.urls')),
     path('apps/asct/', include('asct.urls')),
     path('apps/store/', include('store.urls')),
+    path('apps/library/', include('library.urls')),
     path('docs/', include('docs.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# '/'를 '/app/library/'로 redirect 함
+urlpatterns += [
+    path('', RedirectView.as_view(url='/app/library/', permanent=True))
+]

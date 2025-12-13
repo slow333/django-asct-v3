@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
-
 {% block title %} PostgreSQL {% endblock %}
-
-{% block header %} JOIN {% endblock %}
 
 {% block content %}
 <section>
+  <h1>JOIN</h1>
 <p>product의 supplierID와 order_detail의 id를 비교하여 같으면
   product의 name, order_detail의 price, product의 Unit, order_detail의 created_at을 가져온다.</p>
 <pre> SELECT p.name, o.price, p.Unit, o.created_at<br/>

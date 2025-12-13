@@ -16,23 +16,19 @@ class SSHInfo(models.Model):
     def __str__(self) -> str:
         return f'SSH Info: {self.login_id}@{self.ip}:{self.port}'
 
+class Role(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    description = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.description or self.name
+
 class ServerInfo(models.Model):
     sshinfo = models.OneToOneField(SSHInfo, on_delete=models.PROTECT)
     
-    role_choices = [
-        ('web','Web Server'),
-        ('was','Web Application Server'),
-        ('db', 'Database Server'),
-        ('api', 'API Server'),
-        ('mgmt', 'Management Server'),
-        ('cache', 'Cache Server'),
-        ('proxy', 'Proxy Server'),
-        ('other', 'Other'),
-    ]
-    
     hostname = models.CharField(max_length=100, null=False)
-    role = models.CharField(max_length=10, choices=role_choices, null=False, default='other') # e.g., web server, db server
-    role_version = models.CharField(max_length=255, null=False) # apache 2.4.46, mysql 8.0.23
+    roles = models.ManyToManyField(Role, blank=True)
+    role_version = models.CharField(max_length=255, null=False) # apache 2.4, mysql 8.0.23
     
     ip_real = models.GenericIPAddressField(null=False)
     
@@ -173,7 +169,7 @@ class SystemLog(models.Model):
     is_confirmed = models.BooleanField(default=False, null=False)
     
     def save(self, *args, **kwargs):
-        # log_message에 'error' 또는 'info'가 포함된 경우에만 저장합니다.(개발시는 info 등도 저장 가능)
+        # log_message에 'error' 또는 'info'가 포함된 경우에만 저장합니다.(개발시는 info 등도 저장)
         if 'error' in self.log_message.lower() or 'info' in self.log_message.lower():
             super().save(*args, **kwargs)
         # 'error' 또는 'info'가 없으면 아무 작업도 하지 않아 저장을 건너뜁니다.

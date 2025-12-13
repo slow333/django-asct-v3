@@ -55,7 +55,7 @@ class CollectionAdmin(admin.ModelAdmin):
     
     @admin.display(ordering='product_count')
     def product_count(self, collection):
-        url = (reverse('admin:aistore_product_changelist') 
+        url = (reverse('admin:store_product_changelist') 
             + f'?collection__id__exact={collection.id}')
         return format_html(f'<a href="{url}">{collection.product_count}</a>')
     

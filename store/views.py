@@ -62,7 +62,7 @@ def product_create(request):
         if form.is_valid():
             form.save()
             # Redirect to the product list page after creation
-            return redirect('aistore-home') 
+            return redirect('store-home') 
     else:
         form = ProductForm()
     
@@ -99,4 +99,4 @@ def product_bulk_action(request):
             messages.warning(request, 'No action selected.')
 
     # Redirect back to the same page, preserving query parameters
-    return redirect(request.META.get('HTTP_REFERER', 'aistore-home'))
+    return redirect(request.META.get('HTTP_REFERER', 'store-home'))

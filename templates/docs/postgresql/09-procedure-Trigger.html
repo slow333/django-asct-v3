@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
-
 {% block title %} PostgreSQL {% endblock %}
-
-{% block header %} STORED PROCEDURE {% endblock %}
 
 {% block content %}
 <section>
+  <h1>STORED PROCEDURE</h1>
   <h3>STORED PROCEDURE: 자주 쓰는 SQL을 함수로 저장</h3>
   <pre>
   DELIMITER $$ -- delimiter 를 $$ 임시로 변경 procedure에서 ;를 쓸 수 있도록 함
