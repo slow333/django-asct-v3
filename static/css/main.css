@@ -176,6 +176,17 @@ code {
   height: 35px; 
   border: 1px solid #aaa;
 }
+
+/* library 관련 CSS */
+.library-sidebar-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
 /* [data-bs-target="#sidebar-apps"]:hover{
   cursor: pointer;
   color: orangered;

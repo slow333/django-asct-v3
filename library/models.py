@@ -13,6 +13,7 @@ class Genre(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
+    # author에서 book을 생성
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     summary = models.TextField(
         max_length=1000, 
@@ -28,6 +29,9 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)]) # type: ignore
+    
+    class Meta:
+        ordering = ['title', 'author']
 
 
 class BookInstance(models.Model):
@@ -65,12 +69,13 @@ class Author(models.Model):
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField('Died', null=True, blank=True)
-
-    class Meta:
-        ordering = ['last_name', 'first_name']
+    # book에서 foreign key를 생성해서 book으로 조회 가능
 
     def get_absolute_url(self):
         return reverse('author-detail', args=[str(self.id)]) # type: ignore
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name}'
+    
+    class Meta:
+        ordering = ['last_name', 'first_name']

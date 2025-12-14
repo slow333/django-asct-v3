@@ -264,3 +264,88 @@ INSERT INTO library_book_genre (book_id, genre_id) VALUES
 (64, 29),
 -- Peace Under Heaven
 (65, 27);
+
+-- BookInstance 데이터 삽입
+INSERT INTO library_bookinstance (id, book_id, imprint, due_back, status) VALUES
+-- Book 1-3 (Robert C. Martin)
+('a1b2c3d4-e5f6-7890-1234-567890abcdef', 1, 'Prentice Hall', NULL, 'a'),
+('b2c3d4e5-f6a7-8901-2345-67890abcdef1', 1, 'Prentice Hall', '2025-12-20', 'o'),
+('c3d4e5f6-a7b8-9012-3456-7890abcdef23', 2, 'Prentice Hall', NULL, 'a'),
+('d4e5f6a7-b8c9-0123-4567-890abcdef34a', 3, 'Prentice Hall', NULL, 'm'),
+-- Book 4-6 (Jane Austen)
+('e5f6a7b8-c9d0-1234-5678-90abcdef4567', 4, 'Penguin Classics', NULL, 'a'),
+('f6a7b8c9-d0e1-2345-6789-0abcdef5678b', 4, 'Penguin Classics', '2026-01-10', 'o'),
+('a7b8c9d0-e1f2-3456-7890-1bcdef67890a', 5, 'Signet Classics', NULL, 'a'),
+('b8c9d0e1-f2a3-4567-8901-cdef67890ab1', 6, 'Penguin Classics', NULL, 'r'),
+-- Book 7-9 (George Orwell)
+('c9d0e1f2-a3b4-5678-9012-def67890ab1c', 7, 'Signet Classics', NULL, 'a'),
+('d0e1f2a3-b4c5-6789-0123-ef67890ab1cd', 7, 'Signet Classics', '2025-11-30', 'o'),
+('e1f2a3b4-c5d6-7890-1234-f67890ab1cde', 8, 'Penguin Books', NULL, 'a'),
+('f2a3b4c5-d6e7-8901-2345-67890ab1cdef', 9, 'Penguin Books', NULL, 'a'),
+-- Book 10-12 (Agatha Christie)
+('a3b4c5d6-e7f8-9012-3456-7890ab1cdef0', 10, 'William Morrow', NULL, 'a'),
+('b4c5d6e7-f8a9-0123-4567-890ab1cdef01', 11, 'William Morrow', '2026-02-15', 'o'),
+('c5d6e7f8-a9b0-1234-5678-90ab1cdef012', 12, 'HarperCollins', NULL, 'a'),
+-- Book 13-15 (Haruki Murakami)
+('d6e7f8a9-b0c1-2345-6789-0ab1cdef0123', 13, 'Vintage', NULL, 'a'),
+('e7f8a9b0-c1d2-3456-7890-ab1cdef01234', 14, 'Vintage', NULL, 'a'),
+('f8a9b0c1-d2e3-4567-8901-b1cdef012345', 15, 'Vintage', '2025-12-01', 'o'),
+-- Book 16-18 (Virginia Woolf)
+('a9b0c1d2-e3f4-5678-9012-1cdef0123456', 16, 'Mariner Books', NULL, 'a'),
+('b0c1d2e3-f4a5-6789-0123-cdef01234567', 17, 'Mariner Books', NULL, 'a'),
+('c1d2e3f4-a5b6-7890-1234-def012345678', 18, 'Mariner Books', NULL, 'm'),
+-- Book 19-21 (Ernest Hemingway)
+('d2e3f4a5-b6c7-8901-2345-ef0123456789', 19, 'Scribner', NULL, 'a'),
+('e3f4a5b6-c7d8-9012-3456-f01234567890', 20, 'Scribner', NULL, 'a'),
+('f4a5b6c7-d8e9-0123-4567-01234567890a', 21, 'Scribner', '2026-03-01', 'o'),
+-- Book 22-24 (Mark Twain)
+('a5b6c7d8-e9f0-1234-5678-1234567890ab', 22, 'Dover Publications', NULL, 'a'),
+('b6c7d8e9-f0a1-2345-6789-234567890abc', 23, 'Dover Publications', NULL, 'a'),
+('c7d8e9f0-a1b2-3456-7890-34567890abcd', 24, 'Bantam Classics', NULL, 'a'),
+-- Book 25-27 (Leo Tolstoy)
+('d8e9f0a1-b2c3-4567-8901-4567890abcde', 25, 'Penguin Classics', NULL, 'a'),
+('e9f0a1b2-c3d4-5678-9012-567890abcdef', 26, 'Penguin Classics', '2025-12-25', 'o'),
+('f0a1b2c3-d4e5-6789-0123-67890abcdef0', 27, 'Dover Publications', NULL, 'a'),
+-- Book 28-30 (Fyodor Dostoevsky)
+('a1b2c3d4-e5f6-7890-1234-7890abcdef01', 28, 'Bantam Classics', NULL, 'a'),
+('b2c3d4e5-f6a7-8901-2345-890abcdef012', 29, 'Penguin Classics', NULL, 'a'),
+('c3d4e5f6-a7b8-9012-3456-90abcdef0123', 30, 'Dover Publications', NULL, 'r'),
+-- Book 31-33 (Gabriel García Márquez)
+('d4e5f6a7-b8c9-0123-4567-0abcdef01234', 31, 'Harper Perennial', NULL, 'a'),
+('e5f6a7b8-c9d0-1234-5678-abcdef012345', 32, 'Vintage', '2026-01-20', 'o'),
+('f6a7b8c9-d0e1-2345-6789-bcdef0123456', 33, 'Penguin Books', NULL, 'a'),
+-- Book 34-36 (William Shakespeare)
+('a7b8c9d0-e1f2-3456-7890-cdef01234567', 34, 'Simon & Schuster', NULL, 'a'),
+('b8c9d0e1-f2a3-4567-8901-def012345678', 35, 'Simon & Schuster', NULL, 'a'),
+('c9d0e1f2-a3b4-5678-9012-ef0123456789', 36, 'Simon & Schuster', NULL, 'm'),
+-- Book 37-40 (Kafka, Brontë)
+('d0e1f2a3-b4c5-6789-0123-f01234567890', 37, 'Schocken', NULL, 'a'),
+('e1f2a3b4-c5d6-7890-1234-01234567890a', 38, 'Schocken', NULL, 'a'),
+('f2a3b4c5-d6e7-8901-2345-1234567890ab', 39, 'Schocken', NULL, 'a'),
+('a3b4c5d6-e7f8-9012-3456-234567890abc', 40, 'Penguin Classics', NULL, 'a'),
+-- Book 41-65 (Korean Authors)
+('b4c5d6e7-f8a9-0123-4567-34567890abcd', 41, 'Marun', NULL, 'a'),
+('c5d6e7f8-a9b0-1234-5678-4567890abcde', 42, 'Changbi', NULL, 'a'),
+('d6e7f8a9-b0c1-2345-6789-567890abcdef', 43, 'Changbi', '2026-04-01', 'o'),
+('e7f8a9b0-c1d2-3456-7890-67890abcdef0', 44, 'Changbi', NULL, 'a'),
+('f8a9b0c1-d2e3-4567-8901-7890abcdef01', 45, 'Knopf', NULL, 'a'),
+('a9b0c1d2-e3f4-5678-9012-890abcdef012', 46, 'Munhakdongne', NULL, 'a'),
+('b0c1d2e3-f4a5-6789-0123-90abcdef0123', 47, 'Munhakdongne', NULL, 'a'),
+('c1d2e3f4-a5b6-7890-1234-0abcdef01234', 48, 'Minumsa', NULL, 'a'),
+('d2e3f4a5-b6c7-8901-2345-abcdef012345', 49, 'Jieum', NULL, 'a'),
+('e3f4a5b6-c7d8-9012-3456-bcdef0123456', 50, 'Munji', NULL, 'a'),
+('f4a5b6c7-d8e9-0123-4567-cdef01234567', 51, 'Hogarth', NULL, 'a'),
+('a5b6c7d8-e9f0-1234-5678-def012345678', 52, 'Changbi', '2025-11-11', 'o'),
+('b6c7d8e9-f0a1-2345-6789-ef0123456789', 53, 'Munhakdongne', NULL, 'a'),
+('c7d8e9f0-a1b2-3456-7890-f01234567890', 54, 'Mariner Books', NULL, 'a'),
+('d8e9f0a1-b2c3-4567-8901-01234567890a', 55, 'Munhakdongne', NULL, 'a'),
+('e9f0a1b2-c3d4-5678-9012-1234567890ab', 56, 'Munhakdongne', NULL, 'a'),
+('f0a1b2c3-d4e5-6789-0123-234567890abc', 57, 'Hainaim', NULL, 'a'),
+('a1b2c3d4-e5f6-7890-1234-34567890abcd', 58, 'Changbi', NULL, 'a'),
+('b2c3d4e5-f6a7-8901-2345-4567890abcde', 59, 'Hainaim', NULL, 'a'),
+('c3d4e5f6-a7b8-9012-3456-567890abcdef', 60, 'Dalkey Archive', NULL, 'a'),
+('d4e5f6a7-b8c9-0123-4567-67890abcdef0', 61, 'Nanam', NULL, 'a'),
+('e5f6a7b8-c9d0-1234-5678-7890abcdef01', 62, 'Nanam', NULL, 'a'),
+('f6a7b8c9-d0e1-2345-6789-890abcdef012', 63, 'Segyesa', NULL, 'a'),
+('a7b8c9d0-e1f2-3456-7890-90abcdef0123', 64, 'Jipmundang', NULL, 'a'),
+('b8c9d0e1-f2a3-4567-8901-0abcdef01234', 65, 'Jipmundang', NULL, 'a');

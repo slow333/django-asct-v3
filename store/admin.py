@@ -33,8 +33,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_select_related = ['collection']
     list_filter = ['last_update', InventoryFilter, 'collection']
     
-    def collection_title(self, product):
-        return product.collection.title
+    def collection_title(self, obj):
+        return ', '.join(collection.title for collection in obj.collection.all()[:3])
+    collection_title.short_description = 'Collection'
     
     def clear_inventory(self, request, queryset):
         updated_count = queryset.update(inventory=0)

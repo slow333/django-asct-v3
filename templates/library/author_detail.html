@@ -1,0 +1,21 @@
+{% extends 'library/library-base.html' %}
+{% load static %}
+{% block title %} Local Library Catalog Home {% endblock %}
+{% block content %}
+<section>
+    <h1>{{ author.last_name }}, {{ author.first_name }}</h1>
+
+    <p><strong>date of birth: </strong>{{ author.date_of_birth }}</p>
+    <p><strong>date of death: </strong>{{ author.date_of_death }}</p>
+
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Author's Books</h4>
+
+        {% for book in author_books %}
+            <hr>
+            <p><strong>Title:</strong> <a href="{{ book.get_absolute_url }}">{{ book.title }}</a></p>
+            <p><strong>Summary:</strong> {{ book.summary }}</p>
+        {% endfor %}
+  </div>
+</section>
+{% endblock %}
