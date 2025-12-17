@@ -14,12 +14,16 @@ def index(request):
 
     # The 'all()' is implied by default.
     num_authors = Author.objects.count()
+    
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
 
     context = {
         'num_books': num_books,
         'num_instances': num_instances,
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
+        'num_visits': num_visits,
     }
 
     # Render the HTML template index.html with the data in the context variable
@@ -47,13 +51,15 @@ class BookDetailView(generic.DetailView):
 class AuthorListView(generic.ListView):
     model = Author
     paginate_by = 20
-
+    
+    # book은 author model에 자동생성됨
     def get_queryset(self):
         return Author.objects.annotate(book_count=Count('book'))
 
 class AuthorDetailView(generic.DetailView):
     model = Author
-
+    
+    # 저자의 책목록을 찾는 context를 생성
     def get_context_data(self, **kwargs):
         # 기본 컨텍스트(author 객체)를 가져옵니다.
         context = super().get_context_data(**kwargs)

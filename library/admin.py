@@ -34,16 +34,19 @@ admin.site.register(Genre)
 
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
-    list_display = ('book__title', 'status', 'due_back')
+    list_display = ('book', 'status', 'borrower', 'due_back', 'id')
     list_filter = ('status',)
     list_select_related = ('book',)
     list_per_page = 20
+    search_fields = ( 'borrower',)
+    autocomplete_fields = ('borrower',)
+    
 
     fieldsets = (
         (None, {
             'fields': ('book', 'imprint', 'id')
         }),
         ('Availability', {
-            'fields': ('status', 'due_back')
+            'fields': ('status', 'due_back', 'borrower')
         }),
     )
