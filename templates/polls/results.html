@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Polls Home {% endblock %}
+{% block content %}
+{% include 'polls/polls-nav.html' %}
+<section>
+    <h1>Polls Result</h1>
+
+    <h2>{{ question.question_text }}</h2>
+    <ul>
+        {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text}} ({{ choice.votes }}명이 투표)
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% endblock %}

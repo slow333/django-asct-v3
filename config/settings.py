@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'docs',
     'store',
     'library',
+    'polls',
     # Crispy Forms
     'crispy_forms',
     'crispy_bootstrap5',

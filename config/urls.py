@@ -23,6 +23,7 @@ urlpatterns = [
     path('apps/asct/', include('asct.urls')),
     path('apps/store/', include('store.urls')),
     path('apps/library/', include('library.urls')),
+    path('apps/polls/', include('polls.urls')),
     path('docs/', include('docs.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
