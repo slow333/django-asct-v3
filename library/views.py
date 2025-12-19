@@ -32,18 +32,23 @@ def index(request):
 class BookListView(generic.ListView):
     model = Book
     paginate_by = 20
-    
-    # context_object_name = 'book_list'   # your own name for the list as a template variable
-    
-    # def get_queryset(self) -> QuerySet[Any]:
-    #     return Book.objects.filter(title__icontains='a')[:5]
-    # template_name = 'books/my_arbitrary_template_name_list.html'  # Specify your own template name/location
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get the context
-    #     context = super(BookListView, self).get_context_data(**kwargs)
-    #     # Create any data and add it to the context
-    #     context['some_data'] = 'This is just some data'
-    #     return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset().select_related('author')
+        author_id = self.request.GET.get('author_id')
+        if author_id:
+            queryset = queryset.filter(author__id=author_id)
+        return queryset
+    # template에 너어줄 list 이름(default: book_list)
+    context_object_name = 'books' 
+    # template으로 사용할 파일 지정(default: app_name/book_list.html)
+    template_name = 'library/book_list.html'
+    # 임의의 context 값을 넣어 주는 방법
+    def get_context_data(self, **kwargs):
+        context = super(BookListView, self).get_context_data(**kwargs)
+        # context에 필요한 값을 정의해서 넣어줌
+        context['book_count'] = Book.objects.count()
+        return context
 
 class BookDetailView(generic.DetailView):
     model = Book
@@ -54,8 +59,8 @@ class AuthorListView(generic.ListView):
     
     # book은 author model에 자동생성됨
     def get_queryset(self):
-        return Author.objects.annotate(book_count=Count('book'))
-
+        return Author.objects.annotate(author_book_count=Count('book'))
+    
 class AuthorDetailView(generic.DetailView):
     model = Author
     
@@ -66,3 +71,17 @@ class AuthorDetailView(generic.DetailView):
         # 저자의 책 목록을 컨텍스트에 추가합니다.
         context['author_books'] = Book.objects.filter(author=self.object) # type: ignore
         return context
+
+class BookInstanceListView(generic.ListView):
+    model = BookInstance
+    paginate_by = 20
+    
+class BookInstanceDetailView(generic.DetailView):
+    model = BookInstance
+
+class BookInstanceAvailableListView(generic.ListView):
+    model = BookInstance
+    paginate_by = 20
+    
+    def get_queryset(self):
+        return BookInstance.objects.filter(status__exact='a').select_related('book')

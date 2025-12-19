@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Local Library Catalog Home {% endblock %}
+{% block content %}
+{% include 'library/library-nav.html' %}
+<section>
+    <h1>Book Instance</h1>
+    <ul>
+        <li>책 제목: {{ bookinstance.book.title }}</li>
+        <li>책 상태: {{ bookinstance.get_status_display }}</li>
+        <li>빌린사람: {{ bookinstance.borrower }}, 반납일: {{ bookinstance.due_back }}</li>
+    </ul>
+</section>
+{% endblock %}

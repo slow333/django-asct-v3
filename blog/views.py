@@ -88,8 +88,3 @@ def blog_delete(request, pk):
         return redirect('blog-home')
     else:
         return render(request, 'blog/delete.html', {'post': post})
-
-
-
-def index(request):
-    return render(request, 'index.html')

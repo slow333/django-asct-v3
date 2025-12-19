@@ -13,6 +13,14 @@ def django_setup(requst):
 
 def django_orm(requst):
     return render(requst, 'docs/django/django-orm.html')
+
+def django_model(requst):
+    return render(requst, 'docs/django/about-models.html')
+
+def django_regexp(requst):
+    return render(requst, 'docs/django/regexp.html')
+
+
 # ============= flask ========================
 def flask_install(requst):
     return render(requst, 'docs/flask/install.html')

@@ -4,15 +4,13 @@
 {% block content %}
 {% include 'library/library-nav.html' %}
 <section>
-    <h1>Book List({{ book_count }}개의 책)</h1>
-        {% if books %}
+    <h1>BookInstance List</h1>
+        {% if bookinstance_list %}
         <ul>
-            {% for book in books %}
+            {% for bookinstance in bookinstance_list %}
             <li>
-                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.author }})
-            </li>
+                <a href="{{ bookinstance.get_absolute_url }}">{{ bookinstance.book.title }}</a> ({{ bookinstance.get_status_display }})</li>
             {% endfor %}
-            
         </ul>
         {% else %}
         <p>There are no books in the library.</p>

@@ -1,7 +1,8 @@
-{% extends 'library/library-base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %} Local Library Catalog Home {% endblock %}
 {% block content %}
+{% include 'library/library-nav.html' %}
 <section>
     <h1>{{ author.last_name }}, {{ author.first_name }}</h1>
 

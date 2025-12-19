@@ -1,14 +1,16 @@
-{% extends 'library/library-base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %} Author List {% endblock %}
 {% block content %}
+{% include 'library/library-nav.html' %}
 <section>
     <h1>Author List</h1>
         {% if author_list %}
         <ul>
             {% for author in author_list %}
             <li>
-                <a href="{{ author.get_absolute_url }}">{{ author.last_name }}, {{ author.first_name }}</a> ({{ author.book_count }})
+                <a href="{{ author.get_absolute_url }}">{{ author.last_name }} {{ author.first_name }}</a>
+                (<a href="{% url 'books' %}?author_id={{ author.id }}">{{ author.author_book_count }}</a>)
             </li>
             {% endfor %}
         </ul>

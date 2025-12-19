@@ -10,6 +10,7 @@ class IdolForm(ModelForm):
     class Meta:
         model = Idol
         fields = ['title','image', 'thumbnail']
+        
 
 class IdolTitleForm(ModelForm):
     def __init__(self, *args, **kwargs):

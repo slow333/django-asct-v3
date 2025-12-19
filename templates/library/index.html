@@ -1,17 +1,20 @@
-{% extends 'library/library-base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %} Local Library Catalog Home {% endblock %}
 {% block content %}
+{% include 'library/library-nav.html' %}
 <section>
     <h1>Local Library Home</h1>
     <p>Welcome to LocalLibrary, a website developed by <em>Mozilla Developer Network</em>!</p>
     <h2>Dynamic content</h2>
     <p>The library has the following record counts:</p>
     <ul class="mb-3">
-        <li><strong>Books:</strong> {{ num_books }}</li>
-        <li><strong>Copies:</strong> {{ num_instances }}</li>
-        <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
-        <li><strong>Authors:</strong> {{ num_authors }}</li>
+        <li><strong>Books:</strong> <a href="{% url 'books' %}">{{ num_books }}</a></li>
+        <li><strong>Copies:</strong> <a href="{% url 'bookinstances' %}" class="href">{{ num_instances }}</a> </li>
+        <li><strong>Copies available:</strong> 
+            <a href="{% url 'bookinstance-available' %}">{{ num_instances_available }}</a>
+        </li>
+        <li><strong>Authors:</strong><a href="{% url 'authors' %}"> {{ num_authors }}</a> </li>
         <li><strong>visits count:</strong> {{ num_visits }}</li>
     </ul>
     <h3>Local Library UML diagram</h3>
