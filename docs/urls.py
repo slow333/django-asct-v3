@@ -13,6 +13,7 @@ urlpatterns = [
     path('flask/core-crud', views.flask_core_crud, name='docs-flask-core-crud'),
     path('flask/db-setup', views.flask_db_setup, name='docs-flask-db-setup'),
 
+    path('psql/note', views.psql_note, name='docs-psql-note'),
     path('psql/datatype', views.psql_datatype, name='docs-psql-datatype'),
     path('psql/crud', views.psql_crud, name='docs-psql-crud'),
     path('psql/select', views.psql_select, name='docs-psql-select'),

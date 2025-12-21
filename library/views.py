@@ -1,5 +1,3 @@
-from typing import Any
-from django.db.models.query import QuerySet
 from django.db.models import Count
 from django.shortcuts import render
 from django.views import generic
@@ -9,12 +7,11 @@ def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
 
-    # Available books (status = 'a')
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
 
     # The 'all()' is implied by default.
     num_authors = Author.objects.count()
-    
+
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 

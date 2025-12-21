@@ -6,7 +6,7 @@
     {% if search_title %}
         <a href="{% url 'blog-home' %}" class="btn btn-outline-secondary btn-sm p-0" style="width:15%">초기화</a>
     {% endif %}
-        <button class="btn btn-primary btn-sm p-0" style="width:15%"><a href="{% url 'post-create' %}" class="text-white">New Post</a></button>
+        <button class="btn btn-primary btn-sm p-0" style="width:15%"><a href="{% url 'blog:post-create' %}" class="text-white">New Post</a></button>
     </form>
     {% for post in post_list %}
         <article class="media content-section">
@@ -20,7 +20,7 @@
                     <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
                 </div>
                 </div>
-                <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                <h2><a class="article-title" href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
                 <p class="article-content m-0">{{ post.content }}</p>
             </div>
         </article>

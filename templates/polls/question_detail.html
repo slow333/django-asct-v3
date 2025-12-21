@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Polls Detail {% endblock %}
+{% block content %}
+{% include 'polls/polls-nav.html' %}
+<section>
+    <h1>{{ question.question_text }}</h1>
+    <h4>생성일자 : {{ question.pub_date|date:"Y-m-d H:i" }}</h4>
+    <h4>분류 : 
+        {% for category in question.category.all %}
+            {{ category.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </h4>
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Vote" class="mt-3">
+    </form>
+    <a href="{% url 'polls:update' question.id %}" class="btn btn-info mt-3">질문 수정</a>
+    <a href="{% url 'polls:delete' question.id %}" class="btn btn-danger mt-3">질문 삭제</a>
+</section>
+
+{% endblock %}

@@ -9,16 +9,16 @@
     <h2>Dynamic content</h2>
     <p>The library has the following record counts:</p>
     <ul class="mb-3">
-        <li><strong>Books:</strong> <a href="{% url 'books' %}">{{ num_books }}</a></li>
-        <li><strong>Copies:</strong> <a href="{% url 'bookinstances' %}" class="href">{{ num_instances }}</a> </li>
+        <li><strong>Books:</strong> <a href="{% url 'library:books' %}">{{ num_books }}</a></li>
+        <li><strong>Copies:</strong> <a href="{% url 'library:bookinstances' %}" class="href">{{ num_instances }}</a> </li>
         <li><strong>Copies available:</strong> 
-            <a href="{% url 'bookinstance-available' %}">{{ num_instances_available }}</a>
+            <a href="{% url 'library:bookinstance-available' %}">{{ num_instances_available }}</a>
         </li>
-        <li><strong>Authors:</strong><a href="{% url 'authors' %}"> {{ num_authors }}</a> </li>
+        <li><strong>Authors:</strong><a href="{% url 'library:authors' %}"> {{ num_authors }}</a> </li>
         <li><strong>visits count:</strong> {{ num_visits }}</li>
     </ul>
     <h3>Local Library UML diagram</h3>
-    <img src="{% static 'library/images/local_library_model_uml.png' %}" alt="UML diagram"
+    <img src="{% static 'images/library/local_library_model_uml.png' %}" alt="UML diagram"
     style="width:650px; height:450px;">
 </section>
 

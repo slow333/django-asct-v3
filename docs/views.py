@@ -36,9 +36,11 @@ def flask_db_setup(requst):
 
 
 # ============= postgresql database ========================
-def psql_index(requst):
-    return render(requst, 'docs/postgresql/00-database_index.html')
+def psql_note(requst):
+    return render(requst, 'docs/postgresql/00-psql-note.html')
 
+def psql_index(requst):
+    return render(requst, 'docs/postgresql/00-database-index.html')
 
 def psql_datatype(requst):
     return render(requst, 'docs/postgresql/01-datatype.html')

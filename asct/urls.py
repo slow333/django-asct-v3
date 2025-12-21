@@ -2,8 +2,10 @@ from django.urls import path
 from . import views
 
 # apps/asct/
+app_name = 'asct'
+
 urlpatterns = [
-    path('', views.asct_home, name='asct-home'),
+    path('', views.asct_home, name='index'),
     # path('create/', views.blog_create, name='post-create'),
     # path('<int:pk>/update', views.blog_update, name='post-update'),
     # path('<int:pk>/delete', views.blog_delete, name='post-delete'),

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Polls form {% endblock %}
+{% block content %}
+{% include 'polls/polls-nav.html' %}
+<section>
+    <form method="post">
+    {% csrf_token %}
+        <legend><h1>질문을 입력하세요</h1></legend>
+        {{ form|crispy }}<br>
+        
+        {{ choice_formset.management_form }}
+        <div id="form-list">
+            {% for choice_form in choice_formset %}
+                {{ choice_form|crispy }}
+            {% endfor %}
+        </div>
+
+        <div id="empty-form" class="d-none">
+            {{ choice_formset.empty_form|crispy }}
+        </div>
+
+        <button id="add-more" type="button" class="btn btn-outline-secondary btn-sm mt-1">항목 추가</button>
+        <br>
+        <input type="submit" value="Submit" class="btn btn-primary mt-3">
+    </form>
+</section>
+
+<script>
+    document.getElementById('add-more').addEventListener('click', function() {
+        const formIdx = document.getElementById('id_choice_set-TOTAL_FORMS').value;
+        const emptyForm = document.getElementById('empty-form').innerHTML;
+        const newForm = emptyForm.replace(/__prefix__/g, formIdx);
+        document.getElementById('form-list').insertAdjacentHTML('beforeend', newForm);
+        document.getElementById('id_choice_set-TOTAL_FORMS').value = parseInt(formIdx) + 1;
+    });
+</script>
+
+{% endblock %}

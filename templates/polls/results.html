@@ -9,10 +9,14 @@
     <h2>{{ question.question_text }}</h2>
     <ul>
         {% for choice in question.choice_set.all %}
-        <li>{{ choice.choice_text}} ({{ choice.votes }}명이 투표)
-        </li>
+        {% if choice.votes > 0 %}
+        <li>{{ choice.choice_text}} ({{ choice.votes }} vote{{ choice.votes|pluralize }})</li>
+        {% else %}
+        <li>{{ choice.choice_text}} (0 vote)</li>
+        {% endif %}
         {% endfor %}
     </ul>
+    <a href="{% url 'polls:detail' question.id %}" class="btn btn-outline-success btn-sm mt-3">다시 투표할 수 있나요?</a>
 </section>
 
 {% endblock %}

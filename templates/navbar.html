@@ -8,12 +8,12 @@
             </div>
             <a class="nav-item nav-link" href="{% url 'docs-contents' %}">
                 <i class="bi bi-menu-button-wide-fill"></i> DOC</a>
-            <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="bi bi-blockquote-left"></i> Blog</a>
-            <a class="nav-item nav-link" href="{% url 'idol-home' %}"><i class="bi bi-images"></i></a>
-            <a class="nav-item nav-link" href="{% url 'asct-home' %}"><i class="bi bi-gear-wide-connected"></i> ASCT</a>
-            <a class="nav-item nav-link" href="{% url 'store-home' %}"><i class="bi bi-shop"></i></a>
-            <a class="nav-item nav-link" href="{% url 'library-home' %}"><i class="bi bi-journals"></i> Library</a>
-            <a class="nav-item nav-link" href="{% url 'polls:home' %}"><i class="bi bi-question-square"></i></a>
+            <a class="nav-item nav-link" href="{% url 'blog:index' %}"><i class="bi bi-blockquote-left"></i> Blog</a>
+            <a class="nav-item nav-link" href="{% url 'idols:index' %}"><i class="bi bi-images"></i></a>
+            <a class="nav-item nav-link" href="{% url 'asct:index' %}"><i class="bi bi-gear-wide-connected"></i> ASCT</a>
+            <a class="nav-item nav-link" href="{% url 'store:index' %}"><i class="bi bi-shop"></i></a>
+            <a class="nav-item nav-link" href="{% url 'library:index' %}"><i class="bi bi-journals"></i> Library</a>
+            <a class="nav-item nav-link" href="{% url 'polls:index' %}"><i class="bi bi-question-square"></i></a>
         </div>
         <div class="navbar-nav ms-auto">
             {% if user.is_authenticated %}
