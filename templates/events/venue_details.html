@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Events Home {% endblock %}
+{% block content %}
+{% include 'events/_nav.html' %}
+<section>
+    <h1>Venues Details</h1>
+    <div class="card" style="width: 80%;">
+        <h3 class="card-title text-center">{{ venue.name }}</h3>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ venue.address }}</li>
+            <li class="list-group-item">{{ venue.zip_code }} </li>
+            <li class="list-group-item">{{ venue.phone }}</li>
+            <li class="list-group-item">{{ venue.web }}</li>
+            <li class="list-group-item">{{ venue.email_address }}</li>
+        </ul>
+        <img src="{% static 'images/events/bp009.jpg' %}" 
+        class="card-img-top" alt="...">
+        <div class="p-3">
+            열리는 집회 목록 : 
+            {% for event in venue.event_set.all %}
+                <span><a href="{% url 'events:event-details' event.id %}">{{ event.name }}</a>
+                    {% if not forloop.last %}, {% endif %}
+                </span>
+            {% endfor %}
+            (총 {{ venue.event_set.count }} 곳)
+        </div>
+    </div>
+    <br>
+</section>
+
+{% endblock %}

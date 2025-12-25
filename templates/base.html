@@ -3,54 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="{% static 'favicon2.ico' %}">
-  {% block import %}{% endblock %}
-  <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="icon" href="{% static 'favicon2.ico' %}">
+    {% block import %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
 <body>
 
 <main role="main" class="container-lg mt-2">
-  <div class="row pt-2">
-    {% include 'navbar.html' %}
-    <div id="sidebarCol" class="col-md-3 p-0 m-0">
-      {% include 'sidebar.html' %}
+    <div class="row pt-2">
+        {% include 'navbar.html' %}
+        <div id="sidebarCol" class="col-md-3 p-0 m-0">
+        {% include 'sidebar.html' %}
+        </div>
+        <div id="mainContentCol" class="ps-3">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+        </div>
     </div>
-    <div id="mainContentCol" class="ps-3">
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-{{message.tags}}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-      {% block content %}{% endblock %}
-    </div>
-  </div>
-    <div class="pagination ms-3 mt-3">
     {% if is_paginated or page_obj %}
-        {% if page_obj.has_previous %}
-            <a href="?page=1" class="btn btn-outline-info mb-4">&laquo;</a>
-            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info mb-4">&lt;</a>
-        {% endif %}
-    
-        {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-                <a href="?page={{ num }}" class="btn btn-info mb-4">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                <a href="?page={{ num }}" class="btn btn-outline-info mb-4">{{ num }}</a>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+            </a>
+            </li>
             {% endif %}
-        {% endfor %}
-    
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info mb-4">&gt;</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info mb-4">&raquo;</a>
-        {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'4' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span> </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
     {% endif %}
-  </div>
+    
 </main>
-  
+
 <button id="scrollTopBtn" title="맨 위로 이동">Top</button>
 <script src="{% static 'js/scroll.to.top.js' %}"> </script>
 <script src="{% static 'css/popper.js' %}"></script>

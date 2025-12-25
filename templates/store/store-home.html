@@ -11,11 +11,11 @@
         <form method="get" class="search-bar d-flex align-items-center gap-1">
             {{ search_form|crispy }}
             <button class="btn btn-primary btn-sm mb-2" type="submit">Search</button>
-            <a class="btn btn-secondary btn-sm mb-2"  href="{% url 'product-create' %}">New Product</a>
+            <a class="btn btn-secondary btn-sm mb-2"  href="{% url 'store:product-create' %}">New Product</a>
             <button class="btn btn-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#filters-sidebar" >Filters >></button>
         </form>
 
-        <form method="post" action="{% url 'product-bulk-action' %}">
+        <form method="post" action="{% url 'store:product-bulk-action' %}">
             {% csrf_token %}
             <div class="d-flex align-items-center mb-3">
                 <select name="action" class="form-select" style="width: 200px;">

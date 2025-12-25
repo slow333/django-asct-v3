@@ -9,7 +9,7 @@ class Question(models.Model):
         help_text='질문을 션택하세요.'
     )
     pub_date = models.DateTimeField('생성날짜')
-    category = models.ManyToManyField('Category')
+    category = models.ManyToManyField('Category', blank=True)
     
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)

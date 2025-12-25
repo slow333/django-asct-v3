@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Events Home {% endblock %}
+{% block content %}
+{% include 'events/_nav.html' %}
+<section>
+    <h1>Events({{ year}}년 {{ month}}월)</h1>
+    {{ cal|safe }}
+    <ul>
+        
+    </ul>
+</section>
+
+{% endblock %}

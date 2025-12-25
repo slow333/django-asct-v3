@@ -19,6 +19,8 @@
             href="{% url 'library:index' %}">Library <i class="bi bi-journals"></i> </a>
         <a  class="list-group-item list-group-item-action {% is_active '/polls/' %} py-2 text-end fs-5" 
             href="{% url 'polls:index' %}">Polls <i class="bi bi-question-square"></i> </a>
+        <a  class="list-group-item list-group-item-action {% is_active '/events/' %} py-2 text-end fs-5" 
+        href="{% url 'events:index' %}">Events <i class="bi bi-calendar2-event"></i> </a>
     </div>
 
     <div class="text-white text-center btn btn-primary w-100 py-2 mt-3 fs-4">Documents</div>

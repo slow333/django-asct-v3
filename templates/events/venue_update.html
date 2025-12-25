@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Events Home {% endblock %}
+{% block content %}
+{% include 'events/_nav.html' %}
+<section>
+    <h1>Create Venue</h1>
+    <form action="{% url 'events:venue-update' venue.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+    
+</section>
+
+{% endblock %}

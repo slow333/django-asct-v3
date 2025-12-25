@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Events Home {% endblock %}
+{% block content %}
+{% include 'events/_nav.html' %}
+<section>
+    <h1>Event Details</h1>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ event.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{ event.event_date }}</h6>
+            <p class="card-text">{{ event.venue.name }}(참석자수: {{ event.attendees.count }})</p>
+            <p class="card-text">{{ event.description }}</p>
+            <a href="{% url 'events:venue-details' event.venue.id %}" class="card-link">장소 정보</a>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

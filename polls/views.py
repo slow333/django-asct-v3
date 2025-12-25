@@ -41,10 +41,11 @@ class CreateQuestionView(generic.CreateView):
             self.object = form.save(commit=False)
             self.object.pub_date = timezone.now()
             self.object.save()
+            form.save_m2m()
             choice_formset.instance = self.object
             choice_formset.save()
             messages.success(self.request, '질문이 생성되었습니다.')
-            return redirect(self.success_url)
+            return redirect(self.success_url) # type: ignore
         else:
             return self.render_to_response(self.get_context_data(form=form))
 
@@ -71,7 +72,7 @@ class QuestionUpdateView(generic.UpdateView):
             choice_formset.instance = self.object
             choice_formset.save()
             messages.success(self.request, '질문이 수정되었습니다.')
-            return redirect(self.success_url)
+            return redirect(self.success_url) # type: ignore
         else:
             return self.render_to_response(self.get_context_data(form=form))
 
@@ -82,7 +83,7 @@ class QuestionDeleteView(generic.DeleteView):
     
     def form_valid(self, form):
         messages.success(self.request, '질문이 삭제되었습니다.')
-        return super().form_valid(form)
+        return super().form_valid(form) # type: ignore
 
 class QuestionResultsView(generic.DetailView):
     model = Question

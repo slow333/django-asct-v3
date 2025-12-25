@@ -9,8 +9,8 @@
         <ul>
             {% for author in author_list %}
             <li>
-                <a href="{{ author.get_absolute_url }}">{{ author.last_name }} {{ author.first_name }}</a>
-                (<a href="{% url 'books' %}?author_id={{ author.id }}">{{ author.author_book_count }}</a>)
+                <a href="{% url 'library:author-detail' author.id %}">{{ author.last_name }} {{ author.first_name }}</a>
+                (<a href="{% url 'library:books' %}?author_id={{ author.id }}">{{ author.author_book_count }}</a>)
             </li>
             {% endfor %}
         </ul>
