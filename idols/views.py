@@ -4,9 +4,9 @@ from django.core.paginator import Paginator
 from .forms import IdolForm, IdolTitleForm
 from .models import Idol
 
-def idol_home(request):
+def index(request):
     idol_list = Idol.objects.order_by('title').all()
-    search_title = request.GET.get('search_title', '')
+    search_title = request.GET.get('searched', '')
     
     if search_title:
         idol_list = idol_list.filter(title__icontains=search_title)
@@ -67,4 +67,5 @@ def edit_title(request, pk):
             idol.title = form.cleaned_data['title']
             form.save()
             return redirect('idol-home')
-    return render(request, 'idol/upload.html', {'form': form})
+    return render(request, 'idol/upload.html', {'form': form})     
+        

@@ -221,7 +221,7 @@ code {
   }
 }
 
-/* 2. 새로운 breakpoint(1300px)에서 가roz 정렬 스타일 적용 */
+/* 2. 새로운 breakpoint(1300px)에서 정렬 스타일 적용 */
 @media (min-width: 1300px) {
   .list-group-horizontal-xxl {
     flex-direction: row;

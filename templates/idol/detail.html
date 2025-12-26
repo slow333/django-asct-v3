@@ -5,14 +5,14 @@
         <h2 class="m-0 mt-1">{{ idol.title }} <button class="btn btn-sm btn-link edit-idol-title-btn mt-3" id="toggle-form">✏️</button></h2>
         
         <div class="d-flex gap-2">
-            <form action="{% url 'idol-detail' idol.id %}" method="POST" class="gap-2 mt-3" id="toggled-form" style="display:none;">
+            <form action="{% url 'idols:detail' idol.id %}" method="POST" class="gap-2 mt-3" id="toggled-form" style="display:none;">
                 {% csrf_token %}
-                 {{ form.title }}
+                {{ form.title }}
                 <button type="submit" class="btn btn-outline-info btn-sm fs-6 mb-3">Save</button>
             </form>
-            <a href="{% url 'idol-update' idol.id %}" class="btn btn-outline-info btn-sm fs-6 my-3">Update</a>
-            <a href="{% url 'idol-home' %}" class="btn btn-outline-info btn-sm fs-6 my-3">Home</a>
-            <a href="{% url 'idol-delete' idol.id %}" class="btn btn-outline-danger btn-sm fs-6  my-3">Delete</a>
+            <a href="{% url 'idols:update' idol.id %}" class="btn btn-outline-info btn-sm fs-6 my-3">Update</a>
+            <a href="{% url 'idols:index' %}" class="btn btn-outline-info btn-sm fs-6 my-3">Home</a>
+            <a href="{% url 'idols:delete' idol.id %}" class="btn btn-outline-danger btn-sm fs-6  my-3">Delete</a>
         </div>
     </div>
     <div class="card">

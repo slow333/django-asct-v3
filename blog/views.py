@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Post
 from .forms import PostForm
-from store.forms import SearchForm
 from users.models import Profile
 
 def blog_home(request):
@@ -15,8 +14,7 @@ def blog_home(request):
         .order_by('author__username').all()
     
     # 검색 폼 처리
-    search_form = SearchForm(request.GET or None)
-    search_title = request.GET.get('search_title', '')
+    search_title = request.GET.get('searched', '')
     
     if search_title:
         post_list = post_list.filter(title__icontains=search_title)
@@ -27,7 +25,6 @@ def blog_home(request):
 
     context = {
         'page_obj': page_obj,
-        'search_form': search_form,
         'search_title': search_title,
         'post_list': page_obj,
     }

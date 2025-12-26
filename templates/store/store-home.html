@@ -8,7 +8,7 @@
         <h1>Welcome to the AI Store !</h1>
 
         <!-- Search Bar -->
-        <form method="get" class="search-bar d-flex align-items-center gap-1">
+        <form class="search-bar d-flex align-items-center gap-1">
             {{ search_form|crispy }}
             <button class="btn btn-primary btn-sm mb-2" type="submit">Search</button>
             <a class="btn btn-secondary btn-sm mb-2"  href="{% url 'store:product-create' %}">New Product</a>

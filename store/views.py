@@ -11,7 +11,6 @@ def home(request):
     query_set = Product.objects.select_related('collection').all()
     
     # Get filter, search, and sort parameters from the request
-    search_title = request.GET.get('search_title', '')
     collection_id = request.GET.get('collection')
     inventory_filter = request.GET.get('inventory')
     sort = request.GET.get('sort', 'title')
@@ -19,8 +18,10 @@ def home(request):
     
     # Search form
     search_form = SearchForm(request.GET or None)
+    search_title = ''
+    if search_form.is_valid():
+        search_title = search_form.cleaned_data['searched']
     
-    # Apply search and filters
     if search_title:
         query_set = query_set.filter(title__icontains=search_title)
     

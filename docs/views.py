@@ -33,6 +33,8 @@ def flask_core_crud(requst):
 
 def flask_db_setup(requst):
     return render(requst, 'docs/flask/db_setup.html')
+def django_datetime(requst):
+    return render(requst, 'docs/django/datetime.html')
 
 
 # ============= postgresql database ========================

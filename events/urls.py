@@ -11,14 +11,11 @@ urlpatterns = [
     path('event_create/', views.event_create, name='event-create'),
     path('event_details/<int:event_id>', views.event_details, name='event-details'),
     path('event_update/<int:event_id>', views.event_update, name='event-update'),
-    path('event_delete/<int:event_id>', views.event_delete, name='event-delete'),
-    path('event_search/', views.event_search, name='event-search'),
+    path('event_delete/<int:event_id>', views.event_delete, name='event-delete'), # type: ignore
     
     path('venues_list/', views.venues_list, name='venues-list'),
-    path('venue_create/', views.venue_create, name='venue-create'),
+    path('venue_create/', views.venue_create, name='venue-create'),  # type: ignore
     path('venue_details/<int:venue_id>/', views.venue_details, name='venue-details'),
     path('venue_update/<int:venue_id>/', views.venue_update, name='venue-update'),
-    path('venue_delete/<int:venue_id>/', views.venue_delete, name='venue-delete'),
-    path('venue_search/', views.venue_search, name='venue-search'),
-    
+    path('venue_delete/<int:venue_id>/', views.venue_delete, name='venue-delete'), # type: ignore
 ]

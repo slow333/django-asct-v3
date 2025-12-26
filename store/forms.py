@@ -7,13 +7,14 @@ class ProductForm(forms.ModelForm):
         fields = ['title', 'unit_price', 'inventory', 'collection', 'description']
 
 class SearchForm(forms.Form):
-    search_title = forms.CharField(
+    searched = forms.CharField(
         label='',
         max_length=100,
         required=False,
         widget=forms.TextInput(attrs={
-            'class': 'form-control mt-2 p-1',
-            'style': 'width:90%;',
-            'placeholder': '제목으로 검색...',
+            'class': 'form-control',
+            'placeholder': '검색...',
+            'style': 'width: 100%;',
+            'aria-label': '검색'
         })
     )

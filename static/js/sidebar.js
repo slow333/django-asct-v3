@@ -57,13 +57,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!mainCol || !sidebarCol || !sidebarToggleBtn) return;
         if (hidden) {
             sidebarCol.style.display = 'none';
-            mainCol.classList.remove('col-md-9');
+            mainCol.classList.remove('col-md-10');
             mainCol.classList.add('col-md-12');
             sidebarToggleBtn.setAttribute('aria-expanded', 'false');
         } else {
             sidebarCol.style.display = '';
             mainCol.classList.remove('col-md-12');
-            mainCol.classList.add('col-md-9');
+            mainCol.classList.add('col-md-10');
             sidebarToggleBtn.setAttribute('aria-expanded', 'true');
         }
     }

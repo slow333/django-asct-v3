@@ -3,16 +3,24 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Event, Venue, MyClubUser
+from .models import Event, Venue
 from .forms import VenueForm, EventForm
+import calendar
 
 def index(request, year=datetime.now().year, month=datetime.now().month):
     cal = HTMLCalendar().formatmonth(year, month)
+    month_name = list(calendar.month_name)[month]
+    time = datetime.now().strftime('%I:%M:%S %p')
     return render(request, 'events/index.html', 
-        { 'cal': cal, 'year': year, 'month': month, })
+        { 'cal': cal, 'year': year, 'month': month, 
+        'time': time, 'month_name': month_name,})
 
 def venues_list(request):
     venues = Venue.objects.all().order_by('-name')
+    search_venue = request.GET.get('searched', '')
+    
+    if search_venue:
+        venues = venues.filter(name__icontains=search_venue)
     
     pagenator = Paginator(venues, 10)
     page = request.GET.get('page')
@@ -30,15 +38,6 @@ def venue_create(request):
     else:
         form = VenueForm()
         return render(request, 'events/venue_create.html', {'form': form })
-
-def venue_search(request):
-    if request.method == 'POST':
-        searched = request.POST['venue_search']
-        venues = Venue.objects.filter(name__contains=searched)
-        return render(request, 'events/venue_search.html', 
-                    {'searched': searched, 'venues': venues})
-    else:
-        return render(request, 'events/venue_search.html')
 
 def venue_details(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
@@ -60,6 +59,11 @@ def venue_delete(request, venue_id):
 
 def events_list(request):
     events = Event.objects.all().order_by('-event_date')
+    search_event = request.GET.get('searched', '')
+    
+    if search_event:
+        events = events.filter(name__icontains=search_event)
+    
     pagenator = Paginator(events, 10)
     page = request.GET.get('page')
     page_obj = pagenator.get_page(page)
@@ -89,14 +93,6 @@ def event_delete(request, event_id):
     if request.method == 'POST':
         event.delete()
         return redirect('events:events-list')
-
-def event_search(request):
-    if request.method == 'POST':
-        searched = request.POST['event_search']
-        events = Event.objects.filter(name__contains=searched)
-        return render(request, 'events/event_search.html', {'searched': searched, 'events': events})
-    else:
-        return render(request, 'events/event_search.html', {})
 
 def event_detail(request, event_id):
     event = Event.objects.get(pk=event_id)

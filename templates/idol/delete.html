@@ -7,6 +7,6 @@
             <legend>Are you sure you want to delete {{ image.title }} image?</legend>            
         </fieldset>
         <button type="submit" class="btn btn-danger">Delete</button>
-        <a href="{% url 'idol-detail' image.id %}" class="btn btn-outline-info">Cancel</a>
+        <a href="{% url 'idols:detail' image.id %}" class="btn btn-outline-info">Cancel</a>
     </form>
 {% endblock %}
