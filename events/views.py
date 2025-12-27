@@ -8,7 +8,91 @@ from .forms import VenueForm, EventForm, EventFormAdmin, VenueFormAdmin
 import calendar
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+import csv
+import codecs
+# PDF generation imports(py -m pip install reportlab 명령어로 설치 필요)
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
+def venue_pdf(request):
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer, pagesize=letter, bottomup=0)
+    textobject = p.beginText()
+    textobject.setTextOrigin(inch, inch)
+    
+    # 한글 폰트 등록 (Windows: malgun.ttf, Mac: AppleGothic.ttf 등)
+    try:
+        pdfmetrics.registerFont(TTFont('Malgun', 'malgun.ttf'))
+        font_name = 'Malgun'
+    except:
+        font_name = 'Helvetica' # 폰트 파일이 없을 경우 기본 폰트 사용
+    textobject.setFont(font_name, 15)
+
+    venues = Venue.objects.all().order_by('name')
+    lines = []
+    for venue in venues:
+        lines.append(f"Name: {venue.name}")
+        lines.append(f"Address: {venue.address}")
+        lines.append(f"Zip Code: {venue.zip_code}")
+        lines.append(f"Phone: {venue.phone}")
+        lines.append(f"Web: {venue.web}")
+        lines.append(f"Email Address: {venue.email_address}")
+        lines.append(" ")
+
+    for line in lines:
+        textobject.textLine(line)
+        # 페이지 넘김 처리
+        if textobject.getY() > letter[1] - inch:
+            p.drawText(textobject)
+            p.showPage()
+            textobject = p.beginText()
+            textobject.setTextOrigin(inch, inch)
+            textobject.setFont(font_name, 15)
+
+    p.drawText(textobject)
+    p.showPage()
+    p.save()
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename='venues.pdf')
+
+def venue_csv(request):
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
+    response['Content-Disposition'] = 'attachment; filename="venues.csv"'
+    # 한글 깨짐 방지
+    response.write(codecs.BOM_UTF8)
+    
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Address', 'Zip Code', 'Phone', 'Web', 'Email Address'])
+    
+    venues = Venue.objects.all().order_by('name')
+    for venue in venues:
+        writer.writerow([venue.name, venue.address, venue.zip_code, venue.phone, venue.web, venue.email_address])
+    
+    return response
+
+def venue_text(request):
+    url_name = request.resolver_match
+    response = HttpResponse(content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename="venue_text.txt"'
+    
+    venues =Venue.objects.all().order_by('name')
+    lines = []
+    for venue in venues:
+        lines.append(f"{venue.name}\n")
+        lines.append(f"{venue.address}\n")
+        lines.append(f"{venue.zip_code}\n")
+        lines.append(f"{venue.phone}\n")
+        lines.append(f"{venue.web}\n")
+        lines.append(f"{venue.email_address}\n")
+        lines.append("\n")
+    response.writelines(lines)
+    return response
 
 def index(request, year=datetime.now().year, month=datetime.now().month):
     cal = HTMLCalendar().formatmonth(year, month)

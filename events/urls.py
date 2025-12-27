@@ -19,4 +19,8 @@ urlpatterns = [
     path('venue_details/<int:venue_id>/', views.venue_details, name='venue-details'),
     path('venue_update/<int:venue_id>/', views.venue_update, name='venue-update'),
     path('venue_delete/<int:venue_id>/', views.venue_delete, name='venue-delete'), # type: ignore
+    
+    path('venue_text/', views.venue_text, name='venue-text'),
+    path('venue_csv/', views.venue_csv, name='venue-csv'),
+    path('venue_pdf/', views.venue_pdf, name='venue-pdf'),
 ]
