@@ -9,7 +9,7 @@ admin.site.index_title = "Event 관리자 대시보드에 오신 것을 환영�
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     autocomplete_fields = ('manager','attendees')
-    list_display = ('name', 'event_date', 'venue')
+    list_display = ('name', 'event_date', 'venue', 'manager')
     list_filter = ('event_date', 'venue')
     ordering = ('-event_date',)
     list_select_related = ('venue','manager')
@@ -18,13 +18,14 @@ class EventAdmin(admin.ModelAdmin):
 
 class EventInline(admin.StackedInline):
     model = Event
-    extra = 3
+    extra = 0
     autocomplete_fields = ['manager']
 
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'phone')
+    list_display = ('name', 'address', 'phone', 'web', 'owner')
+    list_filter = ('owner',)
     ordering = ('name',)
     search_fields = ('name', 'address')
     inlines = [EventInline]

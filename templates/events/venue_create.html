@@ -4,8 +4,8 @@
 {% block content %}
 {% include 'events/_nav.html' %}
 <section>
-    <h1>Create Venue</h1>
-    <form action="{% url 'events:venue-create' %}" method="POST">
+    <h1>장소 등록하기</h1>
+    <form action="{% url 'events:venue-create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             {{ form.as_p }}

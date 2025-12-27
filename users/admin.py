@@ -35,7 +35,7 @@ class ProfileInline(admin.StackedInline):
 @admin.register(User)
 class UserCustomAdmin(UserAdmin):
     inlines = (ProfileInline, )
-    list_display = ['username', 'email', 'first_name', 'last_name', 'get_profile_image', 'is_staff', 'is_active']
+    list_display = ['username', 'first_name', 'get_profile_image', 'is_staff', 'is_active']
     list_editable = ['is_staff']
     search_fields = ['username', 'email', 'first_name', 'last_name']
     list_per_page = 20

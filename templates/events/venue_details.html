@@ -8,25 +8,33 @@
     <div class="card" style="width: 80%;">
         <h3 class="card-title text-center">{{ venue.name }}</h3>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ venue.address }}</li>
-            <li class="list-group-item">{{ venue.zip_code }} </li>
-            <li class="list-group-item">{{ venue.phone }}</li>
+            <li class="list-group-item">주소 : {{ venue.address }}({{ venue.zip_code }})</li>
+            <li class="list-group-item">전화번호: {{ venue.phone }}</li>
             <li class="list-group-item">{{ venue.web }}</li>
             <li class="list-group-item">{{ venue.email_address }}</li>
+            <li class="list-group-item">주최자 : {{ owner_name }}</li>
         </ul>
-        <img src="{% static 'images/events/bp009.jpg' %}" 
-        class="card-img-top" alt="...">
-        <div class="p-3">
-            열리는 집회 목록 : 
-            {% for event in venue.event_set.all %}
-                <span><a href="{% url 'events:event-details' event.id %}">{{ event.name }}</a>
-                    {% if not forloop.last %}, {% endif %}
-                </span>
-            {% endfor %}
-            (총 {{ venue.event_set.count }} 곳)
-        </div>
+        {% if venue.venue_image %}        
+        <img src="{{ venue.venue_image.url }}" class="card-img-top" alt="...">
+        {% endif %}
+        {% if not venue.event_set.count == 0 %}
+            <div class="p-3">
+                열리는 집회 목록 : 
+                {% for event in venue.event_set.all %}
+                    <span><a href="{% url 'events:event-details' event.id %}">{{ event.name }}</a>
+                        {% if not forloop.last %}, {% endif %}
+                    </span>
+                {% endfor %}
+                (총 {{ venue.event_set.count }} 곳)
+            </div>
+        {% else %}
+            <div class="p-3">
+                열리는 집회가 없습니다.
+            </div>
+        {% endif %}
     </div>
     <br>
+    <a href="{% url 'events:venues-list' %}" class="btn btn-secondary">장소 목록으로 돌아가기</a>
 </section>
 
 {% endblock %}

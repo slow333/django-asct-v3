@@ -25,7 +25,7 @@ class Idol(models.Model):
             super().save(*args, **kwargs)
     
     def get_absolute_url(self):
-        return reverse('idol-detail', kwargs={'pk': self.pk})
+        return reverse('idols:detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title

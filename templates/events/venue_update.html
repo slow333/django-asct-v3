@@ -4,15 +4,16 @@
 {% block content %}
 {% include 'events/_nav.html' %}
 <section>
-    <h1>Create Venue</h1>
-    <form action="{% url 'events:venue-update' venue.id %}" method="POST">
+    <h1>Edit Venue</h1>
+    <form action="{% url 'events:venue-update' venue.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             {{ form.as_p }}
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
-    
+    <a href="{% url 'events:event-create-venue' venue.id %}" class="btn btn-secondary mt-3">Create Event</a>
+
 </section>
 
 {% endblock %}

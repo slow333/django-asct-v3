@@ -24,7 +24,7 @@ def upload(request):
         form = IdolForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('idol-home')
+            return redirect('idols:index')
     else:
         form = IdolForm()
     return render(request, 'idol/upload.html', {'form': form})
@@ -36,7 +36,7 @@ def update(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "글이 수정되었습니다.")
-            return redirect('idol-detail', pk=idol.pk)
+            return redirect('idols:detail', pk=idol.pk)
     else:
         form = IdolForm(instance=idol)
     return render(request, 'idol/update.html', {'form': form, 'idol': idol})
@@ -47,7 +47,7 @@ def detail(request, pk):
         form = IdolTitleForm(request.POST, instance=idol)
         if form.is_valid():
             form.save()
-            return redirect('idol-detail', pk=idol.pk) # 수정 후 상세 페이지로 다시 리디렉션
+            return redirect('idols:detail', pk=idol.pk) # 수정 후 상세 페이지로 다시 리디렉션
     form = IdolTitleForm(instance=idol)
     return render(request, 'idol/detail.html', {'idol': idol, 'form': form})
 
@@ -55,7 +55,7 @@ def delete(request, pk):
     if request.method == 'POST':
         image = Idol.objects.get(pk=pk)
         image.delete()
-        return redirect('idol-home')
+        return redirect('idols:index')
     image = Idol.objects.get(pk=pk)
     return render(request, 'idol/delete.html', {'image': image})
 
@@ -66,6 +66,6 @@ def edit_title(request, pk):
             idol = Idol.objects.get(pk=pk)
             idol.title = form.cleaned_data['title']
             form.save()
-            return redirect('idol-home')
+            return redirect('idols:index')
     return render(request, 'idol/upload.html', {'form': form})     
         

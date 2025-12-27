@@ -5,13 +5,11 @@
 {% include 'events/_nav.html' %}
 <section>
     <h1>Create Event</h1>
-    <form action="{% url 'events:event-create' %}">
+    <form action="{% url 'events:event-create' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-primary">Create</button>
     </form>
-
-    
 </section>
 
 {% endblock %}

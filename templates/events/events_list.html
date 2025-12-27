@@ -20,7 +20,7 @@
             <div>장소: <a href="{% url 'events:venue-details' event.venue.id %}" class="card-link">{{ event.venue.name }}</a>(참석자수: {{ event.attendees.count }})</div>
             <div>by {{ event.manager }}</div>
         </div>
-        {% if event.manager.id == user.id %}
+        {% if event.manager.id == user.id or request.user.is_superuser %}
         <div class="text-end">
             <a href="{% url 'events:event-update' event.id %}" class="btn btn-outline-secondary btn-sm me-3">수정</a>
             <form action="{% url 'events:event-delete' event.id %}" method="POST" class="d-inline" onsubmit="return confirm('정말로 삭제하시겠습니까?');">

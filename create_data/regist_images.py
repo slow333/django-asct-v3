@@ -16,7 +16,7 @@ else:
     for dirpath, _, filenames in os.walk(image_folder_path):
         for filename in filenames:
             # 5. 이미지 파일 확장자인지 확인합니다.
-            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp')):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp', '.heic')):
                 file_path = os.path.join(dirpath, filename)
     
                 # 6. 이미지 파일을 엽니다.
