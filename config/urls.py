@@ -14,9 +14,8 @@ admin.site.index_title = "관리자 대시보드에 오신 것을 환영합니�
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('register/', user_views.register, name='register'),
-    path('profile/', user_views.profile_view, name='profile'),
+    path('users/', include('users.urls')),
+    path('users/', include('django.contrib.auth.urls')),
     path('', asct_views.index, name='main-home'),
     path('apps/idols/', include('idols.urls')),
     path('apps/blog/', include('blog.urls')),

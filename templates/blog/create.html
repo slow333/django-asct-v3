@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+{% include 'blog/_nav.html' %}
     <div class="content-section">
         <form method="post">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">New Post</legend>
-                {{ form|crispy }}
+                {{ form }}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info mb-3" type="submit">Save Post</button>
             </div>
-            <a class="ml-2" href="{% url 'blog-home' %}" class="text-muted">취소</a>
+            <a class="ml-2" href="{% url 'blog:index' %}" class="text-muted">취소</a>
         </form>
     </div>
 {% endblock %}

@@ -2,10 +2,11 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-        <form method="post">
+        <form method="post" action="{% url 'users:register' %}">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Now</legend>
+                <legend class="border-bottom mb-4">지금 등록하세요.</legend>
+                <br><br>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">

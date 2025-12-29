@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
+{% include 'blog/_nav.html' %}
     <article class="media content-section">
         <div class="article-metadata d-flex align-items-center justify-content-between">
             <div>
-                <img src="{{ post.author.profile.image.url }}" height="50" alt=""
-                    class="rounded-circle me-3">
-                {# <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a> #}
-                <a class="mr-2" href="/apps/blog/{{ post.author.username }}/user-posts">{{ post.author }}</a>
-                <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
+                <img src="{{ post.author.profile.image.url }}" alt=""
+                    class="rounded me-3">
+                </div>
             </div>
-            <div>
-                {% if post.author == user %}
-                  <a href="{% url 'post-update' post.id %}" 
-                    class="btn btn-outline-info btn-sm me-2">Edit</a>
-                  <a href="{% url 'post-delete' post.id %}"
-                    class="btn btn-outline-danger btn-sm">Delete</a>
-                {% endif %}
-            </div>
-        </div>
+            <a class="mr-2" href="{% url 'blog:user-posts' post.author.username %}">{{ post.author }}</a>
+            <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
+            <span class="badge bg-secondary">{{ post.get_category_display }}</span>
         <h2 class="article-title">{{ post.title }}</h2>
-        <p class="article-content m-0">{{ post.content }}</p>
+        <p class="article-content m-0">{{ post.content|safe }}</p>
+        <div class="d-flex align-items-center gap-2 mt-3">
+            {% if post.author == user or user.is_superuser %}
+                <a href="{% url 'blog:update' post.id %}" 
+                    class="btn btn-outline-info btn-sm">Edit</a>
+                <a href="{% url 'blog:delete' post.id %}"
+                    class="btn btn-outline-danger btn-sm">Delete</a>
+            {% endif %}
+            <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary btn-sm">Back to Home</a>
+        </div>
     </article>
+    <div class="mt-3">
+    </div>
 {% endblock %}

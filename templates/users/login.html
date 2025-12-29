@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="content-section">
+
+        {% if next %}
+            {% if user.is_authenticated %}
+            <p>권한이 없습니다.</p>
+            {% else %}
+            <p>먼저 로그인 하세요.</p>
+            {% endif %}
+        {% endif %}
+        <form method="post" action="{% url 'users:login' %}">
+            {% csrf_token %}
+            <legend>Log In</legend>
+            <br><br>
+            <div class="mb-3">
+                <label for="username" class="form-label">username</label>
+                <input type="text" class="form-control" name="username" id="username">
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password1">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <small class="text-muted ms-3 pb-2">암호를 잊어 버렸어요?
+            <a class="ml-2 pb-2" href="{% url 'password_reset' %}">암호 변경</a>
+            </small>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">계정이 없으면? 
+                <a class="ml-2" href="{% url 'users:register' %}">Sign Up Now</a>
+            </small>
+        </div>
+    </div>
+{% endblock %}

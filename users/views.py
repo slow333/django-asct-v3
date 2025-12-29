@@ -1,45 +1,63 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views import generic
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from .models import Profile
 
-def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            # message.debug, info, success, warning, error
-            messages.success(request, f'Account created for {username}!')
-            return redirect('login')
-    else:
-        form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+class LoginView(generic.View):
+    template_name = 'users/login.html'
 
-def logout_view(request):
-    auth.logout(request)
-    # return redirect('login')
-    return render(request, 'users/login.html')
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+    def post(self, request, *args, **kwargs):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, f'로그인 했습니다.({username})')
+            return redirect('main-home')
+        else:
+            messages.info(request, ('id와 password를 확인해주세요.'))
+            return redirect('users:login')
 
-@login_required
-def profile_view(request):
-    profile = Profile.objects.get(user=request.user)
+class LogoutView(generic.View):
+    def post(self, request, *args, **kwargs):
+        auth.logout(request)
+        return redirect('events:index')
+
+class UserRegisterView(generic.CreateView):
+    form_class = UserRegisterForm
+    template_name = 'users/register.html'
+    success_url = reverse_lazy('users:login')
+
+class ProfileView(LoginRequiredMixin, generic.View):
+    template_name = 'users/profile.html'
     
-    if request.method == 'POST':
+    def get(self, request, *args, **kwargs):
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+        context = {
+            'u_form': u_form,
+            'p_form': p_form,
+            'profile': request.user.profile
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, 
-                        request.FILES,
-                        instance=request.user.profile)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(request, f'Profile이 업데이트 되었습니다.')
-            redirect ('profile')
-    else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
-
-    context = {'u_form': u_form, 'p_form': p_form, 'profile': profile}
-    return render(request, 'users/profile.html', context)
-
+            return redirect('users:profile')
+        
+        context = {
+            'u_form': u_form,
+            'p_form': p_form,
+            'profile': request.user.profile
+        }
+        return render(request, self.template_name, context)

@@ -4,12 +4,17 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
+    # 추가 필드 정의 했지만 templet에서 crispy-forms을 적용해서 자동으로 처리함
     username = forms.CharField(label='사용자명')
-    email = forms.EmailField(label='이메일')
+    email = forms.EmailField(label='이메일', required=False, widget=forms.EmailInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+        widgets = {
+            'password1': forms.TextInput(attrs={'placeholder': '암호', 'type': 'password', 'class': 'form-control'}),
+            'password2': forms.TextInput(attrs={'placeholder': '암호 확인', 'type': 'password', 'class': 'form-control'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,7 +39,7 @@ class UserRegisterForm(UserCreationForm):
     }
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+    email = forms.EmailField(required=False)
 
     class Meta:
         model = User
