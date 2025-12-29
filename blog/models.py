@@ -17,6 +17,11 @@ class Post(models.Model):
         ('Music', '음악'),
         ('Movie', '영화'),
         ('Game', '게임'),
+        ('coding', '코딩'),
+        ('Politics', '정치'),
+        ('Science', '과학'),
+        ('Travel', '여행'),
+        ('Food', '음식'),
         ('Sports', '스포츠'),
     ]
     category = models.CharField(max_length=50, blank=True, null=True, 

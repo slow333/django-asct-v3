@@ -30,22 +30,25 @@ class PostListView(ListView):
         category = self.request.GET.get('category')
         if category:
             queryset = queryset.filter(category=category)
-            
-        return queryset
 
+        return queryset
+    
+    # GetContextData를 오버라이드하여 context에 추가 정보 전달 가능
+    # 이거 이해가 안됨. 모르겠음............
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # 카테고리별 게시글 수 집계
         categories = Post.objects.values('category').annotate(count=Count('id'))
+        print(categories)
         
         # 카테고리 코드를 디스플레이 이름으로 변환 (choices가 있는 경우)
         category_field = Post._meta.get_field('category')
-        if category_field.choices:
-            choices = dict(category_field.choices) # type: ignore
-            for cat in categories:
-                cat['name'] = choices.get(cat['category'], cat['category'])
+        choices = dict(category_field.choices) # type: ignore
+        print(choices)
         
         context['categories'] = categories
+        context['choices'] = choices
+        
         return context
 
 class PostDetailView(DetailView):
