@@ -35,10 +35,11 @@ INSTALLED_APPS = [
     'polls',
     'events',
     # Third-party apps
-    # Crispy Forms
     'crispy_forms',
     'crispy_bootstrap5',
     "debug_toolbar",
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -121,6 +122,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+CKEDITOR_UPLOAD_PATH = "uploads/%Y/%m/%d/"
 
 LOGIN_REDIRECT_URL = 'events:index'
 LOGIN_URL = 'users:login'

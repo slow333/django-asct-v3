@@ -1,53 +1,67 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.db.models import Q, Count
-from .models import Post
-from .forms import PostForm, PostFormAdmin
+from .models import Post, Category, Comment
+from .forms import PostForm, PostFormAdmin, CommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html'  # 앱이름/템플릿이름.html
-    # default context: object_list, post_list(paginated_by적용됨)
+    # default context: object_list, post_list(paginated_by 적용됨)
     # paginate_by가 적용되면 자동으로 page_obj라는 컨텍스트 변수가 추가됨
     # 수동으로 정의 => context_object_name = 'posts' 
     ordering = ['-updated_at']
     paginate_by = 5 
 
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.get_category = request.GET.get('category')
+
     def get_queryset(self):
         # select_related를 사용하여 author와 author의 profile을 미리 로드(join)합니다.
         queryset = super().get_queryset()\
             .select_related('author')\
-            .select_related('author__profile')
+            .select_related('author__profile')\
+            .select_related('category')\
+                .annotate(like_count=Count('likes'))
+
         search_title = self.request.GET.get('searched', '')
         if search_title:
             queryset = queryset.filter(Q(title__contains=search_title) | Q(author__username__icontains=search_title))
-        
-        category = self.request.GET.get('category')
-        if category:
-            queryset = queryset.filter(category=category)
+
+        if self.get_category:
+            if self.get_category == '미분류':
+                queryset = queryset.filter(category__isnull=True)
+            else:
+                queryset = queryset.filter(category__name=self.get_category)
 
         return queryset
     
     # GetContextData를 오버라이드하여 context에 추가 정보 전달 가능
-    # 이거 이해가 안됨. 모르겠음............
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # 카테고리별 게시글 수 집계
-        categories = Post.objects.values('category').annotate(count=Count('id'))
-        print(categories)
+    
+        # 카테고리 코드를 디스플레이 이름으로 변환
+        category_list = list(Category.objects.all().values('name')) # [{'name': '카테고리1'}, {'name': '카테고리2'}, ...]
+        # 각 카테고리별 게시글 수 집계
+        # [{'name': '카테고리1', 'count': 5}, {'name': '카테고리2', 'count': 3}, ...]
+        for cat in category_list:
+            cat['count'] = Post.objects.filter(category__name=cat['name']).count()
         
-        # 카테고리 코드를 디스플레이 이름으로 변환 (choices가 있는 경우)
-        category_field = Post._meta.get_field('category')
-        choices = dict(category_field.choices) # type: ignore
-        print(choices)
+        # 미분류(None) 카테고리 추가
+        none_category_count = Post.objects.filter(category__isnull=True).count()
+        category_list.append({'name': '미분류', 'count': none_category_count})
         
-        context['categories'] = categories
-        context['choices'] = choices
+        likes_count = Post.objects.annotate(like_count=Count('likes'))
+        
+        context['likes_count'] = likes_count
+        context['category_list'] = category_list
+        context['category'] = self.get_category or ''
         
         return context
 
@@ -62,6 +76,47 @@ class PostDetailView(DetailView):
         if referer and request.path not in referer:
             request.session['previous_url'] = referer
         return super().get(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comment = Comment.objects.filter(post=self.object).select_related('author').select_related('author__profile') # type: ignore
+        comment_form = CommentForm()
+        context['comment_form'] = comment_form
+        context['comments'] = comment
+        return context
+
+class AddCommentView(LoginRequiredMixin, CreateView):
+    model = Comment
+    fields = ['content']
+    template_name = 'blog/add_comment.html'
+
+    def form_valid(self, form):
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        form.instance.post = post
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = 'blog/delete_comment.html'
+
+    def get_success_url(self) -> str:
+        return reverse_lazy('blog:detail', kwargs={'pk': self.object.post.pk}) # type: ignore
+
+class EditCommentView(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/edit_comment.html'
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        return form
+
+    def form_valid(self, form):
+        messages.success(self.request, '댓글이 수정되었습니다.')
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse_lazy('blog:detail', kwargs={'pk': self.object.post.pk}) # type: ignore
 
 # form을 사용하여 게시글 생성
 # add, update, delete시에 기본으로 model의 get_absolute_url()을 호출하여 이동
@@ -166,3 +221,18 @@ class UserPostListView(ListView):
         queryset = queryset.filter(author=user).order_by('-updated_at')
         messages.success(self.request, f'{user.username} 님의 게시글 입니다.')
         return queryset
+
+class PostLikeView(LoginRequiredMixin, DetailView):
+    model = Post
+
+    def post(self, request, *args, **kwargs):
+        post = self.get_object()
+        user = request.user
+        if user in post.likes.all(): # type: ignore
+            post.likes.remove(user) # type: ignore
+            messages.info(request, 'You unliked the post.')
+        else:
+            post.likes.add(user) # type: ignore
+            messages.success(request, 'You liked the post.')
+        return_url = request.META.get('HTTP_REFERER', reverse_lazy('blog:detail', kwargs={'pk': post.pk}))
+        return redirect(return_url)

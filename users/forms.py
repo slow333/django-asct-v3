@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
@@ -38,15 +38,23 @@ class UserRegisterForm(UserCreationForm):
         'password_mismatch': "암호는 2개가 같아야 합니다.",
     }
 
-class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField(required=False)
+class UserUpdateForm(UserChangeForm):
+    email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'first_name', 'last_name', 'password']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+        widgets = {
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+        }
 

@@ -3,28 +3,32 @@
 {% include 'blog/_nav.html' %}
     <h1 class="mb-3">Posts by {{ username }}({{ page_obj.paginator.count }})</h1>
     {% for post in object_list %}
-        <article class="media content-section">
-            <div class="media-body">
-                <div class="article-metadata d-flex justify-content-between align-items-center">
-                <div>
-                    <img src="{{ post.author.profile.image.url }}" height="50" alt=""
-                    class="rounded-circle me-3">
-                    <a class="mr-2" href="{% url 'blog:user-posts' post.author.username %}">{{ post.author }}</a>
-                    <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
-                    <span class="badge bg-secondary">{{ post.get_category_display }}</span>
-                </div>
-                </div>
-                <h2><a class="article-title" href="{% url 'blog:detail' post.id %}">{{ post.title }}</a></h2>
-                <p class="article-content m-0">{{ post.content|safe }}</p>
+        <div class="border rounded-3 my-2 p-3">
+            <div class="d-flex align-items-end gap-2">
+                <img src="{{ post.author.profile.image.url }}" width="60" alt=""
+                class="rounded me-1"> 
+                <a href="{% url 'blog:user-posts' post.author.username %}">{{ post.author.username }}</a>
+                <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
+                <span class="badge bg-secondary">{{ post.category }}</span>
+                <small class="badge bg-info ms-2">{{ post.likes.count }} likes</small>
             </div>
+            <h3><a class="article-title pt-2" href="{% url 'blog:detail' post.id %}">{{ post.title }}</a></h3>
             <div>
-                    {% if post.author == user %}
-                    <a href="{% url 'blog:update' post.id %}" 
-                        class="btn btn-outline-info btn-sm me-2">Edit</a>
-                    <a href="{% url 'blog:delete' post.id %}"
-                        class="btn btn-outline-danger btn-sm">Delete</a>
-                    {% endif %}
-                </div>
+                {% if post.content|length > 60 %}
+                    {{ post.content|slice:":20" }} ...
+                {% else %}
+                    {{ post.content }}
+                {% endif %}
+            </div>
+            <div class="mt-2">
+                {% if post.author == user %}
+                <a href="{% url 'blog:update' post.id %}" 
+                    class="btn btn-outline-info btn-sm me-2">Edit</a>
+                <a href="{% url 'blog:delete' post.id %}"
+                    class="btn btn-outline-danger btn-sm">Delete</a>
+                {% endif %}
+            </div>
+            </div>
         </article>
     {% endfor %}
 {% endblock %}

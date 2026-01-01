@@ -7,7 +7,8 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">New Post</legend>
-                {{ form }}
+                {{ form.media }}
+                {{ form.as_p }}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info mb-3" type="submit">Save Post</button>

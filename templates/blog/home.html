@@ -1,43 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
 {% include 'blog/_nav.html' %}
-    <div class="row my-3">
-        <div class="col-md-8">
+    <div class="row mb-3">
+        <div class="col-md-8 mb-2">
             {% for post in object_list %}
-                <div class="border rounded-3 my-2 p-3">
-                    <div>
-                        <img src="{{ post.author.profile.image.url }}" width="60" alt=""
-                        class="rounded me-1"> 
-                        <a href="{% url 'blog:user-posts' post.author.username %}">{{ post.author.username }}</a>
-                        <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
-                        <span class="badge bg-secondary">{{ post.get_category_display }}</span>
-                    </div>
-                    <h3><a class="article-title pt-2" href="{% url 'blog:detail' post.id %}">{{ post.title }}</a></h3>
-                    <div>
-                        {% if post.content|length > 60 %}
-                            {{ post.content|slice:":20" }} ...
-                        {% else %}
-                            {{ post.content }}
-                        {% endif %}
+            <div class="border rounded-3 p-2 mb-2">
+                <div class="d-flex align-items-end gap-2">
+                    <img src="{{ post.author.profile.image.url }}" height="60" 
+                    class="rounded me-1"> 
+                    <div class="d-flex flex-column ms-2 w-100">
+                        <div class="d-flex align-items-end gap-2">
+                            <a href="{% url 'blog:user-posts' post.author.username %}">{{ post.author.username }}</a>
+                            <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
+                        </div>
+                        <div class="d-flex justify-content-start align-items-center gap-2 mt-1">
+                            <span class="badge text-bg-secondary">{{ post.category }}</span>
+                            <small class="badge text-bg-info">{{ post.likes.count }} likes</small>
+                            <small class="badge text-bg-success">{{ post.comments.count }} comments</small>
+                        </div>
                     </div>
                 </div>
+                <hr>
+                <div class="mb-2">
+                    <h3><a class="article-title pt-2" href="{% url 'blog:detail' post.id %}">{{ post.title }}</a></h3>
+                    <div>
+                        {{ post.content|striptags|truncatechars:100 }}
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         </div>
         <div class="col-md-4">
-            <div class="content-section my-2">
+            <div class="content-section mb-2">
                 <h3>Categories</h3>
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{% url 'blog:index' %}" class="text-decoration-none">All</a>
                     </li>
-                    {% for cat in categories %}
+                    {% for cat in category_list %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="{% url 'blog:index' %}?category={{ cat.category }}" class="text-decoration-none">
-                                {% for key, value in choices.items %}
-                                    {% if key == cat.category %}
-                                        {{ value }}
-                                    {% endif %}
-                                {% endfor %}
+                            <a href="{% url 'blog:index' %}?category={{ cat.name }}" class="text-decoration-none">
+                                {{ cat.name }}
                             </a>
                             <span class="badge bg-primary rounded-pill">{{ cat.count }}</span>
                         </li>

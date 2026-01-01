@@ -1,28 +1,91 @@
 {% extends "base.html" %}
 {% block content %}
 {% include 'blog/_nav.html' %}
-    <article class="media content-section">
-        <div class="article-metadata d-flex align-items-center justify-content-between">
-            <div>
-                <img src="{{ post.author.profile.image.url }}" alt=""
-                    class="rounded me-3">
-                </div>
-            </div>
+<div class="d-flex align-items-end mb-2 gap-2 border-bottom pb-2">
+    <div><img src="{{ post.author.profile.image.url }}" class="rounded me-3" height="90" alt="Profile Picture" ></div>
+    <div class="d-flex flex-column w-100">
+        <div class="mb-1">
             <a class="mr-2" href="{% url 'blog:user-posts' post.author.username %}">{{ post.author }}</a>
             <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
-            <span class="badge bg-secondary">{{ post.get_category_display }}</span>
-        <h2 class="article-title">{{ post.title }}</h2>
-        <p class="article-content m-0">{{ post.content|safe }}</p>
-        <div class="d-flex align-items-center gap-2 mt-3">
-            {% if post.author == user or user.is_superuser %}
-                <a href="{% url 'blog:update' post.id %}" 
-                    class="btn btn-outline-info btn-sm">Edit</a>
-                <a href="{% url 'blog:delete' post.id %}"
-                    class="btn btn-outline-danger btn-sm">Delete</a>
-            {% endif %}
-            <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary btn-sm">Back to Home</a>
+            <span class="badge bg-secondary">{{ post.category }}</span>
         </div>
-    </article>
-    <div class="mt-3">
+        <form action="{% url 'blog:like-post' post.id %}" method="POST" class="">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-sm">
+                {% if user in post.likes.all %} 좋아요 했어요 {% else %} 좋아요 {% endif %}
+                ({{ post.likes.count }} likes)
+            </button>
+        </form>
     </div>
+</div>
+<h2 class="article-title">{{ post.title }}</h2>
+<p class="article-content mb-3">{{ post.content|safe }}</p>
+<hr>
+<p>{{ comments.count }} comments</p>
+{% if comments.count > 0 %}
+    <ul class="list-group mb-3">
+        {% for comment in comments %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-start align-items-end gap-2 mb-2 border-bottom pb-1">
+                    <strong>{{ comment.author.username }}</strong> 
+                    <small class="text-muted">({{ comment.date_posted|date:"Y-m-d H:i" }})</small>
+                    {% if comment.author == user or user.is_superuser %}
+                        <form action="{% url 'blog:delete-comment' comment.id %}" method="POST" class="d-inline" onclick="return confirm('정말 삭제하시겠습니까?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger btn-sm py-0">삭제</button>
+                        </form>
+                        <button type="button" class="btn btn-outline-secondary btn-sm py-0" onclick="toggleEdit('{{ comment.id }}')">수정</button>
+                    {% endif %}
+                </div>
+                <div id="comment-content-{{ comment.id }}">
+                    <p>{{ comment.content|safe }}</p>
+                </div>
+                <div id="comment-edit-{{ comment.id }}" style="display: none;">
+                    <form action="{% url 'blog:edit-comment' comment.id %}" method="POST">
+                        {% csrf_token %}
+                        <textarea name="content" class="form-control mb-2" rows="3" required>{{ comment.content }}</textarea>
+                        <button type="submit" class="btn btn-primary btn-sm">저장</button>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="toggleEdit('{{ comment.id }}')">취소</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<form action="{% url 'blog:add-comment' post.id %}" method="POST" class="mb-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="content" class="form-label">댓글 달기:
+            {% if not user.is_authenticated %}
+                (로그인 후 댓글 작성 가능  <a href="{% url 'users:login' %}?next={{ request.path }}">로그인</a>)
+            {% endif %}
+        </label>
+        {{ comment_form.content }}
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+</form>
+<hr>
+<div class="d-flex align-items-center gap-2 mt-3">
+    {% if post.author == user or user.is_superuser %}
+        <a href="{% url 'blog:update' post.id %}" 
+            class="btn btn-outline-info btn-sm">Edit</a>
+        <a href="{% url 'blog:delete' post.id %}"
+            class="btn btn-outline-danger btn-sm">Delete</a>
+    {% endif %}
+    <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary btn-sm">Back to Home</a>
+</div>
+
+<script>
+    function toggleEdit(commentId) {
+        const contentDiv = document.getElementById(`comment-content-${commentId}`);
+        const editDiv = document.getElementById(`comment-edit-${commentId}`);
+        if (editDiv.style.display === 'none') {
+            editDiv.style.display = 'block';
+            contentDiv.style.display = 'none';
+        } else {
+            editDiv.style.display = 'none';
+            contentDiv.style.display = 'block';
+        }
+    }
+</script>
 {% endblock %}

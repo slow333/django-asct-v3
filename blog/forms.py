@@ -1,10 +1,10 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'category']
         labels = {
             'title': '제목',
             'title_tag': '슬러그',
@@ -23,7 +23,7 @@ class PostForm(forms.ModelForm):
             'category': forms.Select(attrs={
                 'class': 'form-select',
                 'style': 'margin-bottom: 10px;'}),
-        }
+            }
         
 class PostFormAdmin(forms.ModelForm):
     class Meta:
@@ -54,5 +54,20 @@ class PostFormAdmin(forms.ModelForm):
                 'style': 'margin-bottom: 10px;'}),
             'category': forms.Select(attrs={
                 'class': 'form-select',
+                'style': 'margin-bottom: 10px;'}),   
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'form-control', 
+                'placeholder': '댓글을 입력하세요',
+                'rows': 4,
                 'style': 'margin-bottom: 10px;'}),
+        }
+        labels = {
+            'content': '댓글 내용',
         }

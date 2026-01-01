@@ -29,7 +29,7 @@
                 {% csrf_token %}
                 <button class="nav-item nav-link btn btn-link" type="submit" style="padding:0;">Logout({{ user.username}})</button>
             </form>
-            <a class="nav-item nav-link" href="{% url 'users:profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'users:edit-profile' %}">Profile</a>
             {% else %}
             <a class="nav-item nav-link" href="{% url 'users:login' %}">Login</a>
             <a class="nav-item nav-link" href="{% url 'users:register' %}">Register</a>
