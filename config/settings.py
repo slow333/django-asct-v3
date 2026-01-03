@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'library',
     'polls',
     'events',
+    'todos',
     # Third-party apps
     'crispy_forms',
     'crispy_bootstrap5',
@@ -107,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 # LANGUAGE_CODE = 'en-us'
 # admin site를 한글로 보이게 함
-LANGUAGE_CODE = 'ko-kr'
+# LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 # TIME_ZONE = 'UTC'

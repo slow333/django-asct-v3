@@ -5,15 +5,19 @@
 {% include 'library/library-nav.html' %}
 <section>
     <h1>Author List</h1>
-        {% if author_list %}
-        <ul>
-            {% for author in author_list %}
-            <li>
-                <a href="{% url 'library:author-detail' author.id %}">{{ author.last_name }} {{ author.first_name }}</a>
-                (<a href="{% url 'library:books' %}?author_id={{ author.id }}">{{ author.author_book_count }}</a>)
-            </li>
+        {% if page_obj %}
+            {% for author in page_obj %}
+                <a class="fs-4 navbar-brand" href="{% url 'library:author-detail' author.id %}">{{ author.last_name }} {{ author.first_name }}</a>
+                <ul>
+                {% for book in author.book_set.all %}
+                    <li><a href="{% url 'library:book-detail' book.id %}">
+                    {{ book.title }}</a></li>
+                {% endfor %}
+                </ul>
+                {% if not forloop.last %}
+                <hr>
+                {% endif %}
             {% endfor %}
-        </ul>
         {% else %}
         <p>There are no authors in the library.</p>
         {% endif %}

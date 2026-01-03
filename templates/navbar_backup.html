@@ -6,10 +6,21 @@
             <div id="toggleCol" class="p-0 m-0">
                 <button id="sidebarToggleBtn" class="btn btn-md btn-border-secondary text-dark py-1 mt-1" aria-expanded="true" aria-controls="sidebarCol">☰</button>
             </div>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Apps </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'blog:index' %}"><i class="bi bi-blockquote-left"></i> Blog</a></li>
+                    <li><a class="dropdown-item" href="{% url 'idols:index' %}"><i class="bi bi-images"></i> Idols</a></li>
+                    <li><a class="dropdown-item" href="{% url 'asct:index' %}"><i class="bi bi-gear-wide-connected"></i> ASCT</a></li>
+                    <li><a class="dropdown-item" href="{% url 'store:index' %}"><i class="bi bi-shop"></i> Store</a></li>
+                    <li><a class="dropdown-item" href="{% url 'library:index' %}"><i class="bi bi-journals"></i> Library</a></li>
+                    <li><a class="dropdown-item" href="{% url 'polls:index' %}"><i class="bi bi-question-square"></i> Polls</a></li>
+                    <li><a class="dropdown-item" href="{% url 'events:index' %}"><i class="bi bi-calendar2-event"></i> Events</a></li>
+                </ul>
+            </div>
             <div class="nav nav-tabs">
                 <li class="nav-item">
                 <a class="nav-link {% if '/docs/' in request.path %} active {% endif %}" href="{% url 'docs-contents' %}"> DOC</a></li>
-                <a class="nav-link {% if '/todos/' in request.path %} active {% endif %}" href="{% url 'todos:index' %}">TODOs</a></li>
                 <li class="nav-item">
                     <a class="nav-link {% if '/blog/' in request.path %} active {% endif %}" href="{% url 'blog:index' %}"> Blog</a>
                     </li>

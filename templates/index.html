@@ -27,9 +27,8 @@
     <li>Maintenance</li>
     <li>Revalidation</li>
   </ol>
-</section>
-<section>
-  <h1>설치 패키지: requirments.txt</h1>
+
+  <h3>설치 패키지: requirments.txt</h3>
   <pre>asgiref==3.10.0
 crispy-bootstrap5==2025.6
 Django==5.2.8
@@ -40,23 +39,21 @@ pip==25.3
 psycopg2==2.9.11
 sqlparse==0.5.3
 tzdata==2025.2</pre>
-</section>
-<section>
-  <h1>전체 프로젝트 설치 및 시행 기초</h1>
+
+  <h3>전체 프로젝트 설치 및 시행 기초</h3>
   <p>암호: admin/admin, test/test4321</p>
   <h3>start Django project</h3>
   <pre>django-admin startproject myproject
 cd myproject
 python manage.py runserver</pre>
-  <h3>create an app</h3>
+  <h4>create an app</h4>
   <pre>python manage.py startapp myapp</pre>
-  <h3>Configure settings: Edit myproject/settings.py</h3>
+  <h4>Configure settings: Edit myproject/settings.py</h4>
   <pre>INSTALLED_APPS = [
     # ...
     'myapp.apps.MyappConfig',
 ]</pre>
-</section>
-<section>
+
     <h3>project structure</h3>
 <pre>
 /asct-v4
@@ -76,11 +73,9 @@ python manage.py runserver</pre>
   /templates : 템플릿 위치(config.settings에서 설정 필요)
 manage.py
 </pre>
-<h3>runserver</h3>
+<h4>runserver</h4>
 <pre>python manage.py runserver</pre>
-</section>
 
-<section>
   <h3>superuser 생성</h3>
   <pre>python manage.py createsuperuser
 # db migration이 없어서 애러남
@@ -114,7 +109,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
   </pre>
 </section>
 <section>
-  <h2>postgresql db 설정</h2>
+  <h3>postgresql db 설정</h3>
   <h3>project에서 pip install psycopg2 설치 필요(그냥 하면 안됨)</h3>
   <pre>pip install psycopg2-binary</pre>
   <h3>별도 서버에 postgresql DB 설치</h3>
@@ -138,7 +133,7 @@ sudo systemctl restart postgresql
 psql -h localhost -U postgres -W</pre>
 </section>
 <section>
-  <h2>json 파일에서 데이터 가져오기</h2>
+  <h3>json 파일에서 데이터 가져오기</h3>
   <pre>import json
 with open('blog/post_data.json', 'r') as f:
   posts_json = json.load(f)
@@ -147,12 +142,17 @@ for p in posts_json:
   post.save()</pre>
 </section>
 <section>
-  <h2>db에서 테이블 삭제시 재설정 방법</h2>
+  <h3>db에서 테이블 삭제시 재설정 방법</h3>
   <p>db table을 대규모로 변경하면 변경사항이 잘 적용이 안됨
 <br> 이때 db table를 강제로 삭제하면 다시 migrate해도 테이블이 생성되지 않음
 <br>이때 db table 을 신규로 생성하기 위한 방법</p>
   <pre>python manage.py migrate asct zero --fake   # asct는 app name
 python manage.py migrate asct</pre>
+</section>
+<section>
+  <h3>Gemini 애러 해결</h3>
+  <p>2.55.0 버젼 설치하면 애러 없음(아니면 계속 애러남)</p>
+  <p>uninstall 항목에 가면 특정 버젼 설치 항목 보임</p>
 </section>
 <section>
   <h4>etc backup</h4>

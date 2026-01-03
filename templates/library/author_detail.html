@@ -14,7 +14,7 @@
 
         {% for book in author_books %}
             <hr>
-            <p><strong>Title:</strong> <a href="{{ book.get_absolute_url }}">{{ book.title }}</a></p>
+            <p><strong>Title:</strong> <a href="{% url 'library:book-detail' book.id %}">{{ book.title }}</a></p>
             <p><strong>Summary:</strong> {{ book.summary }}</p>
         {% endfor %}
   </div>

@@ -3,7 +3,7 @@
 {% include 'blog/_nav.html' %}
     <div class="row mb-3">
         <div class="col-md-8 mb-2">
-            {% for post in object_list %}
+            {% for post in page_obj %}
             <div class="border rounded-3 p-2 mb-2">
                 <div class="d-flex align-items-end gap-2">
                     <img src="{{ post.author.profile.image.url }}" height="60" 

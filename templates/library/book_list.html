@@ -5,15 +5,19 @@
 {% include 'library/library-nav.html' %}
 <section>
     <h1>Book List({{ book_count }}개의 책)</h1>
-        {% if books %}
-        <ul>
-            {% for book in books %}
-            <li>
-                <a href="{% url 'library:book-detail' book.id %}">{{ book.title }}</a> ({{ book.author }})
-            </li>
+        {% if page_obj %}
+        <table>
+            <tr>
+                <th class="text-center">제목</th>
+                <th class="text-center">작가</th>
+            </tr>
+            {% for book in page_obj %}
+            <tr>
+                <td> <a href="{% url 'library:book-detail' book.id %}">{{ book.title }}</a> </td>
+                <td> {{ book.author }} </td>
+            </tr>
             {% endfor %}
-            
-        </ul>
+        </table>
         {% else %}
         <p>There are no books in the library.</p>
         {% endif %}

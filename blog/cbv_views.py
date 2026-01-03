@@ -47,7 +47,8 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
     
         # 카테고리 코드를 디스플레이 이름으로 변환
-        category_list = list(Category.objects.all().values('name')) # [{'name': '카테고리1'}, {'name': '카테고리2'}, ...]
+        # category_list = [{'name': '카테고리1'}, {'name': '카테고리2'}, ...]
+        category_list = list(Category.objects.all().values('name')) 
         # 각 카테고리별 게시글 수 집계
         # [{'name': '카테고리1', 'count': 5}, {'name': '카테고리2', 'count': 3}, ...]
         for cat in category_list:
@@ -165,7 +166,7 @@ class PostAddView(LoginRequiredMixin, CreateView):
 
 class PostUpdateFormView(LoginRequiredMixin, UpdateView):
     model = Post
-    form_class = PostForm
+    # form_class = PostForm
     template_name = 'blog/update.html'
     
     def get_form_class(self):

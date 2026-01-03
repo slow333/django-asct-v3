@@ -7,7 +7,6 @@ from .models import Event, Venue
 from .forms import VenueForm, EventForm, EventFormAdmin, VenueFormAdmin
 import calendar
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 import csv
 import codecs
@@ -178,39 +177,6 @@ def events_list(request):
     page_obj = pagenator.get_page(page)
     return render(request, 'events/events_list.html',{'page_obj': page_obj,})
 
-def event_create_venue(request, venue_id):
-    if not request.user.is_authenticated:
-        messages.success(request, "이벤트를 생성하려면 로그인이 필요합니다.")
-        return redirect('login')
-    if request.method == 'POST':
-        if request.user.is_superuser:
-            form = EventFormAdmin(request.POST or None)
-            if form.is_valid():
-                event = form.save(commit=False)
-                if venue_id:
-                    venue = get_object_or_404(Venue, pk=venue_id)
-                    event.venue = venue
-                event.save()
-                messages.info(request, "이벤트가 생성되었습니다.")
-                return redirect('events:events-list')
-        else:
-            form = EventForm(request.POST or None)
-            if form.is_valid():
-                event = form.save(commit=False)
-                event.manager = request.user
-                if venue_id:
-                    venue = get_object_or_404(Venue, pk=venue_id)
-                    event.venue = venue
-                event.save()
-                messages.info(request, "이벤트가 생성되었습니다.")
-                return redirect('events:events-list')
-    else:
-        if request.user.is_superuser:
-            form = EventFormAdmin()
-        else:
-            form = EventForm()
-    return render(request, 'events/event_create.html', {'form': form })
-
 def event_create(request):
     if not request.user.is_authenticated:
         messages.success(request, "이벤트를 생성하려면 로그인이 필요합니다.")
@@ -218,24 +184,26 @@ def event_create(request):
     if request.method == 'POST':
         if request.user.is_superuser:
             form = EventFormAdmin(request.POST or None)
-            if form.is_valid():
-                form.save()
-                messages.info(request, "이벤트가 생성되었습니다.")
-                return redirect('events:events-list')
         else:
             form = EventForm(request.POST or None)
-            if form.is_valid():
-                event = form.save(commit=False)
+        if form.is_valid():
+            event = form.save(commit=False)
+            if not request.user.is_superuser:
                 event.manager = request.user
-                event.save()
-                messages.info(request, "이벤트가 생성되었습니다.")
-                return redirect('events:events-list')
+            # if venue_id:
+            #     venue = get_object_or_404(Venue, pk=venue_id)
+            #     event.venue = venue
+            #     event.save()
+            event.save()
+            messages.info(request, "이벤트가 생성되었습니다.")
+            return redirect('events:events-list')
     else:
         if request.user.is_superuser:
             form = EventFormAdmin()
         else:
             form = EventForm()
     return render(request, 'events/event_create.html', {'form': form })
+
 
 def event_details(request, event_id):
     
@@ -247,7 +215,10 @@ def event_update(request, event_id):
         messages.success(request, "이벤트를 수정하려면 로그인이 필요합니다.")
         return redirect('login')
     event = Event.objects.get(pk=event_id)
-    form = EventForm(request.POST or None, instance=event)
+    if request.user.is_superuser:
+        form = EventFormAdmin(request.POST or None, instance=event)
+    else:
+        form = EventForm(request.POST or None, instance=event)
     if form.is_valid():
         form.save()
         return redirect('events:events-list')

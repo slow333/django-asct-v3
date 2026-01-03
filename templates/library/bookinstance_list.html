@@ -5,15 +5,21 @@
 {% include 'library/library-nav.html' %}
 <section>
     <h1>BookInstance List</h1>
-        {% if bookinstance_list %}
-        <ul>
-            {% for bookinstance in bookinstance_list %}
-            <li>
-                <a href="{{ bookinstance.get_absolute_url }}">{{ bookinstance.book.title }}</a> ({{ bookinstance.get_status_display }})</li>
+        {% if page_obj %}
+        <table>
+            <tr>
+                <th class="text-center">제목</th>
+                <th class="text-center">상태</th>
+            </tr>
+            {% for bookinstance in page_obj %}
+            <tr>
+                <td> <a href="{% url 'library:bookinstance-detail' bookinstance.id %}">{{ bookinstance.book.title }}</a></td>
+                <td> {{ bookinstance.get_status_display }} </td>
+            </tr>
             {% endfor %}
-        </ul>
+        </table
         {% else %}
-        <p>There are no books in the library.</p>
+            <p> There are no books in the library.</p>
         {% endif %}
 </section>
 {% endblock %}

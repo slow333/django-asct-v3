@@ -6,11 +6,14 @@ app_name = 'library'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('books/', views.BookListView.as_view(), name='books'),
-    path('authors/', views.AuthorListView.as_view(), name='authors'),
-    path('bookinstances/', views.BookInstanceListView.as_view(), name='bookinstances'),
-    path('book/<int:pk>', views.BookDetailView.as_view(), name='book-detail'),
-    path('author/<int:pk>', views.AuthorDetailView.as_view(), name='author-detail'),
-    path('bookinstance/<uuid:pk>', views.BookInstanceDetailView.as_view(), name='bookinstance-detail'),
-    path('bookinstance_available/', views.BookInstanceAvailableListView.as_view(), name='bookinstance-available'),
+    path('books/', views.book_list, name='books'),
+    path('authors/', views.author_list, name='authors'),
+    path('bookinstances/', views.book_instances, name='bookinstances'),
+    path('book/<int:pk>', views.book_detail, name='book-detail'),
+    path('author/<int:pk>', views.author_detail, name='author-detail'),
+    path('bookinstance/<uuid:pk>', views.book_instance_detail, name='bookinstance-detail'),
+    path('bookinstance_available/', views.book_instance_available, name='bookinstance-available'),
+    path('book_instance_status_change/<uuid:pk>', views.book_instance_status_change, name='book_instance_status_change'),
+    
+    
 ]

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Todos Home {% endblock %}
+{% block content %}
+{% include 'todos/_nav.html' %}
+<div class="text-center">
+    <h1>Todos Dashoard</h1>
+    {{ cal|safe }}
+    <ul>
+        
+    </ul>
+</div>
+<div class="text-center">Copyright &copy; {{ year }}</div>
+{% endblock %}

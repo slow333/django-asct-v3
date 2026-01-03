@@ -1,5 +1,21 @@
-<ul class="library-sidebar-nav">
-  <li><a href="{% url 'library:index' %}" class="btn btn-outline-primary">Home</a></li>
-  <li><a href="{% url 'library:books' %}" class="btn btn-outline-secondary">All books</a></li>
-  <li><a href="{% url 'library:authors' %}" class="btn btn-outline-secondary">All authors</a></li>
-</ul>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-0 rounded-3 mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'library:index' %}">Library</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'library:books' %}">Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'library:authors' %}">Authors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'library:bookinstances' %}">Book Instances</a>
+            </li>
+        </ul>
+        <span class="me-3 text-info">{{page_obj.paginator.count}}</span>
+        <form class="d-flex rounded-3" role="search" >
+            <input class="form-control me-2 py-0" type="search" placeholder="Search books" name='searched'/>
+            <button class="btn btn-outline-success btn-sm py-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>

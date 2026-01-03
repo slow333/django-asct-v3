@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Django model field TYPE {% endblock %}
+
+{% block content %}
+    <section>
+    <h3>Password Reset 구현</h3>
+    <h4>1. URL 설정 (urls.py)</h4>
+    <pre>from django.urls import path, include
+
+urlpatterns = [
+    # ...
+    path('accounts/', include('django.contrib.auth.urls')),
+]</pre>
+    <h4>2. Settings 설정 (settings.py)</h4>
+    <pre># 개발 환경 (Console 출력)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'</pre>
+    <h4>3. 필요 템플릿 (templates/registration/)</h4>
+    <ul>
+        <li>password_reset_form.html</li>
+        <li>password_reset_done.html</li>
+        <li>password_reset_confirm.html</li>
+        <li>password_reset_complete.html</li>
+    </ul>
+</section>
+{% endblock %}

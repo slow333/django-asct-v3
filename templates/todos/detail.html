@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% include 'todos/_nav.html' %}
+    <div class="border rounded-3 p-2">
+        <div class="d-flex gap-3 align-items-end justify-content-star">
+            <h3><a href="{% url 'todos:update' todo.id %}">{{ todo.title }}</a></h3>
+            <div class="pb-2">
+                <small class="text-muted">on {{ todo.created_at|date:"Y-m-d H:i"}} </small>
+                <small class="text-muted">by {{ todo.user.username }} </small>
+            </div>
+        </div>
+        <hr>
+        <div>{{ todo.content|safe }} </div>
+        <a href="{% url 'todos:index' %}">GO LIST</a>
+    </div>
+{% endblock %}

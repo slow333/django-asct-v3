@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% include 'todos/_nav.html' %}
+<div class="d-flex flex-column justify-content-start align-items-start gap-3">
+    <div class="border" style="width: 100%; padding:2rem;margin:auto;">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <button class="btn btn-success">수정하기</button>
+        </form>
+        <br>
+        <a href="{% url 'todos:index' %}">Go List</a>
+    </div>
+</div>
+{% endblock %}

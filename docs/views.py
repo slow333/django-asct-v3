@@ -20,6 +20,8 @@ def django_model(requst):
 def django_regexp(requst):
     return render(requst, 'docs/django/regexp.html')
 
+def django_django_howto(requst):
+    return render(requst, 'docs/django/django-howto.html')
 
 # ============= flask ========================
 def flask_install(requst):

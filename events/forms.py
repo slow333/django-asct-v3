@@ -56,7 +56,6 @@ class VenueChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return f"{obj.name} ({obj.event_set.count()})" # type: ignore
 
-
 class EventFormAdmin(forms.ModelForm):
     venue = VenueChoiceField(
         queryset=Venue.objects.all().order_by('name'), 
@@ -68,9 +67,9 @@ class EventFormAdmin(forms.ModelForm):
     manager = forms.ModelChoiceField(
         queryset=User.objects.all().order_by('username'), 
         required=False, 
-        label='',
+        label='관리자',
         empty_label='관리자 선택',
-        widget=forms.Select(attrs={'class': 'form-select'}))
+        widget=forms.Select(attrs={'class': 'form-select', 'placeholder': '관리자 선택'}))
     attendees = forms.ModelMultipleChoiceField(
         queryset=MyClubUser.objects.all().order_by('-first_name'), 
         required=False, 
@@ -84,7 +83,7 @@ class EventFormAdmin(forms.ModelForm):
         labels = {
             'name': '',
             'event_date': '',
-            'manager': '',
+            'manager': '관리자',
             'description': '',
         }
         widgets = {

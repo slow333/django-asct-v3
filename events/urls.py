@@ -9,7 +9,7 @@ urlpatterns = [
     
     path('events_list/', views.events_list, name='events-list'),
     path('event_create/', views.event_create, name='event-create'),
-    path('event_create/<int:venue_id>/', views.event_create_venue, name='event-create-venue'),
+    # path('event_create/<int:venue_id>/', views.event_create_venue, name='event-create-venue'),
     path('event_details/<int:event_id>', views.event_details, name='event-details'),
     path('event_update/<int:event_id>', views.event_update, name='event-update'),
     path('event_delete/<int:event_id>', views.event_delete, name='event-delete'), # type: ignore

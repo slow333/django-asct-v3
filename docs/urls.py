@@ -8,6 +8,7 @@ urlpatterns = [
     path('django/model', views.django_model, name='django-model'),
     path('django/regexp', views.django_regexp, name='django-regexp'),
     path('django/datetime', views.django_datetime, name='django-datetime'),
+    path('django/django-howto', views.django_django_howto, name='django-howto'),
 
     path('flask/install', views.flask_install, name='docs-flask-install'),
     path('flask/note', views.flask_note, name='docs-flask-note'),

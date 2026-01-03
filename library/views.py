@@ -2,6 +2,7 @@ from django.db.models import Count
 from django.shortcuts import render
 from django.views import generic
 from library.models import Book, BookInstance, Author
+from django.core.paginator import Paginator
 
 def index(request):
     num_books = Book.objects.all().count()
@@ -26,59 +27,90 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'library/index.html', context=context)
 
-class BookListView(generic.ListView):
-    model = Book
-    paginate_by = 20
-
-    def get_queryset(self):
-        queryset = super().get_queryset().select_related('author')
-        author_id = self.request.GET.get('author_id')
-        if author_id:
-            queryset = queryset.filter(author__id=author_id)
-        return queryset
-    # template에 너어줄 list 이름(default: book_list)
-    context_object_name = 'books' 
-    # template으로 사용할 파일 지정(default: app_name/book_list.html)
-    template_name = 'library/book_list.html'
-    # 임의의 context 값을 넣어 주는 방법
-    def get_context_data(self, **kwargs):
-        context = super(BookListView, self).get_context_data(**kwargs)
-        # context에 필요한 값을 정의해서 넣어줌
-        context['book_count'] = Book.objects.count()
-        return context
-
-class BookDetailView(generic.DetailView):
-    model = Book
-
-class AuthorListView(generic.ListView):
-    model = Author
-    paginate_by = 20
+def book_list(request):
+    queryset = Book.objects.all().select_related('author')
+    author_id = request.GET.get('author_id')
+    if author_id:
+        queryset = queryset.filter(author__id=author_id)
+        
+    search_query = request.GET.get('searched','')
+    if search_query:
+        queryset = queryset.filter(title__icontains=search_query)
+        
+    paginator = Paginator(queryset, 20)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
     
-    # book은 author model에 자동생성됨
-    def get_queryset(self):
-        return Author.objects.annotate(author_book_count=Count('book'))
+    book_count = Book.objects.count()
+    context = {
+        'page_obj': page_obj,
+        'book_count': book_count,
+    }
     
-class AuthorDetailView(generic.DetailView):
-    model = Author
-    
-    # 저자의 책목록을 찾는 context를 생성
-    def get_context_data(self, **kwargs):
-        # 기본 컨텍스트(author 객체)를 가져옵니다.
-        context = super().get_context_data(**kwargs)
-        # 저자의 책 목록을 컨텍스트에 추가합니다.
-        context['author_books'] = Book.objects.filter(author=self.object) # type: ignore
-        return context
+    return render(request, 'library/book_list.html', context)
 
-class BookInstanceListView(generic.ListView):
-    model = BookInstance
-    paginate_by = 20
-    
-class BookInstanceDetailView(generic.DetailView):
-    model = BookInstance
+def book_detail(request, pk):
+    book = Book.objects.get(pk=pk)
+    return render(request, 'library/book_detail.html', {'book': book})
 
-class BookInstanceAvailableListView(generic.ListView):
-    model = BookInstance
-    paginate_by = 20
+def author_list(request):
+    queryset = Author.objects.annotate(book_count=Count('book'))
     
-    def get_queryset(self):
-        return BookInstance.objects.filter(status__exact='a').select_related('book')
+    paginator = Paginator(queryset, 5)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+    
+    context = {
+        'page_obj': page_obj,
+    }
+    
+    return render(request, 'library/author_list.html', context)
+
+def author_detail(request, pk):
+    author = Author.objects.get(pk=pk)
+    author_books = Book.objects.filter(author=author)
+    context = {
+        'author': author,
+        'author_books': author_books,
+    }
+    return render(request, 'library/author_detail.html', context)
+
+def book_instances(request):
+    queryset = BookInstance.objects.all().select_related('book')
+    
+    paginator = Paginator(queryset, 10)
+    page = request.GET.get('page')
+    book_instances = paginator.get_page(page)
+    
+    context = {
+        'page_obj': book_instances,
+    }
+    
+    return render(request, 'library/bookinstance_list.html', context)
+
+def book_instance_detail(request, pk):
+    book_instance = BookInstance.objects.get(pk=pk)
+    book_status = list(BookInstance.LOAN_STATUS)
+    context = {
+        'bookinstance': book_instance,
+        'book_status': book_status,
+    }
+    return render(request, 'library/bookinstance_detail.html', context)
+
+def book_instance_status_change(request, pk):
+    book_instance = BookInstance.objects.get(pk=pk)
+    book_instance.status = request.POST.get('book_instance_status')
+    book_instance.save()
+    return book_instance_detail(request, pk)
+
+def book_instance_available(request):
+    book_instance = BookInstance.objects.filter(status__exact='a').select_related('book')
+    paginator = Paginator(book_instance, 20)
+    page = request.GET.get('page')
+    book_instances = paginator.get_page(page)
+    
+    context = {
+        'bookinstance_list': book_instances,
+    }
+    
+    return render(request, 'library/bookinstance_list.html', context)
