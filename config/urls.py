@@ -1,11 +1,9 @@
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
-from users import views as user_views
 from asct import views as asct_views
+from todos import views as todos_views
 import debug_toolbar
 
 admin.site.site_header = "ASCT 관리자 페이지" # H1 헤더 및 로그인 양식 상단 텍스트
@@ -16,7 +14,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
-    path('', asct_views.index, name='main-home'),
+    path('', todos_views.index, name='main-home'),
     path('apps/idols/', include('idols.urls')),
     path('apps/blog/', include('blog.fbv_urls')),
     path('apps/asct/', include('asct.urls')),

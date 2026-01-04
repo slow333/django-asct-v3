@@ -3,17 +3,13 @@ from . import views
 
 urlpatterns = [
     path('', views.contents, name='docs-contents'),
+    path('django/project-intro', views.project_intro, name='project-intro'),
     path('django/setup', views.django_setup, name='django-setup'),
     path('django/orm', views.django_orm, name='django-orm'),
     path('django/model', views.django_model, name='django-model'),
     path('django/regexp', views.django_regexp, name='django-regexp'),
     path('django/datetime', views.django_datetime, name='django-datetime'),
     path('django/django-howto', views.django_django_howto, name='django-howto'),
-
-    path('flask/install', views.flask_install, name='docs-flask-install'),
-    path('flask/note', views.flask_note, name='docs-flask-note'),
-    path('flask/core-crud', views.flask_core_crud, name='docs-flask-core-crud'),
-    path('flask/db-setup', views.flask_db_setup, name='docs-flask-db-setup'),
 
     path('psql/note', views.psql_note, name='docs-psql-note'),
     path('psql/datatype', views.psql_datatype, name='docs-psql-datatype'),
@@ -25,8 +21,12 @@ urlpatterns = [
     path('psql/aggregate', views.psql_aggregate, name='docs-psql-aggregate'),
     path('psql/functions', views.psql_functions, name='docs-psql-functions'),
     path('psql/procedure-trigger', views.psql_procedure_trigger, name='docs-psql-procedure-trigger'),
-    path('psql/sqlalchemy', views.psql_sqlalchemy, name='docs-psql-sqlalchemy'),
 
+    path('flask/install', views.flask_install, name='docs-flask-install'),
+    path('flask/note', views.flask_note, name='docs-flask-note'),
+    path('flask/core-crud', views.flask_core_crud, name='docs-flask-core-crud'),
+    path('flask/db-setup', views.flask_db_setup, name='docs-flask-db-setup'),
+    path('flask/sqlalchemy', views.flask_sqlalchemy, name='docs-flask-sqlalchemy'),
 
     path('python/datatype', views.python_datatype, name='docs-python-datatype'),
     path('python/print-format', views.python_print_format, name='docs-python-print-format'),

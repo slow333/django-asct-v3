@@ -119,7 +119,12 @@ def user_post_list(request, username):
     user = get_object_or_404(User, username=username)
     posts = Post.objects.filter(author=user).order_by('-updated_at')
     messages.success(request, f'{user.username} 님의 게시글 입니다.')
-    return render(request, 'blog/user_posts.html', {'posts': posts})
+    
+    paginator = Paginator(posts, 5)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+    
+    return render(request, 'blog/user_posts.html', {'page_obj': page_obj})
 
 @login_required
 def add_comment(request, pk):

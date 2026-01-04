@@ -1,21 +1,26 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-        <form method="post">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Update Idol Imag</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info mb-3" type="submit">Save Idol</button>
-            </div>
-            <a class="ml-2" href="{% url 'idols:detail' idol.id %}" class="text-muted">취소</a>
-        </form>
+<div class="content-section"> 
+    <h1>Update Idol Image</h1>
+    {% include 'idol/_nav.html' %}
+    <form method="post">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Update Idol Imag</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-success" type="submit">Save Idol</button>
+        </div>
+    </form>
+    <hr>
+    <div class="mt-3">
+        <a href="{% url 'idols:delete' idol.id %}" class="btn btn-outline-danger btn-sm my-3" onclick="return confirm('삭제 할까요 ?')">Delete</a>
+        <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Go Back</a>
     </div>
-    <div class="card">
+    <div class="mt-3">
         <h2 class="m-0 mt-1 text-center">{{ idol.title }}</h2>
         <img src="{{ idol.image.url }}" class="card-img-top" alt="{{ idol.title }}">
     </div>
+</div>
 {% endblock %}

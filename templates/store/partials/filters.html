@@ -1,17 +1,17 @@
-<div class="filters">
-    <h4>Filters</h4>
+<div class="filters ms-2">
+    <h2>Filters</h2>
     <style>
         .filters ul {
             list-style-type: none;
             padding-left: 4px;
         }
         .filters ul li {
-            margin-bottom: 0;
+            margin-bottom: 9px;
         }
         .filters ul li a {
             text-decoration: none;
             color: #000;
-            font-size: 10px;
+            font-size: 16px;
         }
         .filters ul li a.active {
             font-weight: bold;
@@ -20,7 +20,8 @@
     </style>
 
     <!-- Collection Filter -->
-    <h5>By Collection</h5>
+    <hr>
+    <h3>By Collection</h3>
     <ul>
         <li>
             <a href="?{% if search_title %}search_title={{ search_title }}{% endif %}"
@@ -37,9 +38,10 @@
         </li>
         {% endfor %}
     </ul>
+    <hr>
 
     <!-- Inventory Filter -->
-    <h5>By Inventory</h5>
+    <h3>By Inventory</h3>
     <ul>
         <li><a href="?inventory=low{% if search_title %}&search_title={{ search_title }}{% endif %}{% if selected_collection_id %}&collection={{ selected_collection_id }}{% endif %}"
             class="{% if inventory_filter == 'low' %}active{% endif %}">Low Inventory</a></li>

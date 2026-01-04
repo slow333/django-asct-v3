@@ -1,52 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
 {% include 'blog/_nav.html' %}
-    <div class="row mb-3">
-        <div class="col-md-8 mb-2">
-            {% for post in page_obj %}
-            <div class="border rounded-3 p-2 mb-2">
-                <div class="d-flex align-items-end gap-2">
-                    <img src="{{ post.author.profile.image.url }}" height="60" 
-                    class="rounded me-1"> 
-                    <div class="d-flex flex-column ms-2 w-100">
-                        <div class="d-flex align-items-end gap-2">
-                            <a href="{% url 'blog:user-posts' post.author.username %}">{{ post.author.username }}</a>
-                            <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
-                        </div>
-                        <div class="d-flex justify-content-start align-items-center gap-2 mt-1">
-                            <span class="badge text-bg-secondary">{{ post.category }}</span>
-                            <small class="badge text-bg-info">{{ post.likes.count }} likes</small>
-                            <small class="badge text-bg-success">{{ post.comments.count }} comments</small>
-                        </div>
+<div class="d-flex">
+    <div class="content">
+        {% for post in page_obj %}
+        <div class="border rounded-3 p-2 mb-3 border-secondary">
+            <div class="d-flex align-items-end gap-2 border-bottom pb-2">
+                <img src="{{ post.author.profile.image.url }}" class="card-img-top" alt="{{ idol.title }}" style="height: 50px; width:50px;object-fit: cover;">
+                <div class="d-flex flex-column ms-2 w-100">
+                    <div class="d-flex align-items-end gap-2">
+                        <a href="{% url 'blog:user-posts' post.author.username %}">{{ post.author.username }}</a>
+                        <small class="text-muted">{{ post.date_posted|date:"Y-m-d H:i"}}</small>
                     </div>
-                </div>
-                <hr>
-                <div class="mb-2">
-                    <h3><a class="article-title pt-2" href="{% url 'blog:detail' post.id %}">{{ post.title }}</a></h3>
-                    <div>
-                        {{ post.content|striptags|truncatechars:100 }}
+                    <div class="d-flex justify-content-start align-items-center gap-2 mt-1">
+                        <span class="badge text-bg-secondary">{{ post.category }}</span>
+                        <small class="badge text-bg-info">{{ post.likes.count }} likes</small>
+                        <small class="badge text-bg-success">{{ post.comments.count }} comments</small>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-        <div class="col-md-4">
-            <div class="content-section mb-2">
-                <h3>Categories</h3>
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{% url 'blog:index' %}" class="text-decoration-none">All</a>
-                    </li>
-                    {% for cat in category_list %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="{% url 'blog:index' %}?category={{ cat.name }}" class="text-decoration-none">
-                                {{ cat.name }}
-                            </a>
-                            <span class="badge bg-primary rounded-pill">{{ cat.count }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="mb-2">
+                <h3><a class="article-title pt-2" href="{% url 'blog:detail' post.id %}">{{ post.title }}</a></h3>
+                <div>
+                    {{ post.content|striptags|truncatechars:100 }}
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
+    <div class="collapse" id="filters-sidebar">
+        {% include 'blog/category_filter.html' %}
+    </div>
+</div>
 {% endblock %}

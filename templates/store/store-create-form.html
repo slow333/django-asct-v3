@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Create a New Product</h1>
+    {% include 'store/_nav.html' %}    
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

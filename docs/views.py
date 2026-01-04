@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def index(requst):
-    return render(requst, 'index.html')
-
 def contents(requst):
     return render(requst, 'docs/contents.html')
 
+
 # ============= django ========================
+def project_intro(requst):
+    return render(requst, 'docs/django/project-intro.html')
+
 def django_setup(requst):
     return render(requst, 'docs/django/setup.html')
 
@@ -23,6 +24,9 @@ def django_regexp(requst):
 def django_django_howto(requst):
     return render(requst, 'docs/django/django-howto.html')
 
+def django_datetime(requst):
+    return render(requst, 'docs/django/datetime.html')
+
 # ============= flask ========================
 def flask_install(requst):
     return render(requst, 'docs/flask/install.html')
@@ -35,9 +39,9 @@ def flask_core_crud(requst):
 
 def flask_db_setup(requst):
     return render(requst, 'docs/flask/db_setup.html')
-def django_datetime(requst):
-    return render(requst, 'docs/django/datetime.html')
 
+def flask_sqlalchemy(requst):   
+    return render(requst, 'docs/flask/sqlalchemy.html')
 
 # ============= postgresql database ========================
 def psql_note(requst):
@@ -53,8 +57,6 @@ def psql_datatype(requst):
 def psql_crud(requst):
     return render(requst, 'docs/postgresql/02-crud.html')
 
-def psql_sqlalchemy(requst):   
-    return render(requst, 'docs/postgresql/02-sqlalchemy.html')
 
 def psql_select(requst):   
     return render(requst, 'docs/postgresql/03-select.html')

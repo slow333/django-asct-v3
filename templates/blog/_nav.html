@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-0 rounded-3 mb-3">
+<nav class="navbar navbar-expand-lg bg-light navbar-light py-1 rounded-3 mb-3 border-bottom border-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'blog:index' %}">Posts</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -8,8 +8,9 @@
         </ul>
         <span class="me-3 text-info">{{page_obj.paginator.count}}</span>
         <form class="d-flex rounded-3" role="search" >
-            <input class="form-control me-2 py-0" type="search" placeholder="Search title, author" name='searched' aria-label="Search"/>
-            <button class="btn btn-outline-success btn-sm py-0" type="submit">Search</button>
+            <input class="form-control me-2 py-1" type="search" placeholder="Search title, author" name='searched' aria-label="Search"/>
+            <button class="btn btn-outline-success btn-sm py-1" type="submit">Search</button>
+            <button class="btn btn-secondary btn-sm ms-2" style="width:10rem;" type="button" data-bs-toggle="collapse" data-bs-target="#filters-sidebar" >Category <i class="bi bi-arrow-bar-down"></i></button>
         </form>
     </div>
 </nav>

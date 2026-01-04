@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Customer(models.Model):
     MEMBERSHIP_CHOICES = [
@@ -38,7 +39,7 @@ class Product(models.Model):
     
     title= models.CharField(max_length=255)
     slug = models.SlugField(null=True)
-    description = models.TextField()
+    description = RichTextUploadingField(null=True, blank=True)
     # 666666.22
     unit_price = models.DecimalField(max_digits=7, decimal_places=2)    
     inventory = models.PositiveSmallIntegerField()

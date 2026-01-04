@@ -63,11 +63,28 @@ def product_create(request):
         if form.is_valid():
             form.save()
             # Redirect to the product list page after creation
-            return redirect('store-home') 
+            return redirect('store:index') 
     else:
         form = ProductForm()
     
     return render(request, 'store/store-product-form.html', {'form': form})
+
+def product_edit(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('store:index') 
+    else:
+        form = ProductForm(instance=product)
+    
+    return render(request, 'store/store-product-form.html', {'form': form, 'product': product})
+
+def product_detail(requst, product_id):
+    product = Product.objects.get(pk=product_id)
+    return render(requst, 'store/store-product-detail.html', {'product': product})
 
 def product_bulk_action(request):
     if request.method == 'POST':

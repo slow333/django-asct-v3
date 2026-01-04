@@ -1,20 +1,10 @@
 {% extends "base.html" %}
 {% load aistore_tags %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 <div class="d-flex">
     <div class="content">
-        <h1>Welcome to the AI Store !</h1>
-
-        <!-- Search Bar -->
-        <form class="search-bar d-flex align-items-center gap-1">
-            {{ search_form|crispy }}
-            <button class="btn btn-primary btn-sm mb-2" type="submit">Search</button>
-            <a class="btn btn-secondary btn-sm mb-2"  href="{% url 'store:product-create' %}">New Product</a>
-            <button class="btn btn-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#filters-sidebar" >Filters >></button>
-        </form>
-
+        {% include 'store/_nav.html' %}        
         <form method="post" action="{% url 'store:product-bulk-action' %}">
             {% csrf_token %}
             <div class="d-flex align-items-center mb-3">
@@ -52,7 +42,7 @@
                     {% for product in page_obj %}
                     <tr>
                         <td><input type="checkbox" name="selected_ids" value="{{ product.id }}"></td>
-                        <td>{{ product.title }}</td>
+                        <td><a href="{% url 'store:product-detail' product.id %}">{{ product.title }}</a></td>
                         <td>
                             <input type="number" name="price_{{ product.id }}" value="{{ product.unit_price }}" step="0.01" class="form-control" style="width: 100px;">
                         </td>

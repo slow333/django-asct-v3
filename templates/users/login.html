@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="d-flex flex-column justify-content-start align-items-start" style="min-height: 40vh;">
         {% if next %}
             {% if user.is_authenticated %}
             <p>권한이 없습니다.</p>
@@ -8,7 +8,7 @@
             <p>먼저 로그인 하세요.</p>
             {% endif %}
         {% endif %}
-        <div class="border" style="width: 60%; padding:2rem;margin:auto;">
+        <div class="border" style="width: 70%; padding:2rem; margin:auto;">
             <form method="post" action="{% url 'users:login' %}">
                 {% csrf_token %}
                 <legend>Log In</legend>

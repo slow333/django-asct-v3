@@ -4,13 +4,14 @@ from django import forms
 from crispy_forms.helper import FormHelper
 
 class IdolForm(ModelForm):
-    title = forms.CharField(max_length=100)
-    image = forms.ImageField()
-    thumbnail = forms.ImageField(required=False)
     class Meta:
         model = Idol
         fields = ['title','image', 'thumbnail']
-        
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control-file'}),
+            'thumbnail': forms.FileInput(attrs={'class': 'form-control-file'}),
+        }
 
 class IdolTitleForm(ModelForm):
     def __init__(self, *args, **kwargs):

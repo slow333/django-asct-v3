@@ -6,6 +6,7 @@ app_name = 'todos'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('<int:year>/<int:month>/', views.index, name='index'),
     path('list/', views.todo_list, name='list'),
     path('create/', views.create, name='create'),
     path('update/<int:todo_id>/', views.update, name='update'),

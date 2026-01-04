@@ -1,23 +1,17 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="d-flex gap-3 align-items-center mb-1 me-1 justify-content-between">
-        <h1>IDOLS </h1>
-        <a href="{% url 'idols:upload' %}" class="fs-6 btn btn-outline-info">Upload Image</a>
-        <form class="search-bar d-flex align-items-center mb-0">
-            <input type="text" name="searched" class="form-control me-2" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary btn-sm" type="submit">Search</button>
-        </form>
-    </div>
-
+    <h1>IDOLS </h1>
+    {% include 'idol/_nav.html' %}
+    
     <div class="row">
         {% for idol in page_obj %} 
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-2 col-sm-6">
                 <div class="card mb-3">
                     <div class="card-body m-0 p-1 text-center">
                         <h5 class="card-title"><a href="{% url 'idols:detail' idol.pk %}">{{ idol.title }}</a></h5>
                     </div>
-                    <img src="{{ idol.thumbnail.url }}" class="card-img-top" alt="{{ idol.title }}">
+                    <img src="{{ idol.thumbnail.url }}" class="card-img-top" alt="{{ idol.title }}" style="height: 200px; object-fit: cover;">
                 </div>
             </div>
         {% endfor %}

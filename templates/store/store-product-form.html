@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-        <form method="post">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">New Product</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info mb-3" type="submit">Save Product</button>
-            </div>
-            <a class="ml-2" href="{% url 'store-home' %}" class="text-muted">취소</a>
-        </form>
+{% include 'store/_nav.html' %}    
+<form method="post">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">New Product</legend>
+        {{ form.media }}
+        {{ form.as_p }}
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info mb-3" type="submit">Save Product</button>
     </div>
+</form>
+<div class="card-footer">
+    <a href="{% url 'store:index' %}" class="btn btn-primary btn-sm">Go List</a>
+    <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Go Back</a>
+</div>
 {% endblock %}

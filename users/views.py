@@ -26,7 +26,7 @@ class LoginView(generic.View):
 class LogoutView(generic.View):
     def post(self, request, *args, **kwargs):
         auth.logout(request)
-        return redirect('events:index')
+        return redirect('todos:index')
     
 # class UserEditView(generic.UpdateView, LoginRequiredMixin):
 #     # form_class = UserChangeForm

@@ -5,6 +5,14 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['title', 'unit_price', 'inventory', 'collection', 'description']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'unit_price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'inventory': forms.NumberInput(attrs={'class': 'form-control'}),
+            'collection': forms.Select(attrs={'class': 'form-select'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
 
 class SearchForm(forms.Form):
     searched = forms.CharField(

@@ -1,53 +1,129 @@
 {% extends 'base.html' %}
 {% block title %} Docs Home {% endblock %}
 {% block content %}
-<h1> Document 목차 </h1>
-    <h2 class="mt-3">Django</h2>
-    <ul>
-        <li><a href="{% url 'django-setup' %}">Django 설치</a></li>
-        <li><a href="{% url 'django-orm' %}">Django ORM 사용하기</a></li>
-        <li><a href="{% url 'django-model' %}">Django Model 사용하기</a></li>
-        <li><a href="{% url 'django-regexp' %}">Django 정규식</a></li>
-        <li><a href="{% url 'django-datetime' %}">Django datetime</a></li>
-        <li><a href="{% url 'django-howto' %}">Django How to</a></li>
-    </ul>
-    <h2 class="mt-3">Flask</h2>
-    <ul>
-        <li><a href="flask/install">flask 설치</a></li>
-        <li><a href="flask/note">flask 주의사항</a></li>
-        <li><a href="flask/core-crud">flask core CRUD</a></li>
-        <li><a href="flask/db-setup">flask db setup</a></li>
-    </ul>
-    <h2 class="mt-3">psql</h2>
-    <ul>
-        <li><a href="psql/note">psql Note</a></li>
-        <li><a href="psql/datatype">psql datatype</a></li>
-        <li><a href="psql/crud">psql CRUD</a></li>  
-        <li><a href="psql/sqlalchemy">sqlalchemy</a></li>
-        <li><a href="psql/select">psql Select</a></li>
-        <li><a href="psql/constraints">psql constraints</a></li>
-        <li><a href="psql/groupby">psql groupby</a></li>
-        <li><a href="psql/join">psql join</a></li>
-        <li><a href="psql/aggregate">psql aggregate</a></li>
-        <li><a href="psql/functions">psql functions</a></li>
-        <li><a href="psql/procedure-trigger">psql procedure trigger</a></li>
-    </ul>
-    <h2 class="mt-3">python</h2>
-    <ul>
-        <li><a href="python/datatype">python datatype</a></li>
-        <li><a href="python/print-format">python print format</a></li>
-        <li><a href="python/loop">python loop</a></li>
-        <li><a href="python/def-file">python def file</a></li>
-        <li><a href="python/class-module">python class module</a></li>
-        <li><a href="python/try-except">python try except</a></li>
-        <li><a href="python/py-library">python library</a></li>
-        <li><a href="python/decorator">python decorator</a></li>
-        <li><a href="python/regexp">python regexp</a></li>
-    </ul>
-    <h2 class="mt-3">Others</h2>
-    <ul>
-        <li><a href="others/basic-settings">basic settings</a></li>
-        <li><a href="others/html-css">html css</a></li>
-        <li><a href="others/linux">linux</a></li>
-    </ul>
+<div class="container py-1">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary">📚 Document 목차</h1>
+        <p class="lead text-muted">개발에 필요한 문서들을 정리해둔 공간입니다.</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Django Section -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 doc-card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">🚀 Django</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="{% url 'project-intro' %}" class="list-group-item list-group-item-action border-0 doc-link">프로젝트 소개</a>
+                        <a href="{% url 'django-setup' %}" class="list-group-item list-group-item-action border-0 doc-link">Django 설치</a>
+                        <a href="{% url 'django-orm' %}" class="list-group-item list-group-item-action border-0 doc-link">Django ORM 사용하기</a>
+                        <a href="{% url 'django-model' %}" class="list-group-item list-group-item-action border-0 doc-link">Django Model 사용하기</a>
+                        <a href="{% url 'django-regexp' %}" class="list-group-item list-group-item-action border-0 doc-link">Django 정규식</a>
+                        <a href="{% url 'django-datetime' %}" class="list-group-item list-group-item-action border-0 doc-link">Django datetime</a>
+                        <a href="{% url 'django-howto' %}" class="list-group-item list-group-item-action border-0 doc-link">Django How to</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- psql Section -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 doc-card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">🐘 psql</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="psql/note" class="list-group-item list-group-item-action border-0 doc-link">psql Note</a>
+                        <a href="psql/datatype" class="list-group-item list-group-item-action border-0 doc-link">psql datatype</a>
+                        <a href="psql/crud" class="list-group-item list-group-item-action border-0 doc-link">psql CRUD</a>
+                        <a href="psql/select" class="list-group-item list-group-item-action border-0 doc-link">psql Select</a>
+                        <a href="psql/constraints" class="list-group-item list-group-item-action border-0 doc-link">psql constraints</a>
+                        <a href="psql/groupby" class="list-group-item list-group-item-action border-0 doc-link">psql groupby</a>
+                        <a href="psql/join" class="list-group-item list-group-item-action border-0 doc-link">psql join</a>
+                        <a href="psql/aggregate" class="list-group-item list-group-item-action border-0 doc-link">psql aggregate</a>
+                        <a href="psql/functions" class="list-group-item list-group-item-action border-0 doc-link">psql functions</a>
+                        <a href="psql/procedure-trigger" class="list-group-item list-group-item-action border-0 doc-link">psql procedure trigger</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- python Section -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 doc-card">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">🐍 python</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="python/datatype" class="list-group-item list-group-item-action border-0 doc-link">python datatype</a>
+                        <a href="python/print-format" class="list-group-item list-group-item-action border-0 doc-link">python print format</a>
+                        <a href="python/loop" class="list-group-item list-group-item-action border-0 doc-link">python loop</a>
+                        <a href="python/def-file" class="list-group-item list-group-item-action border-0 doc-link">python def file</a>
+                        <a href="python/class-module" class="list-group-item list-group-item-action border-0 doc-link">python class module</a>
+                        <a href="python/try-except" class="list-group-item list-group-item-action border-0 doc-link">python try except</a>
+                        <a href="python/py-library" class="list-group-item list-group-item-action border-0 doc-link">python library</a>
+                        <a href="python/decorator" class="list-group-item list-group-item-action border-0 doc-link">python decorator</a>
+                        <a href="python/regexp" class="list-group-item list-group-item-action border-0 doc-link">python regexp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flask Section -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 doc-card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0 text-white">🌶️ Flask</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="flask/install" class="list-group-item list-group-item-action border-0 doc-link">flask 설치</a>
+                        <a href="flask/note" class="list-group-item list-group-item-action border-0 doc-link">flask 주의사항</a>
+                        <a href="flask/core-crud" class="list-group-item list-group-item-action border-0 doc-link">flask core CRUD</a>
+                        <a href="flask/db-setup" class="list-group-item list-group-item-action border-0 doc-link">flask db setup</a>
+                        <a href="flask/sqlalchemy" class="list-group-item list-group-item-action border-0 doc-link">sqlalchemy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Others Section -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 doc-card">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="mb-0">🛠️ Others</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="others/basic-settings" class="list-group-item list-group-item-action border-0 doc-link">basic settings</a>
+                        <a href="others/html-css" class="list-group-item list-group-item-action border-0 doc-link">html css</a>
+                        <a href="others/linux" class="list-group-item list-group-item-action border-0 doc-link">linux</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .doc-card {
+        transition: transform 0.2s ease-in-out;
+    }
+    .doc-card:hover {
+        transform: translateY(-5px);
+    }
+    .doc-link {
+        font-size: 0.95rem;
+        transition: padding-left 0.2s;
+    }
+    .doc-link:hover {
+        padding-left: 1.25rem;
+        background-color: #f8f9fa;
+        font-weight: 500;
+    }
+</style>
 {% endblock %}

@@ -11,7 +11,7 @@ def index(request):
     if search_title:
         idol_list = idol_list.filter(title__icontains=search_title)
 
-    paginator = Paginator(idol_list, 8) # 한 페이지에 8개씩 표시
+    paginator = Paginator(idol_list, 12) # 한 페이지에 8개씩 표시
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

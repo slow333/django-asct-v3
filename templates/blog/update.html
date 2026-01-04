@@ -2,18 +2,21 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% include 'blog/_nav.html' %}
-    <div class="content-section">
-        <form method="post" action="{% url 'blog:update' form.instance.id %}">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Update Post</legend>
-                {{ form.media }}
-                {{ form.as_p }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info mb-3" type="submit">Update Post</button>
-            </div>
-            <a class="ml-2" href="{% url 'blog:index' %}" class="text-muted">취소</a>
-        </form>
-    </div>
+<div class="content-section">
+    <form method="post" action="{% url 'blog:update' form.instance.id %}">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Update Post</legend>
+            {{ form.media }}
+            {{ form.as_p }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-success mb-1" type="submit">Update Post</button>
+        </div>
+    </form>
+</div>
+<div>
+    <a href="{% url 'blog:index' %}" class="btn btn-primary btn-sm">Go List</a>
+    <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Go Back</a>
+</div>
 {% endblock %}

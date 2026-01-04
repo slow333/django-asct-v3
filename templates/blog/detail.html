@@ -72,7 +72,8 @@
         <a href="{% url 'blog:delete' post.id %}"
             class="btn btn-outline-danger btn-sm">Delete</a>
     {% endif %}
-    <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary btn-sm">Back to Home</a>
+    <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary btn-sm">Posts</a>
+    <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Go Back</a>
 </div>
 
 <script>

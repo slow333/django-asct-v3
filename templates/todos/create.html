@@ -7,10 +7,13 @@
             {% csrf_token %}
             {{ form.media }}
             {{ form.as_p }}
-            <button class="btn btn-success">수정하기</button>
+            <button class="btn btn-success">생성하기</button>
         </form>
         <br>
-        <a href="{% url 'todos:index' %}">Go List</a>
+        <div class="mt-3">
+            <a href="{% url 'todos:index' %}" class="btn btn-primary btn-sm">GO LIST</a>
+            <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Go Back</a>
+        </div>
     </div>
 </div>
 {% endblock %}

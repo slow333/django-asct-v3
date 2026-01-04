@@ -1,60 +1,85 @@
-<nav class="navbar navbar-expand-md fixed-top mb-2 py-0">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm py-2 mb-2">
     <div class="container-lg">
-        <a class="navbar-brand mr-4" href="/"><i class="bi bi-house"></i></a>
-    <div class="collapse navbar-collapse" id="navbarToggle">
-        <div class="navbar-nav mr-auto">
-            <div id="toggleCol" class="p-0 m-0">
-                <button id="sidebarToggleBtn" class="btn btn-md btn-border-secondary text-dark py-1 mt-1" aria-expanded="true" aria-controls="sidebarCol">☰</button>
-            </div>
-            <div class="nav nav-tabs">
-                <li class="nav-item">
-                <a class="nav-link {% if '/docs/' in request.path %} active {% endif %}" href="{% url 'docs-contents' %}"> DOC</a></li>
-                <a class="nav-link {% if '/todos/' in request.path %} active {% endif %}" href="{% url 'todos:index' %}">TODOs</a></li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/blog/' in request.path %} active {% endif %}" href="{% url 'blog:index' %}"> Blog</a>
-                    </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/idols/' in request.path %} active {% endif %}" href="{% url 'idols:index' %}"> Idols</a>
-                    </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/asct/' in request.path %} active {% endif %}" href="{% url 'asct:index' %}"> ASCT</a>
-                    </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/store/' in request.path %} active {% endif %}" href="{% url 'store:index' %}">Store</a>
-                    </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/library/' in request.path %} active {% endif %}" href="{% url 'library:index' %}"> Library</a>
-                    </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/polls/' in request.path %} active {% endif %}" href="{% url 'polls:index' %}"> Polls</a>
-                    </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/events/' in request.path %} active {% endif %}" href="{% url 'events:index' %}"> Events</a>
-                    </li>
-            </div>
+        <div class="d-flex align-items-center">
+            <button class="btn btn-link text-dark p-0 me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarCol" aria-controls="sidebarCol">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+            <a class="navbar-brand me-4" href="/">
+                <i class="bi bi-house-heart-fill text-primary fs-4"></i>
+            </a>
         </div>
-        <div class="navbar-nav ms-auto">
-            <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> {% if user.is_authenticated %}
-                    {{ user.username}} {% else %}Guest {% endif %} </a>
-                <ul class="dropdown-menu">
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggle">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-medium">
+                <li class="nav-item">
+                    <a class="nav-link px-3 {% if '/docs/' in request.path %} active text-primary {% endif %}" href="{% url 'docs-contents' %}">Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 {% if '/blog/' in request.path %} active text-primary {% endif %}" href="{% url 'blog:index' %}">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 {% if '/idols/' in request.path %} active text-primary {% endif %}" href="{% url 'idols:index' %}">Idols</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 {% if '/asct/' in request.path %} active text-primary {% endif %}" href="{% url 'asct:index' %}">ASCT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 {% if '/store/' in request.path %} active text-primary {% endif %}" href="{% url 'store:index' %}">Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 {% if '/library/' in request.path %} active text-primary {% endif %}" href="{% url 'library:index' %}">Library</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 {% if '/polls/' in request.path %} active text-primary {% endif %}" href="{% url 'polls:index' %}">Polls</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 {% if '/events/' in request.path %} active text-primary {% endif %}" href="{% url 'events:index' %}">Events</a>
+                </li>
+            </ul>
+            
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
                     {% if user.is_authenticated %}
+                        <img src="{{ user.profile.image.url }}" class="rounded-circle me-2 border" width="32" height="32" style="object-fit: cover;" alt="">
+                        <span class="fw-medium">{{ user.username }}</span>
+                    {% else %} 
+                        <span class="fw-bold text-secondary">Guest</span> 
+                    {% endif %} 
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 mt-2">
+                    {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'users:edit-profile' %}"><i class="bi bi-person me-2"></i> Profile</a>
+                    </li>
                     <li>
                         <form method="post" action="{% url 'users:logout' %}">
                             {% csrf_token %}
-                            <button class="dropdown-item" type="submit">Logout</button>
+                            <button class="dropdown-item text-danger" type="submit"><i class="bi bi-box-arrow-right me-2"></i> Logout</button>
                         </form>
                     </li>
-                    <li><a class="dropdown-item" href="{% url 'users:edit-profile' %}">Profile</a>
-                    </li>
                     {% else %}
-                    <li><a class="dropdown-item" href="{% url 'users:login' %}">Login</a></li>
-                    <li><a class="dropdown-item" href="{% url 'users:register' %}">Register</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:login' %}"><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:register' %}"><i class="bi bi-person-plus me-2"></i> Register</a></li>
                     {% endif %}
-                    <li><a class="dropdown-item" href="/admin">Admin</a></li>
+                    {% if user.is_staff %}
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/admin"><i class="bi bi-shield-lock me-2"></i> Admin</a></li>
+                    {% endif %}
                 </ul>
-            </div>
+                </li>
+            </ul>
         </div>
     </div>
-    </div>
 </nav>
+<style>
+    .nav-link {
+        transition: color 0.2s ease-in-out;
+    }
+    .nav-link:hover {
+        color: #0d6efd !important;
+    }
+</style>

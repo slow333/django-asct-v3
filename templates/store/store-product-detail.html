@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'store/_nav.html' %}    
+<h1>Product Detail</h1>
+<div class="card">
+    <div class="card-header fs-3">{{ product.title }}</div>
+    <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">{{ product.description }}</p>
+    <hr>
+    <p class="card-text">collection : {{ product.collection }}</p>
+    <p class="card-text"><small class="text-muted">Last updated : {{ product.last_update }}</small></p>
+    <p class="card-text">
+        <small class="text-muted">unit price : {{ product.unit_price }}</small>
+    </p>
+    <p class="card-text">
+        <small class="text-muted">inventory :{{ product.inventory }}</small>
+    </p>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'store:product-edit' product.id %}" class="btn btn-success btn-sm">Edit Product</a>
+        <a href="{% url 'store:index' %}" class="btn btn-primary btn-sm">Go List</a>
+        <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Go Back</a>
+    </div>
+</div>
+{% endblock %}

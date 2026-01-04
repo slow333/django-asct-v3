@@ -2,7 +2,7 @@
 {% block content %}
 {% include 'blog/_nav.html' %}
     <h1 class="mb-3">Posts by {{ username }}({{ page_obj.paginator.count }})</h1>
-    {% for post in object_list %}
+    {% for post in page_obj %}
         <div class="border rounded-3 my-2 p-3">
             <div class="d-flex align-items-end gap-2">
                 <img src="{{ post.author.profile.image.url }}" width="60" alt=""

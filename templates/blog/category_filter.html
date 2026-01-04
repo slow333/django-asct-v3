@@ -1,0 +1,18 @@
+<div class="filters ms-3" style="width:13rem;">
+    <div class="content-section mb-2">
+        <h3>Categories</h3>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{% url 'blog:index' %}" class="text-decoration-none">All</a>
+            </li>
+            {% for cat in category_list %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'blog:index' %}?category={{ cat.name }}" class="text-decoration-none">
+                        {{ cat.name }}
+                    </a>
+                    <span class="badge bg-primary rounded-pill">{{ cat.count }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
