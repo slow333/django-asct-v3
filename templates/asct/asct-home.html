@@ -2,16 +2,8 @@
 {% load static %}
 {% block content %}
     <h1>About ASCT</h1>
-    <nav class="navbar navbar-expand-lg bg-light navbar-light py-1 rounded-3 mb-3 border-bottom border-top">
-    <div class="container-fluid">
-        <a href="#" class="nav-link">Server SSH Access Info</a>
-        <a href="#" class="nav-link">HostInfo</a>
-        <a href="#" class="nav-link">Command</a>
-        <a href="#" class="nav-link">Traffic</a>
-        <a href="#" class="nav-link">CPU USAGE</a>
-        <a href="#" class="nav-link">Memory USAGE</a>
-    </div>
-    </nav>
+    {% include 'asct/_nav.html' %}
+
     <article class=" content-section">
         <h2>Models</h2>
         <h3>naming : 모두 단수형으로(urls, models, functions)</h3>

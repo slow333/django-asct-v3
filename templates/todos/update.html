@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% include 'todos/_nav.html' %}
-<div class="d-flex flex-column justify-content-start align-items-start gap-3">
+<div class="d-flex flex-column justify-content-start align-items-start gap-3 bg-white rounded-3">
     <div class="border" style="width: 100%; padding:2rem;margin:auto;">
         <form action="" method="POST">
             {% csrf_token %}

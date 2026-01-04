@@ -25,7 +25,8 @@ class Choice(models.Model):
     choice_text = models.CharField(
         max_length=200,
         verbose_name='답변',
-        help_text='답변을 입력하세요.'
+        help_text='답변을 입력하세요.',
+        null=True, blank=True,
     )
     votes = models.IntegerField(default=0)
     

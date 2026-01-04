@@ -12,7 +12,7 @@ class TodoForm(ModelForm):
             'content': '',
             'start_date': '시작일',
             'end_date': '종료일',
-            'is_completed': '완료여부',
+            'is_completed': '완료여부 ',
             'user': '작성자',
         }
         
@@ -26,7 +26,7 @@ class TodoForm(ModelForm):
             'end_date': forms.DateTimeInput(
                 attrs={'class': 'form-control', 'type': 'datetime-local'}),
             'is_completed': forms.CheckboxInput(
-                attrs={'class': 'form-check-input'}),
+                attrs={'class': 'form-check-input', 'style': 'margin-left: 10px;font-size: 1.2rem;'}),
             'user': forms.Select(
                 attrs={'class': 'form-select'}),
         }

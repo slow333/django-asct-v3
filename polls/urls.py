@@ -1,20 +1,15 @@
 from django.urls import path
 from . import views
-from .models import Question, Choice
-from .views import QuestionIndexView, QuestionDetailView, QuestionResultsView, QuestionVoteView,CreateQuestionView, QuestionUpdateView, QuestionDeleteView
 
-
-# apps/polls/
 app_name = "polls"
 
 urlpatterns = [
-    path("", QuestionIndexView.as_view(), name="index"),
-    path("create/", CreateQuestionView.as_view(), name="create"),
+    path("", views.index, name="index"),
+    path("create/", views.create_poll, name="create"), # type: ignore
+    path("<int:pk>/detail/", views.detail, name="detail"),
+    path("<int:pk>/update/",views.update_poll, name="update"),
+    path("<int:pk>/delete/", views.delete_poll, name="delete"),
     
-    path("<int:pk>/", QuestionDetailView.as_view(), name="detail"),
-    path("<int:pk>/update/",QuestionUpdateView.as_view(), name="update"),
-    path("<int:pk>/delete/", QuestionDeleteView.as_view(), name="delete"),
-    
-    path("<int:pk>/results/", QuestionResultsView.as_view(), name="results"),
-    path("<int:pk>/vote/", QuestionVoteView.as_view(), name="vote"),
+    path("<int:pk>/results/", views.result_poll, name="results"),
+    path("<int:pk>/vote/", views.vote, name="vote"),
 ]

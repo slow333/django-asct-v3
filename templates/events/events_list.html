@@ -7,10 +7,7 @@
     <div class="d-flex align-items-baseline gap-3 mb-2 justify-content-center">
         <h1>Events List </h1><div class="badge text-bg-secondary" style="height: 20px; margin-top:12px;">{{ page_obj.paginator.count }}</div>
     </div>
-    <form class="d-flex" role="search" >
-        <input class="form-control me-2" type="search" placeholder="Search events..." name='searched' aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+
     <hr>
     {% for event in page_obj %}
     <div class="d-flex justify-content-between align-items-center mb-1 border-bottom border-secondary p-2">

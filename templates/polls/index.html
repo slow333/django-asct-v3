@@ -2,19 +2,26 @@
 {% load static %}
 {% block title %} Polls Home {% endblock %}
 {% block content %}
-{% include 'polls/polls-nav.html' %}
-<section>
-    <h1>Polls List</h1>
-    <ul>
-        {% for question in questions %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a> created on {{ question.pub_date|date:"Y-m-d H:i" }} category : 
-            {% for category in question.category.all %}
-                    {{ category.name }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            <div>{{ question.choice_set.count }}개의 투표</div>
-        </li>
-        {% endfor %}
-    </ul>
-</section>
-
+{% include 'polls/_nav.html' %}
+<h1>Polls List</h1>
+{% for question in page_obj %}
+<div class="card mb-3">
+    <div class="card-header">
+        {{ question.choice_set.count }}개의 투표 on {{ question.pub_date|date:"Y-m-d H:i" }}
+    </div>
+    <div class="card-body p-0 ps-3">
+        <h5 class="card-title">
+            <a class="text-decoration-none fs-3" href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a> 
+        </h5>
+        <p class="card-text mb-2">
+        질문: {% for choice in question.choice_set.all %}
+        {{ choice.choice_text }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}</p>
+        <p class="card-text mb-2">
+        분류: {% for category in question.category.all %}
+        {{ category.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}</p>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
