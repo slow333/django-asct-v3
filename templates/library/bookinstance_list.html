@@ -1,10 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 {% block title %} Local Library Catalog Home {% endblock %}
 {% block content %}
 {% include 'library/_nav.html' %}
 <section>
+    {% if request.resolver_match.url_name == 'bookinstance-available' %}
+    <h1>Available BookInstance List</h1>
+    {% else %}
     <h1>BookInstance List</h1>
+    {% endif %}
         {% if page_obj %}
         <table>
             <tr>

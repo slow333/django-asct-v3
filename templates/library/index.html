@@ -1,13 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 {% block title %} Local Library Catalog Home {% endblock %}
 {% block content %}
 {% include 'library/_nav.html' %}
 <section>
-    <h1>Local Library Home</h1>
-    <p>Welcome to LocalLibrary, a website developed by <em>Mozilla Developer Network</em>!</p>
-    <h2>Dynamic content</h2>
-    <p>The library has the following record counts:</p>
+    <h1>도서관 관리 앱</h1>
+    <p>도서관 관리 앱입니다.!</p>
+    <p>보유하고 있는 책 목록 입니다.</p>
     <ul class="mb-3">
         <li><strong>Books:</strong> <a href="{% url 'library:books' %}">{{ num_books }}</a></li>
         <li><strong>Copies:</strong> <a href="{% url 'library:bookinstances' %}" class="href">{{ num_instances }}</a> </li>

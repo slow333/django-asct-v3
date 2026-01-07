@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 {% block title %} Author List {% endblock %}
 {% block content %}
@@ -7,15 +7,22 @@
     <h1>Author List</h1>
         {% if page_obj %}
             {% for author in page_obj %}
-                <a class="fs-4 navbar-brand" href="{% url 'library:author-detail' author.id %}">{{ author.last_name }} {{ author.first_name }}</a>
-                <ul>
-                {% for book in author.book_set.all %}
-                    <li><a href="{% url 'library:book-detail' book.id %}">
-                    {{ book.title }}</a></li>
-                {% endfor %}
-                </ul>
-                {% if not forloop.last %}
-                <hr>
+                <div class="mb-2 fs-4">{{ author.last_name }} {{ author.first_name }}
+                    <a class="fs-6 text-decoration-none text-muted" href="{% url 'library:author-detail' author.id %}"><i class="bi bi-person-lines-fill"></i></a>
+                </div>
+                
+                {% if author.book_set.all %}
+                    <ul>
+                    {% for book in author.book_set.all %}
+                        <li><a href="{% url 'library:book-detail' book.id %}">
+                        {{ book.title }}</a></li>
+                    {% endfor %}
+                    </ul>
+                    {% if not forloop.last %}
+                    <hr>
+                    {% endif %}
+                {% else %}
+                    <div>해당 작의 책이 없습니다.</div>
                 {% endif %}
             {% endfor %}
         {% else %}

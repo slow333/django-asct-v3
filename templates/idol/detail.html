@@ -1,5 +1,6 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 {% load crispy_forms_tags %}
+{% block title %} Idol 상세보기 {% endblock %}
 {% block content %}
 {% include 'idol/_nav.html' %}
 <h2 class="p-0 m-0">{{ idol.title }}

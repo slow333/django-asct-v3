@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 {% block title %} Local Library Catalog Home {% endblock %}
 {% block content %}
@@ -19,4 +19,10 @@
         {% endfor %}
   </div>
 </section>
+<div>
+    <a href="{% url 'library:author-update' author.id %}" class="btn btn-success btn-sm">Edit author</a>
+    <a href="{% url 'library:author-delete' author.id %}" class="btn btn-danger btn-sm" onclick="return confirm('삭제할 까요 ?')">Delete author</a>
+    <a href="{% url 'library:authors' %}" class="btn btn-primary btn-sm">Go List</a>
+    <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Go Back</a>
+</div>
 {% endblock %}

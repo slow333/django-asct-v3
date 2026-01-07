@@ -10,7 +10,7 @@
             </li>
         </ul>
         <form class="d-flex rounded-3" role="search" >
-            <input class="form-control me-2 py-1" type="search" placeholder="Search title, content..." name='searched' aria-label="Search"/>
+            <input class="form-control me-2 py-1" type="search" placeholder="Search title, content..." name='searched' action="{% url 'todos:list' %}"/>
             <button class="btn btn-outline-success btn-sm py-1" type="submit">Search</button>
         </form>
     </div>

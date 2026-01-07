@@ -1,10 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 {% block title %} Local Library Catalog Home {% endblock %}
 {% block content %}
 {% include 'library/_nav.html' %}
 <section>
-    <h1>Book List({{ book_count }}개의 책)</h1>
+    <div class="mb-3">
+        <span class="fs-2">Book List </span>
+        <span class="badge text-bg-secondary ms-2">{{ book_count }}</span>
+    </div>
         {% if page_obj %}
         <table>
             <tr>

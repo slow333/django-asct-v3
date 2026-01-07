@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
-{% block title %} Events Home {% endblock %}
+{% block title %} Events 검색 {% endblock %}
 {% block content %}
 {% include 'events/_nav.html' %}
 <section>
-    <h1>Searched Events List</h1>
+    <h1>Event 검색</h1>
     {% for event in events %}
     <div class="card" style="width: 22rem;">
         <h3 class="card-title text-center">{{ event.name }}</h3>

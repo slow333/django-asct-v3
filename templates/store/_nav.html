@@ -9,9 +9,9 @@
             </li>
         </ul>
         <form class="d-flex rounded-3" role="search" >
-            <input class="form-control me-2 py-1" type="search" placeholder="Search title..." name='searched' aria-label="Search"/>
+            <input class="form-control me-2 py-1" type="search" placeholder="Search title..." name='searched' action="{% url 'store:index' %}"/>
             <button class="btn btn-outline-success btn-sm py-1" type="submit">Search</button>
         </form>
-        <button class="btn btn-secondary btn-sm py-1 ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#filters-sidebar" >Filters >></button>
+        <button class="btn btn-secondary btn-sm ms-2" style="width:6rem;" type="button" data-bs-toggle="collapse" data-bs-target="#filters-sidebar" >Filters <i class="bi bi-arrow-bar-down"></i></button>
     </div>
 </nav>

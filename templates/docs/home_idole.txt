@@ -1,5 +1,6 @@
 <<<<<<< HEAD
-{% extends "base.html" %}
+{% extends "base/base.html" %}
+{% extends "base/base.html" %}
 {% block content %}
     <div class="d-flex gap-3 align-items-center mb-1 me-1 justify-content-between">
         <h1>IDOLS </h1>
@@ -113,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 =======
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 {% block content %}
     <div class="d-flex gap-3 align-items-center mb-1 me-1 justify-content-between">
         <h1>IDOLS </h1>

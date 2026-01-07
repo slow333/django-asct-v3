@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 {% block title %} Local Library Catalog Home {% endblock %}
 {% block content %}
@@ -6,10 +6,10 @@
 <section>
     <h1>Book Instance</h1>
     <div>
-        <h4>책 제목: {{ bookinstance.book.title }}</h4>
-        <p>책 상태: {{ bookinstance.get_status_display }}
+        <h3>책 제목: {{ bookinstance.book.title }}</h3>
+        <h4>책 상태: {{ bookinstance.get_status_display }}</h4>
             {% if user.is_authenticated and user.is_superuser %}
-            <form method="POST" action="{% url 'library:book_instance_status_change' bookinstance.id %}" class="d-flex w-50">
+            <form method="POST" class="d-flex w-50">
                 {% csrf_token %}
                 <select name="book_instance_status" class="form-select me-3">
                     <option value="">책 상태 변경</option>
@@ -20,10 +20,16 @@
                 <button type="submit" class="btn btn-primary">submit</button>
             </form>
             {% endif %}
-        </p>
-        <small>빌린사람: {{ bookinstance.borrower }}, 반납일: {{ bookinstance.due_back }}</small>
-        <br><br>
-        <small><a href="{% url 'library:bookinstances' %}">Book instances</a></small>
+        
+        <h5>빌린사람: {{ bookinstance.borrower }}</h5>
+        <h5>반납일: {{ bookinstance.due_back }}</h5>
+        <a href="{% url 'library:book-detail' bookinstance.book.id %}" class="btn btn-success btn-sm">GO Book</a>
+        <a href="{% url 'library:bookinstance-update' bookinstance.id %}" class="btn btn-primary btn-sm">Update Book Instance</a>
     </div>
 </section>
+<div class="card-footer">
+    <a href="{% url 'library:bookinstance-delete' bookinstance.id %}" class="btn btn-danger btn-sm" onclick="return confirm('삭제할 까요 ?')">Delete Book</a>
+    <a href="{% url 'library:bookinstances' %}" class="btn btn-primary btn-sm">Go List</a>
+    <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Go Back</a>
+</div>
 {% endblock %}

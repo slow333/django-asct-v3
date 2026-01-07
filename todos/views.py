@@ -68,9 +68,13 @@ def index(request, year=None, month=None):
     return render(request, 'todos/index.html', context )
     
 def todo_list(request):
-    todos = Todo.objects.all().order_by('start_date')
+    queryset = Todo.objects.all().order_by('start_date')
     
-    paginator = Paginator(todos, 5)
+    search_query = request.GET.get('searched')
+    if search_query:
+        queryset = queryset.filter(title__icontains=search_query)
+    
+    paginator = Paginator(queryset, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

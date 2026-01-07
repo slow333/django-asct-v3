@@ -5,7 +5,7 @@ from .models import Todo
 class TodoForm(ModelForm):
     class Meta:        
         model = Todo
-        fields = ('title', 'content', 'start_date', 'end_date', 'is_completed', 'user')
+        fields = ['title', 'content', 'start_date', 'end_date', 'is_completed', 'user']
         
         labels = {
             'title': '',

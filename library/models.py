@@ -12,6 +12,17 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class Language(models.Model):
+    name = models.CharField(
+        max_length=200, 
+        help_text="Enter the book's natural language (e.g. Korean, English, French etc.)")
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ['name']
+
 class Book(models.Model):
     title = models.CharField(max_length=200, 
         help_text='책 제목', verbose_name='책 제목')
@@ -19,36 +30,32 @@ class Book(models.Model):
         max_length=1000, 
         help_text='Enter a brief description of the book',
         verbose_name='책 요약')
-    isbn = models.CharField(
-        'ISBN', 
+    isbn = models.CharField('ISBN', 
         max_length=15, 
         help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
     # author에서 book을 생성
-    author = models.ForeignKey(
-        'Author', 
-        on_delete=models.SET_NULL, 
-        null=True, 
+    author = models.ForeignKey('Author', 
+        on_delete=models.SET_NULL, null=True, blank=True,
         verbose_name='저자')
     genre = models.ManyToManyField(Genre, verbose_name='책분류')
     language = models.ForeignKey(
         'Language', 
         on_delete=models.SET_NULL, 
-        null=True,
+        null=True, blank=True,
         verbose_name='언어')
     
     def display_genre(self):
         return ', '.join(genre.name for genre in self.genre.all()[:3])
     display_genre.short_description = '분야'
 
+    def get_absolute_url(self):
+        return reverse('book-detail', args=[str(self.id)]) # type: ignore
+
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse('book-detail', args=[str(self.id)]) # type: ignore
-    
     class Meta:
         ordering = ['title', 'author']
-
 
 class BookInstance(models.Model):
     id = models.UUIDField(
@@ -85,7 +92,7 @@ class BookInstance(models.Model):
         ordering = ['due_back']
 
     def __str__(self):
-        return f'{self.book.title}' # pyright: ignore
+        return f'{self.book.title} {self.status}' # pyright: ignore
     
     def get_absolute_url(self):
         return reverse("bookinstance-detail", kwargs={"pk": self.pk})
@@ -107,13 +114,3 @@ class Author(models.Model):
     class Meta:
         ordering = ['last_name', 'first_name']
 
-class Language(models.Model):
-    name = models.CharField(
-        max_length=200, 
-        help_text="Enter the book's natural language (e.g. Korean, English, French etc.)")
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        ordering = ['name']

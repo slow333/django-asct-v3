@@ -1,0 +1,37 @@
+<div class="filters ms-3" style="width:13rem;">
+    <div class="content-section mb-2">
+        <h3>Collection</h3>
+        {% with search_query=search_title|yesno:"&search_title=,"|add:search_title %}
+        <ul class="list-group">
+            <li class="list-group-item filter-item">
+                <a href="?{{ search_query }}"
+                class="{% if not selected_collection_id %}active{% endif %}">
+                All Collections</a>
+            </li>
+            {% for collection in collections %}
+            <li class="list-group-item filter-item">
+                <a href="?collection={{ collection.id }}{{ search_query }}"
+                    class="{% if selected_collection_id == collection.id %}active{% endif %}">
+                    {{ collection.title }} ({{ collection.product_count }})
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <h3>By Inventory</h3>
+        <ul class="list-group">
+            <li class="list-group-item filter-item">
+                <a href="?inventory=low{{ search_query }}{% if selected_collection_id %}&collection={{ selected_collection_id }}{% endif %}"
+                class="{% if inventory_filter == 'low' %}active{% endif %}">Low Inventory</a></li>
+        </ul>
+        {% endwith %}
+    </div>
+</div>
+
+<style>
+    .filter-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>

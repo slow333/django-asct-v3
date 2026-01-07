@@ -1,10 +1,11 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 {% load aistore_tags %}
 {% load crispy_forms_tags %}
+{% block title %} 스토어 홈 {% endblock %}
 {% block content %}
+{% include 'store/_nav.html' %}        
 <div class="d-flex">
     <div class="content">
-        {% include 'store/_nav.html' %}        
         <form method="post" action="{% url 'store:product-bulk-action' %}">
             {% csrf_token %}
             <div class="d-flex align-items-center mb-3">
@@ -59,7 +60,7 @@
         </form>
     </div>
     <div class="collapse" id="filters-sidebar">
-        {% include 'store/partials/filters.html' %}
+        {% include 'store/store_filter.html' %}
     </div>
 </div>
 {% endblock %}
